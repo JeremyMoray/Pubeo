@@ -8,7 +8,7 @@
     tools:context=".MainActivity" >
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/SignInButton"
         android:layout_width="223dp"
         android:layout_height="50dp"
         android:layout_marginStart="161dp"
@@ -22,45 +22,51 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/signUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="161dp"
         android:layout_marginTop="21dp"
         android:layout_marginEnd="162dp"
+        android:background="#000000"
+        android:textColor="#ffffff"
         android:layout_marginBottom="63dp"
         android:text="@string/Sign_up_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/SignInButton" />
 
     <RadioGroup
-        android:checkedButton="@+id/particularButton"
+        android:id="@+id/radioGroup"
         android:layout_width="279dp"
         android:layout_height="52dp"
         android:layout_marginStart="62dp"
         android:layout_marginBottom="38dp"
-        android:orientation="horizontal"
         android:background="@drawable/box_user_type_choice"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="parent" >
+        android:checkedButton="@+id/particularButton"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/SignInButton"
+        app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
+            android:layout_marginStart="1dp"
             android:layout_marginTop="1dp"
             android:layout_marginBottom="1dp"
-            android:layout_marginLeft="1dp"
             android:id="@+id/particularButton"
-            android:background="@drawable/toggle_widget_background"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/toggle_widget_background"
             android:button="@null"
             android:gravity="center"
             android:text="@string/particular"
             android:textColor="#ffffff" />
 
         <RadioButton
+            android:layout_marginEnd="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
             android:id="@+id/advertiserButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -71,5 +77,33 @@
             android:text="@string/advertiser"
             android:textColor="#ffffff" />
     </RadioGroup>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="572dp"
+        android:layout_height="339dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pubeo_advertising" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="253dp"
+        android:layout_marginBottom="17dp"
+        android:text="@string/you_are"
+        android:textColor="#747474"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
