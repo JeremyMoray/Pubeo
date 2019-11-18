@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Pubeo</string>
+    <string name="Log_in_button">Se connecter</string>
+    <string name="Sign_up_button">S\'enregistrer</string>
+    <string name="particular">Particulier</string>
+    <string name="advertiser">Annonceur</string>
 </resources>
