@@ -8,7 +8,7 @@
     tools:context=".MainActivity" >
 
     <Button
-        android:id="@+id/SignInButton"
+        android:id="@+id/signInButton"
         android:layout_width="223dp"
         android:layout_height="50dp"
         android:layout_marginStart="161dp"
@@ -35,7 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SignInButton" />
+        app:layout_constraintTop_toBottomOf="@+id/signInButton" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -46,7 +46,7 @@
         android:background="@drawable/box_user_type_choice"
         android:checkedButton="@+id/particularButton"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/SignInButton"
+        app:layout_constraintBottom_toTopOf="@+id/signInButton"
         app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
@@ -79,7 +79,7 @@
     </RadioGroup>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/pubeoAdvertisingMain"
         android:layout_width="572dp"
         android:layout_height="339dp"
         android:layout_marginTop="40dp"
@@ -92,18 +92,18 @@
         app:srcCompat="@drawable/pubeo_advertising" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/youAreId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="66dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="253dp"
-        android:layout_marginBottom="17dp"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="256dp"
+        android:layout_marginBottom="25dp"
         android:text="@string/you_are"
         android:textColor="#747474"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/pubeoAdvertisingMain" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
