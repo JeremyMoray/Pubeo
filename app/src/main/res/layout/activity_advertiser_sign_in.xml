@@ -12,47 +12,51 @@
         android:layout_width="223dp"
         android:layout_height="50dp"
         android:layout_marginStart="92dp"
-        android:layout_marginBottom="29dp"
+        android:layout_marginTop="56dp"
         android:background="@drawable/login_button_shape"
         android:text="@string/Log_in_button"
         android:textColor="#ffffff"
-        app:layout_constraintBottom_toTopOf="@+id/passwordForgottenText"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordAdvertiserSignInField" />
 
     <TextView
         android:id="@+id/passwordForgottenText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="136dp"
-        android:layout_marginBottom="130dp"
+        android:layout_marginTop="28dp"
         android:text="@string/password_forgotten"
         android:textColor="@color/lightgrey"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signInButtonAdvertiser" />
 
     <EditText
         android:id="@+id/mailAdvertiserSignInField"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="33dp"
         android:ems="10"
         android:hint="@string/emailHint"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/passwordAdvertiserSignInField"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginTextAdvertiser" />
 
     <EditText
         android:id="@+id/passwordAdvertiserSignInField"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="33dp"
         android:ems="10"
         android:hint="@string/passwordHint"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/signInButtonAdvertiser"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mailAdvertiserSignInField" />
 
     <ImageView
         android:id="@+id/pubeoLogoAdvertiserSignIn"
@@ -60,7 +64,9 @@
         android:layout_height="152dp"
         android:layout_marginStart="124dp"
         android:layout_marginTop="67dp"
+        android:layout_marginEnd="125dp"
         android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/pubeo_logo" />
@@ -70,12 +76,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="70dp"
         android:text="@string/loginTextAdvertiser"
         android:textColor="#ffffff"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/mailAdvertiserSignInField"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pubeoLogoAdvertiserSignIn" />
 
     <ImageView
         android:id="@+id/whiteArrowSignInAdvertiser"
@@ -83,6 +91,9 @@
         android:layout_height="37dp"
         android:layout_marginStart="9dp"
         android:layout_marginTop="270dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/loginTextAdvertiser"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow_back_white_24dp" />
