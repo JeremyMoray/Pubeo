@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 
+import com.example.pubeo.Particular.ParticularSignInActivity;
+import com.example.pubeo.Particular.ParticularSignUpActivity;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

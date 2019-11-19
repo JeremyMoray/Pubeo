@@ -5,4 +5,8 @@
     <string name="particular">Particulier</string>
     <string name="advertiser">Annonceur</string>
     <string name="you_are">Vous êtes un&#8230;</string>
+    <string name="i_forgot">Mot de Passe oublié?</string>
+    <string name="header_log_in_particular">LOG IN - PARTICULIER</string>
+    <string name="email_hint">Email</string>
+    <string name="pwd_hint">Mot de passe</string>
 </resources>
