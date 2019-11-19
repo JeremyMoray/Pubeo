@@ -5,4 +5,8 @@
     <string name="particular">Particulier</string>
     <string name="advertiser">Annonceur</string>
     <string name="you_are">Vous êtes un&#8230;</string>
+    <string name="password_forgotten">Mot de passe oublié ?</string>
+    <string name="emailHint">Email</string>
+    <string name="passwordHint">Password</string>
+    <string name="loginTextAdvertiser">SE CONNECTER - ANNONCEUR</string>
 </resources>
