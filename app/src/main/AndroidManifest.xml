@@ -9,11 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".ParticularSignUpActivity"></activity>
-        <activity android:name=".AdvertiserSignUpActivity" />
-        <activity android:name=".ParticularSignInActivity" />
-        <activity android:name=".AdvertiserSignInActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".CompanyInformationsActivity"></activity>
+        <activity
+            android:name=".ParticularSignUpActivity"/>
+        <activity
+            android:name=".AdvertiserSignUpActivity"/>
+        <activity
+            android:name=".ParticularSignInActivity"/>
+        <activity
+            android:name=".AdvertiserSignInActivity"/>
+        <activity
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

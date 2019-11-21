@@ -11,4 +11,5 @@
     <string name="confirmPasswordHint">Confirmer le mot de passe</string>
     <string name="loginTextAdvertiser">SE CONNECTER - ANNONCEUR</string>
     <string name="signUpTextAdvertiser">S\'ENREGISTRER - ANNONCEUR</string>
+    <string name="createCompany">Créer une entreprise</string>
 </resources>
