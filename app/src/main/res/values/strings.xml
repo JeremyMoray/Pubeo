@@ -8,5 +8,7 @@
     <string name="password_forgotten">Mot de passe oublié ?</string>
     <string name="emailHint">Email</string>
     <string name="passwordHint">Mot de passe</string>
+    <string name="confirmPasswordHint">Confirmer le mot de passe</string>
     <string name="loginTextAdvertiser">SE CONNECTER - ANNONCEUR</string>
+    <string name="signUpTextAdvertiser">S\'ENREGISTRER - ANNONCEUR</string>
 </resources>

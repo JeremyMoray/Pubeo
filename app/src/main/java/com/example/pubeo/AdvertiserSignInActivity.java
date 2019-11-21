@@ -14,6 +14,7 @@ public class AdvertiserSignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advertiser_sign_in);
+
         whiteArrowSignInAdvertiser = findViewById(R.id.whiteArrowSignInAdvertiser);
         whiteArrowSignInAdvertiser.setOnClickListener(new View.OnClickListener() {
             @Override

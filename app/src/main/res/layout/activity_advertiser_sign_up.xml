@@ -7,4 +7,101 @@
     android:background="#000000"
     tools:context=".AdvertiserSignUpActivity">
 
+    <ImageView
+        android:id="@+id/pubeoLogoAdvertiserSignUp"
+        android:layout_width="162dp"
+        android:layout_height="152dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginEnd="125dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pubeo_logo" />
+
+    <TextView
+        android:id="@+id/signUpTextAdvertiser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="70dp"
+        android:text="@string/signUpTextAdvertiser"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pubeoLogoAdvertiserSignUp" />
+
+    <ImageView
+        android:id="@+id/whiteArrowSignUpAdvertiser"
+        android:layout_width="43dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="270dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/signUpTextAdvertiser"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrow_back_white_24dp" />
+
+    <EditText
+        android:id="@+id/mailAdvertiserSignUpField"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="33dp"
+        android:backgroundTint="#ffffff"
+        android:ems="10"
+        android:hint="@string/emailHint"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signUpTextAdvertiser" />
+
+    <EditText
+        android:id="@+id/passwordAdvertiserSignUpField"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ffffff"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="33dp"
+        android:ems="10"
+        android:hint="@string/passwordHint"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mailAdvertiserSignUpField" />
+
+    <EditText
+        android:id="@+id/confirmPasswordAdvertiserSignUpField"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#ffffff"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="33dp"
+        android:ems="10"
+        android:hint="@string/confirmPasswordHint"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordAdvertiserSignUpField" />
+
+    <Button
+        android:id="@+id/signUpButtonAdvertiser"
+        android:layout_width="223dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/login_button_shape"
+        android:text="@string/Sign_up_button"
+        android:textColor="#ffffff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordAdvertiserSignUpField" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
