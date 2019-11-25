@@ -12,4 +12,10 @@
     <string name="loginTextAdvertiser">SE CONNECTER - ANNONCEUR</string>
     <string name="signUpTextAdvertiser">S\'ENREGISTRER - ANNONCEUR</string>
     <string name="createCompany">Créer une entreprise</string>
+    <string name="companyBrandName">Nom de la marque/l\'entreprise</string>
+    <string name="VATNumber">Numéro de TVA</string>
+    <string name="phone">Numéro de téléphone</string>
+    <string name="companyAddress">Adresse de l\'entreprise</string>
+    <string name="next">Suivant</string>
+    <string name="brandLogo">LOGO DE L\ENTREPRISE</string>
 </resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="#FFFFFF"
     tools:context=".CompanyInformationsActivity">
 
     <View
@@ -31,14 +31,142 @@
         android:id="@+id/createCompanyTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="90dp"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="90dp"
         android:layout_marginBottom="13dp"
         android:text="@string/createCompany"
         android:textColor="#ffffff"
-        android:textSize="25dp"
+        android:textSize="23dp"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/companyLogoId"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="140dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:srcCompat="@drawable/ic_shop_svgrepo_com" />
+
+    <TextView
+        android:id="@+id/logoTextId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/brandLogo"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/companyLogoId" />
+
+    <EditText
+        android:id="@+id/companyNameField"
+        android:layout_width="357dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="27dp"
+        android:backgroundTint="#000000"
+        android:ems="10"
+        android:hint="@string/VATNumber"
+        android:inputType="textPersonName"
+        android:textColorHint="@color/greyText"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoTextId" />
+
+    <EditText
+        android:id="@+id/companyVATField"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="27dp"
+        android:backgroundTint="#000000"
+        android:ems="10"
+        android:hint="@string/VATNumber"
+        android:inputType="textPersonName"
+        android:textColorHint="@color/greyText"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/companyNameField" />
+
+    <EditText
+        android:id="@+id/companyPhoneField"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="27dp"
+        android:backgroundTint="#000000"
+        android:ems="10"
+        android:hint="@string/phone"
+        android:inputType="phone"
+        android:textColorHint="@color/greyText"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/companyVATField" />
+
+    <EditText
+        android:id="@+id/companyAddressField"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="27dp"
+        android:backgroundTint="#000000"
+        android:ems="10"
+        android:hint="@string/companyAddress"
+        android:inputType="textPersonName"
+        android:textColorHint="@color/greyText"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/companyPhoneField" />
+
+    <Button
+        android:id="@+id/continueInformationsAdvertiserButton"
+        android:layout_width="252dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="80dp"
+        android:background="@drawable/login_button_shape"
+        android:text="@string/next"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/companyAddressField" />
+
+    <ImageView
+        android:id="@+id/businessLogoId"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/companyAddressField"
+        app:layout_constraintTop_toBottomOf="@+id/phoneLogoId"
+        app:srcCompat="@drawable/ic_business_grey_700_24dp" />
+
+    <ImageView
+        android:id="@+id/phoneLogoId"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/companyPhoneField"
+        app:layout_constraintTop_toBottomOf="@+id/VATLogoId"
+        app:srcCompat="@drawable/ic_phone_grey_700_24dp" />
+
+    <ImageView
+        android:id="@+id/VATLogoId"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/companyVATField"
+        app:layout_constraintTop_toBottomOf="@+id/companyNameField"
+        app:srcCompat="@drawable/ic_work_grey_700_24dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
