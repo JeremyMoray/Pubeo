@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".HomeActivity"></activity>
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/NoActionBar"></activity>
         <activity android:name=".CompanyInformationsActivity" />
         <activity android:name=".ParticularSignUpActivity" />
         <activity android:name=".AdvertiserSignUpActivity" />

@@ -8,7 +8,7 @@
     tools:context=".CompanyInformationsActivity">
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/blackBandAdvertiserCompanyInfos"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:background="#000000"
@@ -38,9 +38,9 @@
         android:text="@string/createCompany"
         android:textColor="#ffffff"
         android:textSize="23dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintBottom_toBottomOf="@+id/blackBandAdvertiserCompanyInfos"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintStart_toStartOf="@+id/blackBandAdvertiserCompanyInfos"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -51,7 +51,7 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="140dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintTop_toBottomOf="@+id/blackBandAdvertiserCompanyInfos"
         app:srcCompat="@drawable/ic_shop_svgrepo_com" />
 
     <TextView
