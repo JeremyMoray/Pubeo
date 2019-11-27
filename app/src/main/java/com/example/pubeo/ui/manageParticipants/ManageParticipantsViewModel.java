@@ -1,16 +1,16 @@
-package com.example.pubeo.ui.share;
+package com.example.pubeo.ui.manageParticipants;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ShareViewModel extends ViewModel {
+public class ManageParticipantsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public ShareViewModel() {
+    public ManageParticipantsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is share fragment");
+        mText.setValue("This is manage participants fragment");
     }
 
     public LiveData<String> getText() {

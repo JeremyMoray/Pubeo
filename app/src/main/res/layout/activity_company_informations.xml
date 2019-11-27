@@ -18,11 +18,10 @@
 
     <ImageView
         android:id="@+id/whiteArrowCompanyInformations"
-        android:layout_width="48dp"
-        android:layout_height="59dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="12dp"
-        app:layout_constraintHorizontal_bias="1.0"
+        android:layout_width="43dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="13dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow_back_white_24dp" />
@@ -74,7 +73,7 @@
         android:layout_marginEnd="27dp"
         android:backgroundTint="#000000"
         android:ems="10"
-        android:hint="@string/VATNumber"
+        android:hint="@string/companyName"
         android:inputType="textPersonName"
         android:textColorHint="@color/greyText"
         android:textSize="20dp"

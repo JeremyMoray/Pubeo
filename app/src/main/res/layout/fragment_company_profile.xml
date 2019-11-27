@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/text_company_profile"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="98dp"
+        android:layout_height="98dp"
+        android:layout_marginTop="62dp"
+        android:layout_marginEnd="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_company_profile"
+        app:srcCompat="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/companyNameProfileTextField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="98dp"
+        android:layout_marginEnd="110dp"
+        android:text="@string/companyName"
+        android:textColor="@color/grey"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/text_company_profile" />
+
+    <EditText
+        android:id="@+id/companyProfileNameField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="@color/grey"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/companyNameProfileTextField" />
+
+    <EditText
+        android:id="@+id/companyProfileVATField"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/grey"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Numéro TVA"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/companyProfileNameField" />
+
+    <EditText
+        android:id="@+id/companyProfilePhoneField"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/grey"
+        android:ems="10"
+        android:inputType="phone"
+        android:text="Numéro de téléphone"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/companyProfileVATField" />
+
+    <EditText
+        android:id="@+id/companyProfileAddressField"
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/grey"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Adresse"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/companyProfilePhoneField" />
+
+    <ImageView
+        android:id="@+id/businessLogoId"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="28dp"
+        app:layout_constraintEnd_toStartOf="@+id/companyProfileAddressField"
+        app:layout_constraintTop_toBottomOf="@+id/phoneLogoId"
+        app:srcCompat="@drawable/ic_business_grey_700_24dp" />
+
+    <ImageView
+        android:id="@+id/phoneLogoId"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="28dp"
+        app:layout_constraintEnd_toStartOf="@+id/companyProfilePhoneField"
+        app:layout_constraintTop_toBottomOf="@+id/VATLogoId"
+        app:srcCompat="@drawable/ic_phone_grey_700_24dp" />
+
+    <ImageView
+        android:id="@+id/VATLogoId"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="28dp"
+        app:layout_constraintEnd_toStartOf="@+id/companyProfileVATField"
+        app:layout_constraintTop_toBottomOf="@+id/companyProfileNameField"
+        app:srcCompat="@drawable/ic_work_grey_700_24dp" />
+
+    <Button
+        android:id="@+id/saveProfileAdvertiserButton"
+        android:layout_width="223dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="92dp"
+        android:background="@drawable/black_border_button"
+        android:text="@string/Save"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/companyProfileAddressField" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

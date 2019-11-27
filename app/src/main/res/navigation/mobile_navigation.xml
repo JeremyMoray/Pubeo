@@ -12,32 +12,21 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.pubeo.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_company_profile"
+        android:name="com.example.pubeo.ui.companyProfile.CompanyProfileFragment"
+        android:label="@string/menu_company_profile"
+        tools:layout="@layout/fragment_company_profile" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.pubeo.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_manage_participants"
+        android:name="com.example.pubeo.ui.manageParticipants.ManageParticipantsFragment"
+        android:label="@string/menu_manage_participants"
+        tools:layout="@layout/fragment_manage_participants" />
 
     <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.example.pubeo.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
+        android:id="@+id/nav_settings"
+        android:name="com.example.pubeo.ui.settings.SettingsFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/fragment_settings" />
 
-    <fragment
-        android:id="@+id/nav_share"
-        android:name="com.example.pubeo.ui.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
-
-    <fragment
-        android:id="@+id/nav_send"
-        android:name="com.example.pubeo.ui.send.SendFragment"
-        android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
 </navigation>

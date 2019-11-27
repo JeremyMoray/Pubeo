@@ -1,16 +1,16 @@
-package com.example.pubeo.ui.send;
+package com.example.pubeo.ui.companyProfile;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SendViewModel extends ViewModel {
+public class CompanyProfileViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SendViewModel() {
+    public CompanyProfileViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is send fragment");
+        mText.setValue("Company name");
     }
 
     public LiveData<String> getText() {
