@@ -10,7 +10,7 @@ public class CompanyProfileViewModel extends ViewModel {
 
     public CompanyProfileViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("Company name");
+        mText.setValue("JDoe24");
     }
 
     public LiveData<String> getText() {

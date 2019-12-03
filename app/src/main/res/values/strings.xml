@@ -19,12 +19,13 @@
     <string name="next">Suivant</string>
     <string name="brandLogo">LOGO DE L\ENTREPRISE</string>
     <string name="Save">Enregistrer</string>
+    <string name="payments">Paiements</string>
 
     <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">LE LOCAL</string>
+    <string name="nav_header_subtitle">Utilisateur professionel</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 

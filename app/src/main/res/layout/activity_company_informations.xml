@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/white"
     tools:context=".CompanyInformationsActivity">
 
     <View
         android:id="@+id/blackBandAdvertiserCompanyInfos"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:background="#000000"
+        android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,12 +31,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="90dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="90dp"
-        android:layout_marginBottom="13dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/createCompany"
-        android:textColor="#ffffff"
-        android:textSize="23dp"
+        android:textColor="@color/white"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/blackBandAdvertiserCompanyInfos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/blackBandAdvertiserCompanyInfos"
@@ -60,7 +60,7 @@
         android:layout_marginStart="128dp"
         android:layout_marginTop="28dp"
         android:text="@string/brandLogo"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/companyLogoId" />
 
@@ -71,7 +71,7 @@
         android:layout_marginStart="27dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="27dp"
-        android:backgroundTint="#000000"
+        android:backgroundTint="@color/black"
         android:ems="10"
         android:hint="@string/companyName"
         android:inputType="textPersonName"
@@ -88,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="27dp"
-        android:backgroundTint="#000000"
+        android:backgroundTint="@color/black"
         android:ems="10"
         android:hint="@string/VATNumber"
         android:inputType="textPersonName"
@@ -118,7 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
         android:layout_marginEnd="27dp"
-        android:backgroundTint="#000000"
+        android:backgroundTint="@color/black"
         android:ems="10"
         android:hint="@string/companyAddress"
         android:inputType="textPersonName"
@@ -135,7 +135,7 @@
         android:layout_marginEnd="80dp"
         android:background="@drawable/login_button_shape"
         android:text="@string/next"
-        android:textColor="#ffffff"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/companyAddressField" />
 
