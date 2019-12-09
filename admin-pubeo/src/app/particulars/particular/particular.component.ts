@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ParticularsService } from 'src/app/shared/particulars.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-particular',
@@ -12,5 +13,4 @@ export class ParticularComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

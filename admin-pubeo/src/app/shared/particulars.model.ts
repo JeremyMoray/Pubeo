@@ -1,17 +1,17 @@
 export class Particulars {
-    id: number;
-    email: string;
-    username: string;
-    password: string;
-    firstname: string;
-    lastname: string;
-    gender: number;
-    phoneNumber: string;
-    birthdate: Date;
-    job: string;
-    address: string;
-    city: string;
-    zipcode: number;
-    dailyTrip: string;
-    dailyDistance: string;
+    Id: number;
+    Email: string;
+    Username: string;
+    Password: string;
+    Firstname: string;
+    Lastname: string;
+    /*Gender: number;
+    PhoneNumber: string;
+    Birthdate: Date;
+    Job: string;
+    Address: string;
+    City: string;
+    Zipcode: number;
+    DailyTrip: string;
+    DailyDistance: string;*/
 }

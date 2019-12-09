@@ -1,1 +1,27 @@
-<p>particular works!</p>
+<form #form="ngForm">
+    <div class="form-group">
+        <label>Email</label>
+        <input name="Email" #Email="ngModel" [(ngModel)]="particularsService.particularForm.Email" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Nom d'utilisateur</label>
+        <input name="Username" #Username="ngModel" [(ngModel)]="particularsService.particularForm.Username" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Mot de passe</label>
+        <input name="Password" #Password="ngModel" [(ngModel)]="particularsService.particularForm.Password" class="form-control">
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label>Prénom</label>
+            <input name="Firstname" #Firstname="ngModel" [(ngModel)]="particularsService.particularForm.Firstname" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Nom</label>
+            <input name="Lastname" #Lastname="ngModel" [(ngModel)]="particularsService.particularForm.Lastname" class="form-control">
+        </div>
+    </div>
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-lg">Envoyer</button>
+    </div>
+</form>
