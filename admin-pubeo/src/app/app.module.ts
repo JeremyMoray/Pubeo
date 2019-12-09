@@ -23,6 +23,9 @@ import { TopToolbarComponent } from './top-toolbar/top-toolbar.component';
 import { ParticularsComponent } from './particulars/particulars.component';
 import { ProfessionalsComponent } from './professionals/professionals.component';
 import { FormsComponent } from './forms/forms.component';
+import { ParticularComponent } from './particulars/particular/particular.component';
+import { ParticularListComponent } from './particulars/particular-list/particular-list.component';
+import { ParticularsService } from './shared/particulars.service';
 
 const appRoutes: Routes = [
   {
@@ -65,7 +68,9 @@ const appRoutes: Routes = [
     TopToolbarComponent,
     ParticularsComponent,
     ProfessionalsComponent,
-    FormsComponent
+    FormsComponent,
+    ParticularComponent,
+    ParticularListComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +90,7 @@ const appRoutes: Routes = [
     ),
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [ParticularsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
