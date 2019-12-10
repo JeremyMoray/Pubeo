@@ -6,7 +6,11 @@ form{
     margin-top: 50px;
     margin-bottom: 50px;
 }
-.div-update-form{
-    width: 50%;
-    margin: auto;
+
+.card-container{
+    margin-top: 50px;
+}
+
+.staticCardText{
+    color: lightgray;
 }

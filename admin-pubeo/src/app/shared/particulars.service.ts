@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Particulars } from './particulars.model';
+import { Sticker } from './sticker.model';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,7 @@ import { Particulars } from './particulars.model';
 export class ParticularsService {
 
   particularForm: Particulars
+
   particularList: Particulars[] = [
     {
       Id: 1,
@@ -19,7 +21,30 @@ export class ParticularsService {
       Birthdate: new Date('1998-07-12'),
       Address: "Rue des oiseaux 45",
       City: "Bertrix",
-      Zipcode: 6880
+      Zipcode: 6880,
+      StickerList: 
+        [
+          {
+            Id: 1,
+            QRcode: "qrcodeur", 
+            Title: "Burger king", 
+            Description: "good food", 
+            Remuneration: 5, 
+            Height: 24, 
+            Width: 24, 
+            RemainingUses: 5
+          },
+          {
+            Id: 2,
+            QRcode: "qrcodeur", 
+            Title: "Mac donalds", 
+            Description: "bad food", 
+            Remuneration: 25, 
+            Height: 32, 
+            Width: 32, 
+            RemainingUses: 4
+          }
+        ]
     },
     {
       Id: 2,
@@ -32,7 +57,30 @@ export class ParticularsService {
       Birthdate: new Date('1960-12-22'),
       Address: "Rue des étoiles 14",
       City: "Jupiter",
-      Zipcode: 10000
+      Zipcode: 10000,
+      StickerList: 
+        [
+          {
+            Id: 1,
+            QRcode: "qrcodeur", 
+            Title: "Burger king", 
+            Description: "good food", 
+            Remuneration: 5, 
+            Height: 24, 
+            Width: 24, 
+            RemainingUses: 5
+          },
+          {
+            Id: 2,
+            QRcode: "qrcodeur", 
+            Title: "Mac donalds", 
+            Description: "bad food", 
+            Remuneration: 25, 
+            Height: 32, 
+            Width: 32, 
+            RemainingUses: 4
+          }
+        ]
     },
     {
       Id: 3,
@@ -45,7 +93,30 @@ export class ParticularsService {
       Birthdate: new Date('1999-11-24'),
       Address: "Rue des boulangers 39",
       City: "Libramont",
-      Zipcode: 17000
+      Zipcode: 17000,
+      StickerList: 
+        [
+          {
+            Id: 1,
+            QRcode: "qrcodeur", 
+            Title: "Burger king", 
+            Description: "good food", 
+            Remuneration: 5, 
+            Height: 24, 
+            Width: 24, 
+            RemainingUses: 5
+          },
+          {
+            Id: 2,
+            QRcode: "qrcodeur", 
+            Title: "Mac donalds", 
+            Description: "bad food", 
+            Remuneration: 25, 
+            Height: 32, 
+            Width: 32, 
+            RemainingUses: 4
+          }
+        ]
     },
   ]
   constructor() { }

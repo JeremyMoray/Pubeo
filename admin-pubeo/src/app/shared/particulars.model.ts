@@ -1,3 +1,5 @@
+import { Sticker } from './sticker.model';
+
 export class Particulars {
     Id: number;
     Email: string;
@@ -10,4 +12,5 @@ export class Particulars {
     Address: string;
     City: string;
     Zipcode: number;
+    StickerList: Sticker[];
 }
