@@ -14,7 +14,8 @@ import {
   MatToolbarModule, 
   MatMenuModule,
   MatIconModule, 
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatBadgeModule
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
@@ -26,6 +27,7 @@ import { FormsComponent } from './forms/forms.component';
 import { ParticularComponent } from './particulars/particular/particular.component';
 import { ParticularListComponent } from './particulars/particular-list/particular-list.component';
 import { ParticularsService } from './shared/particulars.service';
+import { ParticularDetailsComponent } from './particulars/particular-details/particular-details.component';
 
 const appRoutes: Routes = [
   {
@@ -42,6 +44,11 @@ const appRoutes: Routes = [
     path: 'particuliers',
     component: ParticularsComponent,
     data: {title: 'Particuliers'}
+  },
+  {
+    path: 'particuliers/details/:Id',
+    component: ParticularDetailsComponent,
+    data: {title: 'Details particuliers'}
   },
   {
     path: 'professionels',
@@ -70,7 +77,8 @@ const appRoutes: Routes = [
     ProfessionalsComponent,
     FormsComponent,
     ParticularComponent,
-    ParticularListComponent
+    ParticularListComponent,
+    ParticularDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -84,6 +92,7 @@ const appRoutes: Routes = [
     MatMenuModule,
     MatIconModule, 
     MatProgressSpinnerModule,
+    MatBadgeModule,
     FormsModule,
     RouterModule.forRoot(
       appRoutes,

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ParticularsService } from 'src/app/shared/particulars.service';
+import { Particulars } from 'src/app/shared/particulars.model';
 
 @Component({
   selector: 'app-particular-list',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ParticularListComponent implements OnInit {
 
-  constructor() { }
+  list: Particulars[];
+  constructor(private particularsService: ParticularsService) { }
 
   ngOnInit() {
+    this.list = this.particularsService.getAllParticulars();
   }
 
 }
