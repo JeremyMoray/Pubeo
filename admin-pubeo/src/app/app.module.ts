@@ -28,6 +28,9 @@ import { ParticularComponent } from './particulars/particular/particular.compone
 import { ParticularListComponent } from './particulars/particular-list/particular-list.component';
 import { ParticularsService } from './shared/particulars.service';
 import { ParticularDetailsComponent } from './particulars/particular-details/particular-details.component';
+import { ProfessionalComponent } from './professionals/professional/professional.component';
+import { ProfessionalListComponent } from './professionals/professional-list/professional-list.component';
+import { ProfessionalDetailsComponent } from './professionals/professional-details/professional-details.component';
 
 const appRoutes: Routes = [
   {
@@ -56,6 +59,11 @@ const appRoutes: Routes = [
     data: {title: 'Professionnels'}
   },
   {
+    path: 'professionels/details/:Id',
+    component: ProfessionalDetailsComponent,
+    data: {title: 'Details professionels'}
+  },
+  {
     path: 'formulaires',
     component: FormsComponent,
     data: {title: 'Formulaires'}
@@ -78,7 +86,10 @@ const appRoutes: Routes = [
     FormsComponent,
     ParticularComponent,
     ParticularListComponent,
-    ParticularDetailsComponent
+    ParticularDetailsComponent,
+    ProfessionalComponent,
+    ProfessionalListComponent,
+    ProfessionalDetailsComponent
   ],
   imports: [
     BrowserModule,
