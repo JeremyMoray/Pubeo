@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Professionals } from './professionals.model';
+import { Sticker } from './sticker.model';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,69 @@ import { Professionals } from './professionals.model';
 export class PubeoService {
 
   professionelForm: Professionals
+
+  stickersList: Sticker[] = [
+    {
+      Id: 1,
+      QRcode: "qrcodeur", 
+      Title: "Burger quality", 
+      Description: "good food", 
+      Remuneration: 5,
+      Height: 24, 
+      Width: 24, 
+      RemainingUses: 5
+    },
+    {
+      Id: 2,
+      QRcode: "qrcodeur", 
+      Title: "Burger large sticker", 
+      Description: "A lot of good food", 
+      Remuneration: 25, 
+      Height: 32, 
+      Width: 32, 
+      RemainingUses: 4
+    },
+    {
+      Id: 3,
+      QRcode: "qrcodeur", 
+      Title: "Mac donalds XXL", 
+      Description: "good food", 
+      Remuneration: 5, 
+      Height: 24, 
+      Width: 24, 
+      RemainingUses: 5
+    },
+    {
+      Id: 4,
+      QRcode: "qrcodeur", 
+      Title: "Mac donalds", 
+      Description: "bad food", 
+      Remuneration: 25, 
+      Height: 32, 
+      Width: 32, 
+      RemainingUses: 4
+    },
+    {
+      Id: 5,
+      QRcode: "qrcodeur", 
+      Title: "Quick king", 
+      Description: "good food", 
+      Remuneration: 5, 
+      Height: 24, 
+      Width: 24, 
+      RemainingUses: 5
+    },
+    {
+      Id: 6,
+      QRcode: "qrcodeur", 
+      Title: "Mac quick", 
+      Description: "good food", 
+      Remuneration: 25, 
+      Height: 32, 
+      Width: 32, 
+      RemainingUses: 4
+    }
+  ]
 
   professionelList: Professionals[] = [
     {
@@ -21,26 +85,8 @@ export class PubeoService {
       Zipcode: 75000,
       StickerList: 
         [
-          {
-            Id: 1,
-            QRcode: "qrcodeur", 
-            Title: "Burger quality", 
-            Description: "good food", 
-            Remuneration: 5, 
-            Height: 24, 
-            Width: 24, 
-            RemainingUses: 5
-          },
-          {
-            Id: 2,
-            QRcode: "qrcodeur", 
-            Title: "Burger large sticker", 
-            Description: "A lot of good food", 
-            Remuneration: 25, 
-            Height: 32, 
-            Width: 32, 
-            RemainingUses: 4
-          }
+          this.stickersList[0],
+          this.stickersList[1]
         ]
     },
     {
@@ -55,26 +101,8 @@ export class PubeoService {
       Zipcode: 75000,
       StickerList: 
         [
-          {
-            Id: 1,
-            QRcode: "qrcodeur", 
-            Title: "Mac donalds XXL", 
-            Description: "good food", 
-            Remuneration: 5, 
-            Height: 24, 
-            Width: 24, 
-            RemainingUses: 5
-          },
-          {
-            Id: 2,
-            QRcode: "qrcodeur", 
-            Title: "Mac donalds", 
-            Description: "bad food", 
-            Remuneration: 25, 
-            Height: 32, 
-            Width: 32, 
-            RemainingUses: 4
-          }
+          this.stickersList[3],
+          this.stickersList[4]
         ]
     },
     {
@@ -89,26 +117,8 @@ export class PubeoService {
       Zipcode: 75000,
       StickerList: 
         [
-          {
-            Id: 1,
-            QRcode: "qrcodeur", 
-            Title: "Quick king", 
-            Description: "good food", 
-            Remuneration: 5, 
-            Height: 24, 
-            Width: 24, 
-            RemainingUses: 5
-          },
-          {
-            Id: 2,
-            QRcode: "qrcodeur", 
-            Title: "Mac quick", 
-            Description: "good food", 
-            Remuneration: 25, 
-            Height: 32, 
-            Width: 32, 
-            RemainingUses: 4
-          }
+          this.stickersList[5],
+          this.stickersList[6]
         ]
     },
   ]
@@ -120,5 +130,9 @@ export class PubeoService {
 
   getProfessionalById(Id) : Professionals{
     return this.professionelList[Id-1];
+  }
+
+  getAllStickers() : Array<Sticker>{
+    return this.stickersList;
   }
 }

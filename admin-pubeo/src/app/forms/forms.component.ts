@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PubeoService } from '../shared/pubeo.service';
+import { Sticker } from '../shared/sticker.model';
 
 @Component({
   selector: 'app-forms',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormsComponent implements OnInit {
 
-  constructor() { }
+  list: Sticker[];
+  constructor(private particularsService: PubeoService) { }
 
   ngOnInit() {
+    this.list = this.particularsService.getAllStickers();
   }
 
 }

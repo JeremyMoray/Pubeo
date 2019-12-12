@@ -1,2 +1,31 @@
 <app-top-toolbar></app-top-toolbar>
-<p>forms works!</p>
+<div class="container">
+    <h1 class="text-center mt-3">Validation des formulaires</h1>
+    
+    <hr>
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Annonceur</th>
+            <th scope="col">Hauteur</th>
+            <th scope="col">Largeur</th>
+            <th scope="col">Rémunération</th>
+            <th scope="col">Utilisations restantes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pro of list">
+            <th scope="row">{{pro.Id}}</th>
+            <td>{{pro.Title}}</td>
+            <td>Inconnu</td>
+            <td>{{pro.Height}}</td>
+            <td>{{pro.Width}}</td>
+            <td>{{pro.Remuneration}}</td>
+            <td>{{pro.RemainingUses}}</td>
+          </tr>
+        </tbody>
+    </table>
+    
+</div>
