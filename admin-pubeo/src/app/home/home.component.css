@@ -1,6 +1,3 @@
-#pubeo-title{
-    font-size: 150px;
-    display: flex;
-justify-content: center; /* align horizontal */
-align-items: center;
+.imgPubeo{
+    width: 800px;
 }

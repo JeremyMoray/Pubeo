@@ -101,8 +101,8 @@ export class PubeoService {
       Zipcode: 75000,
       StickerList: 
         [
-          this.stickersList[3],
-          this.stickersList[4]
+          this.stickersList[2],
+          this.stickersList[3]
         ]
     },
     {
@@ -117,8 +117,8 @@ export class PubeoService {
       Zipcode: 75000,
       StickerList: 
         [
-          this.stickersList[5],
-          this.stickersList[6]
+          this.stickersList[4],
+          this.stickersList[5]
         ]
     },
   ]
