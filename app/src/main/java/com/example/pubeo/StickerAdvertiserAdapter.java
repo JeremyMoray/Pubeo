@@ -3,6 +3,8 @@ package com.example.pubeo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,9 +14,10 @@ import java.awt.font.TextAttribute;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvertiserAdapter.StickerAdvertiserHolder> {
+public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvertiserAdapter.StickerAdvertiserHolder> implements Filterable {
 
     private List<Sticker> stickersList = new ArrayList<>();
+    private List<Sticker> stickersListFull;
 
     @NonNull
     @Override
@@ -38,6 +41,7 @@ public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvert
 
     public void setStickers(List<Sticker> stickersList) {
         this.stickersList = stickersList;
+        stickersListFull = new ArrayList<>(stickersList);
         notifyDataSetChanged();
     }
 
@@ -51,4 +55,41 @@ public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvert
             stickerDescriptionAdvertiser = itemView.findViewById(R.id.stickerDescriptionAdvertiser);
         }
     }
+
+
+    @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+
+    private Filter exampleFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Sticker> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(stickersListFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (Sticker item : stickersListFull) {
+                    if (item.getTitle().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            stickersList.clear();
+            stickersList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 }

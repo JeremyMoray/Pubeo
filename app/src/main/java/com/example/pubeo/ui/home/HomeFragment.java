@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -29,8 +30,13 @@ public class HomeFragment extends Fragment {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        SearchView searchView;
+
         RecyclerView recyclerView = root.findViewById(R.id.recyclerAdvertiserStickers);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        searchView = root.findViewById(R.id.searchBarAdvertiser);
+
         StickerAdvertiserAdapter adapter = new StickerAdvertiserAdapter();
         List<Sticker> stickersList = new ArrayList<>();
 
@@ -46,9 +52,21 @@ public class HomeFragment extends Fragment {
         stickersList.add(new Sticker(1, "Burger donalds", "frites"));
         stickersList.add(new Sticker(1, "Mac donalds", "frites"));
 
-
         adapter.setStickers(stickersList);
         recyclerView.setAdapter(adapter);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
 
         return root;
     }
