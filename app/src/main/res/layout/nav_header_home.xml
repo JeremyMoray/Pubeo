@@ -25,7 +25,7 @@
         android:layout_width="264dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="@string/nav_header_title"
         android:textAlignment="center"
@@ -49,7 +49,7 @@
     <TextView
         android:id="@+id/paymentsMenuLabel"
         android:textColor="@color/white"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:layout_width="264dp"
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
@@ -58,20 +58,20 @@
     <TextView
         android:id="@+id/eurosMenuLabel"
         android:textColor="@color/white"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_width="60dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
-        android:text="1.2"/>
+        android:text="@string/points"/>
 
     <TextView
         android:id="@+id/eurosPerPointsLabel"
         android:textColor="@color/white"
-        android:textSize="10dp"
+        android:textSize="10sp"
         android:layout_width="264dp"
         android:layout_marginStart="20dp"
         android:layout_height="wrap_content"
-        android:text="EUR par points"/>
+        android:text="@string/eur_per_points"/>
 
 </LinearLayout>

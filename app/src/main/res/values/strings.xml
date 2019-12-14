@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Pubeo</string>
     <string name="Log_in_button">Se connecter</string>
+    <string name="Log_out_button">Se déconnecter</string>
     <string name="Sign_up_button">S\'enregistrer</string>
     <string name="particular">Particulier</string>
     <string name="advertiser">Annonceur</string>
@@ -20,6 +21,24 @@
     <string name="brandLogo">LOGO DE L\ENTREPRISE</string>
     <string name="Save">Enregistrer</string>
     <string name="payments">Paiements</string>
+    <string name="search">Rechercher&#8230;</string>
+    <string name="eur_per_points">EUR par points</string>
+
+    <!-- Descriptions images -->
+    <string name="profile_pic_desc">Photo de profil</string>
+    <string name="VAT_desc">Logo VAT</string>
+    <string name="phone_desc">Logo téléphone</string>
+    <string name="business_desc">Logo business</string>
+    <string name="logo_desc">Logo Pubeo</string>
+    <string name="logo_advertising_desc">Logo Pubeo Advertising</string>
+    <string name="back_arrow_desc">Logo business</string>
+
+    <!-- Données écrasée par API -->
+    <string name="title">Titre</string>
+    <string name="description">Description</string>
+    <string name="reward">récompense : 25 points par session</string>
+    <string name="participants">participants : 6 / 10</string>
+    <string name="points">1.2</string>
 
     <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
