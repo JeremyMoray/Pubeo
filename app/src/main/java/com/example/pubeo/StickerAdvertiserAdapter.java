@@ -73,7 +73,7 @@ public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvert
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (Sticker item : stickersListFull) {
-                    if (item.getTitle().toLowerCase().contains(filterPattern)) {
+                    if (item.getTitle().toLowerCase().contains(filterPattern) || item.getDescription().toLowerCase().contains(filterPattern)) {
                         filteredList.add(item);
                     }
                 }
