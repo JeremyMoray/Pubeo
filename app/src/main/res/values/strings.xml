@@ -24,6 +24,9 @@
     <string name="search">Rechercher&#8230;</string>
     <string name="eur_per_points">EUR par points</string>
 
+    <!-- Messages d'erreurs -->
+    <string name="fieldNotEmpty">Le champ ne peut pas être vide"</string>
+
     <!-- Descriptions images -->
     <string name="profile_pic_desc">Photo de profil</string>
     <string name="VAT_desc">Logo VAT</string>

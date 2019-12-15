@@ -8,12 +8,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AdvertiserSignInActivity extends AppCompatActivity {
 
     @BindView(R.id.signInButtonAdvertiser)Button signInButtonAdvertiser;
+    @BindView(R.id.mailAdvertiserSignInField)TextInputLayout mailAdvertiserSignInField;
+    @BindView(R.id.passwordAdvertiserSignInField)TextInputLayout passwordAdvertiserSignInField;
     private ImageView whiteArrowSignInAdvertiser;
     @Override
 
@@ -39,7 +43,27 @@ public class AdvertiserSignInActivity extends AppCompatActivity {
     }
 
     public void openHomeActivity(){
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
+        boolean isValid = true;
+
+        if(mailAdvertiserSignInField.getEditText().getText().toString().isEmpty()){
+            isValid = false;
+            mailAdvertiserSignInField.setError(getString(R.string.fieldNotEmpty));
+        }
+        else{
+            mailAdvertiserSignInField.setErrorEnabled(false);
+        }
+
+        if(passwordAdvertiserSignInField.getEditText().getText().toString().isEmpty()){
+            isValid = false;
+            passwordAdvertiserSignInField.setError(getString(R.string.fieldNotEmpty));
+        }
+        else{
+            passwordAdvertiserSignInField.setErrorEnabled(false);
+        }
+
+        if (isValid) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
     }
 }

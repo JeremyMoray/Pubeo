@@ -41,16 +41,16 @@ public class HomeFragment extends Fragment {
         List<Sticker> stickersList = new ArrayList<>();
 
         //Pour les tests
-        stickersList.add(new Sticker(1, "Burger king", "hamburger"));
-        stickersList.add(new Sticker(1, "Mac donalds", "frites"));
-        stickersList.add(new Sticker(1, "Mac donalds", "frites"));
-        stickersList.add(new Sticker(1, "Mac Burger", "frites"));
-        stickersList.add(new Sticker(1, "Mac donalds", "Burger"));
-        stickersList.add(new Sticker(1, "Mac donalds", "frites"));
-        stickersList.add(new Sticker(1, "Mac donalds", "frites"));
-        stickersList.add(new Sticker(1, "Mac donalds", "frites"));
-        stickersList.add(new Sticker(1, "Burger donalds", "frites"));
-        stickersList.add(new Sticker(1, "Mac donalds", "frites"));
+        stickersList.add(new Sticker(1, "Burger King stickers", "Great hamburgers"));
+        stickersList.add(new Sticker(2, "Mac donalds logo", "Bonnes frites"));
+        stickersList.add(new Sticker(3, "Pizza hut", "Les nouvelles pizzas hawai"));
+        stickersList.add(new Sticker(4, "Dominos pizza", "Pizzas au chocolat"));
+        stickersList.add(new Sticker(5, "Mac donalds", "Burger"));
+        stickersList.add(new Sticker(6, "Mac donalds", "frites"));
+        stickersList.add(new Sticker(7, "Mac donalds", "frites"));
+        stickersList.add(new Sticker(8, "Mac donalds", "frites"));
+        stickersList.add(new Sticker(9, "Burger donalds", "frites"));
+        stickersList.add(new Sticker(10, "Mac donalds", "frites"));
 
         adapter.setStickers(stickersList);
         recyclerView.setAdapter(adapter);
