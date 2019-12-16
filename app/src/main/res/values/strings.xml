@@ -23,6 +23,7 @@
     <string name="payments">Paiements</string>
     <string name="search">Rechercher&#8230;</string>
     <string name="eur_per_points">EUR par points</string>
+    <string name="addSticker">Ajouter une annonce</string>
 
     <!-- Messages d'erreurs -->
     <string name="fieldNotEmpty">Le champ ne peut pas être vide"</string>

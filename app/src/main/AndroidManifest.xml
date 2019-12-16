@@ -10,14 +10,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
+            android:name=".AddStickerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeAddActivity"
+            android:parentActivityName=".HomeActivity"/>
+        <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".CompanyInformationsActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ParticularSignUpActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".AdvertiserSignUpActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ParticularSignInActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".AdvertiserSignInActivity" android:screenOrientation="portrait"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CompanyInformationsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ParticularSignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AdvertiserSignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ParticularSignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AdvertiserSignInActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

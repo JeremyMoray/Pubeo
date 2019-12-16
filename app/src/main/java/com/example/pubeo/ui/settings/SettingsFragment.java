@@ -31,7 +31,7 @@ public class SettingsFragment extends Fragment {
         final Button buttonFinish = root.findViewById(R.id.disconnectButtonAdvertiser);
 
         buttonFinish.setOnClickListener(new View.OnClickListener() {
-            @Override
+                @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

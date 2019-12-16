@@ -1,4 +1,4 @@
-package com.example.pubeo;
+package com.example.pubeo.model;
 
 public class Sticker {
     private int id;
