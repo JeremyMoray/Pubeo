@@ -33,11 +33,33 @@ public class AddStickerActivity extends AppCompatActivity {
         saveButtonAddSticker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                Intent intent = new Intent();
-                intent.putExtra("title", titleStickerInput.getEditText().getText().toString());
-                intent.putExtra("description", descriptionStickerInput.getEditText().getText().toString());
-                setResult(RESULT_OK, intent);
-                finish();
+                boolean isValid = true;
+                String title = titleStickerInput.getEditText().getText().toString();
+                String description = descriptionStickerInput.getEditText().getText().toString();
+
+                if(title.isEmpty()){
+                    isValid = false;
+                    titleStickerInput.setError(getString(R.string.fieldNotEmpty));
+                }
+                else{
+                    titleStickerInput.setErrorEnabled(false);
+                }
+
+                if(description.isEmpty()){
+                    isValid = false;
+                    descriptionStickerInput.setError(getString(R.string.fieldNotEmpty));
+                }
+                else{
+                    descriptionStickerInput.setErrorEnabled(false);
+                }
+
+                if (isValid) {
+                    Intent intent = new Intent();
+                    intent.putExtra("title", title);
+                    intent.putExtra("description", description);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
             }
         });
     }

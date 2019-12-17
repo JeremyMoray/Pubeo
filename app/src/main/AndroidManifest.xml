@@ -12,7 +12,7 @@
         <activity
             android:name=".AddStickerActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeAddActivity"
+            android:theme="@style/AppThemeWhiteAndBlack"
             android:parentActivityName=".HomeActivity"/>
         <activity
             android:name=".HomeActivity"
@@ -20,6 +20,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CompanyInformationsActivity"
+            android:theme="@style/AppThemeWhiteAndBlackNoActionBar"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ParticularSignUpActivity"

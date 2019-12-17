@@ -26,7 +26,8 @@
     <string name="addSticker">Ajouter une annonce</string>
 
     <!-- Messages d'erreurs -->
-    <string name="fieldNotEmpty">Le champ ne peut pas être vide"</string>
+    <string name="fieldNotEmpty">Le champ ne peut pas être vide</string>
+    <string name="passwordNotMatching">Les mots de passes ne correspondent pas</string>
 
     <!-- Descriptions images -->
     <string name="profile_pic_desc">Photo de profil</string>

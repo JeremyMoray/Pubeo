@@ -49,64 +49,91 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow_back_white_24dp" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/mailAdvertiserSignUpField"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="45dp"
-        android:layout_marginEnd="33dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
         android:backgroundTint="@color/white"
         android:ems="10"
-        android:hint="@string/emailHint"
-        android:inputType="textEmailAddress"
-        tools:ignore="Autofill"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signUpTextAdvertiser" />
+        app:layout_constraintTop_toBottomOf="@+id/signUpTextAdvertiser"
+        tools:layout_editor_absoluteX="7dp"
+        tools:layout_editor_absoluteY="620dp">
 
-    <EditText
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/emailHint"
+            android:inputType="textEmailAddress"
+            tools:layout_editor_absoluteX="18dp"
+            tools:layout_editor_absoluteY="617dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordAdvertiserSignUpField"
-        android:layout_width="350dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
         android:backgroundTint="@color/white"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="33dp"
         android:ems="10"
-        android:hint="@string/passwordHint"
-        android:inputType="textPassword"
-        tools:ignore="Autofill"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mailAdvertiserSignUpField" />
+        app:layout_constraintTop_toBottomOf="@+id/mailAdvertiserSignUpField"
+        tools:layout_editor_absoluteX="7dp"
+        tools:layout_editor_absoluteY="620dp">
 
-    <EditText
-        android:id="@+id/confirmPasswordAdvertiserSignUpField"
-        android:layout_width="350dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/passwordHint"
+            android:inputType="textPassword"
+            tools:layout_editor_absoluteX="18dp"
+            tools:layout_editor_absoluteY="617dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordConfirmAdvertiserSignUpField"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
         android:backgroundTint="@color/white"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="33dp"
         android:ems="10"
-        android:hint="@string/confirmPasswordHint"
-        android:inputType="textPassword"
-        tools:ignore="Autofill"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordAdvertiserSignUpField" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordAdvertiserSignUpField"
+        tools:layout_editor_absoluteX="7dp"
+        tools:layout_editor_absoluteY="620dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/confirmPasswordHint"
+            android:inputType="textPassword"
+            tools:layout_editor_absoluteX="18dp"
+            tools:layout_editor_absoluteY="617dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/signUpButtonAdvertiser"
         android:layout_width="223dp"
         android:layout_height="50dp"
         android:layout_marginStart="92dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/login_button_shape"
         android:text="@string/Sign_up_button"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordAdvertiserSignUpField" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordConfirmAdvertiserSignUpField" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
