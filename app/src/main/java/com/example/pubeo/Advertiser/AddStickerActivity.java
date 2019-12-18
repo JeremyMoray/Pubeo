@@ -1,4 +1,4 @@
-package com.example.pubeo;
+package com.example.pubeo.Advertiser;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.pubeo.R;
 import com.example.pubeo.model.Sticker;
 import com.example.pubeo.ui.home.HomeViewModel;
 import com.google.android.material.textfield.TextInputLayout;
