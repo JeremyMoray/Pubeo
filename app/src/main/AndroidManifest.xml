@@ -1,18 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.pubeo">
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".Particular.ParticularSignUpActivity"></activity>
-        <activity android:name=".AdvertiserSignUpActivity" />
-        <activity android:name=".Particular.ParticularSignInActivity" />
-        <activity android:name=".AdvertiserSignInActivity" />
+        android:theme="@style/Theme.AppCompat.NoActionBar"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".Particular.ParticularSignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Particular.ParticularSignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Particular.ParticularCreateProfil"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddStickerActivity"
+            android:parentActivityName=".HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeWhiteAndBlack" />
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CompanyInformationsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeWhiteAndBlackNoActionBar" />
+        <activity
+            android:name=".AdvertiserSignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AdvertiserSignInActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

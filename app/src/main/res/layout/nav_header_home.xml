@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:background="@drawable/side_nav_bar"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <ImageView
+        android:id="@+id/logoMenuAdvertiser"
+        android:layout_width="264dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/nav_header_desc"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        app:srcCompat="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/titleMenuAdvertiser"
+        android:layout_width="264dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:text="@string/nav_header_title"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <TextView
+        android:id="@+id/subTitleMenuAdvertiser"
+        android:layout_width="264dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:text="@string/nav_header_subtitle"
+        android:textAlignment="center" />
+
+    <View
+        android:id="@+id/whiteBarMenuAdvertiser"
+        android:background="@color/white"
+        android:layout_marginTop="20dp"
+        android:layout_width="477dp"
+        android:layout_height="2dp" />
+
+    <TextView
+        android:id="@+id/paymentsMenuLabel"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:layout_width="264dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:text="@string/payments"/>
+
+    <TextView
+        android:id="@+id/eurosMenuLabel"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:layout_width="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:text="@string/points"/>
+
+    <TextView
+        android:id="@+id/eurosPerPointsLabel"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:layout_width="264dp"
+        android:layout_marginStart="20dp"
+        android:layout_height="wrap_content"
+        android:text="@string/eur_per_points"/>
+
+</LinearLayout>

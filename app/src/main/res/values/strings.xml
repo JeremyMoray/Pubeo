@@ -1,10 +1,62 @@
 <resources>
     <string name="app_name">Pubeo</string>
     <string name="Log_in_button">Se connecter</string>
+    <string name="Log_out_button">Se déconnecter</string>
     <string name="Sign_up_button">S\'enregistrer</string>
     <string name="particular">Particulier</string>
     <string name="advertiser">Annonceur</string>
     <string name="you_are">Vous êtes un&#8230;</string>
+    <string name="password_forgotten">Mot de passe oublié ?</string>
+    <string name="emailHint">Email</string>
+    <string name="passwordHint">Mot de passe</string>
+    <string name="confirmPasswordHint">Confirmer le mot de passe</string>
+    <string name="loginTextAdvertiser">SE CONNECTER - ANNONCEUR</string>
+    <string name="signUpTextAdvertiser">S\'ENREGISTRER - ANNONCEUR</string>
+    <string name="createCompany">Créer une entreprise</string>
+    <string name="companyName">Nom de l\'entreprise</string>
+    <string name="VATNumber">Numéro de TVA</string>
+    <string name="phone">Numéro de téléphone</string>
+    <string name="companyAddress">Adresse de l\'entreprise</string>
+    <string name="next">Suivant</string>
+    <string name="brandLogo">LOGO DE L\ENTREPRISE</string>
+    <string name="Save">Enregistrer</string>
+    <string name="payments">Paiements</string>
+    <string name="search">Rechercher&#8230;</string>
+    <string name="eur_per_points">EUR par points</string>
+    <string name="addSticker">Ajouter une annonce</string>
+
+    <!-- Messages d'erreurs -->
+    <string name="fieldNotEmpty">Le champ ne peut pas être vide</string>
+    <string name="passwordNotMatching">Les mots de passes ne correspondent pas</string>
+
+    <!-- Descriptions images -->
+    <string name="profile_pic_desc">Photo de profil</string>
+    <string name="VAT_desc">Logo VAT</string>
+    <string name="phone_desc">Logo téléphone</string>
+    <string name="business_desc">Logo business</string>
+    <string name="logo_desc">Logo Pubeo</string>
+    <string name="logo_advertising_desc">Logo Pubeo Advertising</string>
+    <string name="back_arrow_desc">Logo business</string>
+
+    <!-- Données écrasée par API -->
+    <string name="title">Titre</string>
+    <string name="description">Description</string>
+    <string name="reward">récompense : 25 points par session</string>
+    <string name="participants">participants : 6 / 10</string>
+    <string name="points">1.2</string>
+
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">LE LOCAL</string>
+    <string name="nav_header_subtitle">Utilisateur professionel</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Accueil</string>
+    <string name="menu_company_profile">Profil</string>
+    <string name="menu_manage_participants">Gérer mes participants</string>
+    <string name="menu_settings">Paramètres</string>
     <string name="i_forgot">Mot de Passe oublié?</string>
     <string name="header_log_in_particular">LOG IN - PARTICULIER</string>
     <string name="email_hint">Email</string>
