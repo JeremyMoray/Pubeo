@@ -1,4 +1,4 @@
-package com.example.pubeo;
+package com.example.pubeo.Advertiser;
 
 import android.os.Bundle;
 
@@ -7,6 +7,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.pubeo.R;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.drawerlayout.widget.DrawerLayout;

@@ -15,13 +15,12 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pubeo.AddStickerActivity;
+import com.example.pubeo.Advertiser.AddStickerActivity;
 import com.example.pubeo.R;
 import com.example.pubeo.model.Sticker;
-import com.example.pubeo.StickerAdvertiserAdapter;
+import com.example.pubeo.Advertiser.StickerAdvertiserAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;

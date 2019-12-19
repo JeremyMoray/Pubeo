@@ -12,6 +12,9 @@ import android.widget.RadioButton;
 import com.example.pubeo.Particular.ParticularSignInActivity;
 import com.example.pubeo.Particular.ParticularSignUpActivity;
 
+import com.example.pubeo.Advertiser.AdvertiserSignInActivity;
+import com.example.pubeo.Advertiser.AdvertiserSignUpActivity;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

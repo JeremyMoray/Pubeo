@@ -1,4 +1,4 @@
-package com.example.pubeo;
+package com.example.pubeo.Advertiser;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.pubeo.R;
 import com.google.android.material.textfield.TextInputLayout;
 
 import butterknife.BindView;

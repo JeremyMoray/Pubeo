@@ -21,23 +21,23 @@
             android:name=".Particular.ParticularCreateProfil"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddStickerActivity"
-            android:parentActivityName=".HomeActivity"
+            android:name=".Advertiser.AddStickerActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeWhiteAndBlack" />
+            android:theme="@style/AppThemeWhiteAndBlack"
+            android:parentActivityName=".Advertiser.HomeActivity"/>
         <activity
-            android:name=".HomeActivity"
+            android:name=".Advertiser.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".CompanyInformationsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppThemeWhiteAndBlackNoActionBar" />
-        <activity
-            android:name=".AdvertiserSignUpActivity"
+            android:name=".Advertiser.CompanyInformationsActivity"
+            android:theme="@style/AppThemeWhiteAndBlackNoActionBar"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AdvertiserSignInActivity"
+            android:name=".Advertiser.AdvertiserSignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Advertiser.AdvertiserSignInActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".MainActivity">
             <intent-filter>
