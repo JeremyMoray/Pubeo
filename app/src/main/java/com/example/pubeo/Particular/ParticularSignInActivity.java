@@ -2,12 +2,14 @@ package com.example.pubeo.Particular;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.pubeo.Advertiser.CompanyInformationsActivity;
 import com.example.pubeo.R;
 import com.example.pubeo.tools.validation.EmailValidator;
 import com.example.pubeo.tools.validation.ValidationTextWatcher;
@@ -44,14 +46,41 @@ public class ParticularSignInActivity extends AppCompatActivity {
             }
         });
 
-        particularSignInEmailEditText.addTextChangedListener(new ValidationTextWatcher(this, particularSignInEmail));
-        particularSignInPwdEditText.addTextChangedListener(new ValidationTextWatcher(this, particularSignInPwd));
+        particularSignInEmailEditText
+                .addTextChangedListener(new ValidationTextWatcher(this, particularSignInEmail));
+        particularSignInPwdEditText
+                .addTextChangedListener(new ValidationTextWatcher(this, particularSignInPwd));
 
         particularSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(checkEmtpyField()) {
+                    Intent intent = new Intent(ParticularSignInActivity.this, CompanyInformationsActivity.class);
+                    startActivity(intent);
+                }
             }
         });
+    }
+
+    public boolean checkEmtpyField() {
+        boolean isValid = true;
+
+        if(particularSignInEmailEditText.getText().toString().isEmpty()) {
+            isValid = false;
+            particularSignInEmail.setError(getString(R.string.fieldNotEmpty));
+        }
+        else {
+            particularSignInEmail.setErrorEnabled(false);
+        }
+
+        if(particularSignInPwdEditText.getText().toString().isEmpty()) {
+            isValid = false;
+            particularSignInPwd.setError(getString(R.string.fieldNotEmpty));
+        }
+        else {
+            particularSignInPwd.setErrorEnabled(false);
+        }
+
+        return isValid;
     }
 }

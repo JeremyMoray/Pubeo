@@ -16,13 +16,11 @@ import java.util.regex.Pattern;
 
 public final class EmailValidator extends ContextWrapper {
 
-    private String fieldNotEmpty;
     private String fieldNotValid;
     private final Pattern validEmailPattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public EmailValidator(Context context) {
         super(context);
-        fieldNotEmpty = getResources().getString(R.string.fieldNotEmpty);
         fieldNotValid = getResources().getString(R.string.fieldNotValid);
     }
 
@@ -33,9 +31,7 @@ public final class EmailValidator extends ContextWrapper {
 
     public final void emailValidation(TextInputLayout input){
         String targetField = input.getEditText().getText().toString();
-        if(targetField.isEmpty()) {
-            input.setError(fieldNotEmpty);
-        } else if (!isValid(targetField)) {
+        if (!isValid(targetField)) {
             input.setError(fieldNotValid);
         } else {
             input.setErrorEnabled(false);

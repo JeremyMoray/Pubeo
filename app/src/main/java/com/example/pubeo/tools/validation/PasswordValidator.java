@@ -19,7 +19,6 @@ public class PasswordValidator extends ContextWrapper {
     private String passwordTooShort;
     private String passwordTooLong;
     private String passwordWithOneNumber;
-    private String passwordNotMatching;
     private final Pattern oneNumberMinPattern = Pattern.compile(".*[0-9].*");
 
     public PasswordValidator(Context context) {
@@ -27,7 +26,6 @@ public class PasswordValidator extends ContextWrapper {
         passwordTooShort = getResources().getString(R.string.passwordTooShort);
         passwordTooLong = getResources().getString(R.string.passwordTooLong);
         passwordWithOneNumber = getResources().getString(R.string.passwordWithOneNumber);
-        passwordNotMatching = getResources().getString(R.string.passwordNotMatching);
     }
 
     public final boolean isValid(String password) {

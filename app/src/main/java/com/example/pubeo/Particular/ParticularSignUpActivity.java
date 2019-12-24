@@ -2,11 +2,13 @@ package com.example.pubeo.Particular;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.pubeo.Advertiser.CompanyInformationsActivity;
 import com.example.pubeo.R;
 import com.example.pubeo.tools.validation.ValidationTextWatcher;
 import com.google.android.material.textfield.TextInputEditText;
@@ -53,7 +55,13 @@ public class ParticularSignUpActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkConfirmPassword();
+                if(checkEmtpyField()){
+                    if(checkConfirmPassword()){
+                        Intent intent = new Intent(ParticularSignUpActivity.this, CompanyInformationsActivity.class);
+                        startActivity(intent);
+                    }
+                }
+
             }
         });
 
@@ -71,13 +79,50 @@ public class ParticularSignUpActivity extends AppCompatActivity {
 
     }
 
-    public void checkConfirmPassword(){
+    public boolean checkEmtpyField(){
+        boolean isValid = true;
+
+        if(particularSignUpEmailEditText.getText().toString().isEmpty()){
+            isValid = false;
+            particularSignUpEmail.setError(getString(R.string.fieldNotEmpty));
+        } else {
+            particularSignUpEmail.setErrorEnabled(false);
+        }
+
+        if(particularSignUpUsernameEditText.getText().toString().isEmpty()){
+            isValid = false;
+            particularSignUpUsername.setError(getString(R.string.fieldNotEmpty));
+        } else {
+            particularSignUpUsername.setErrorEnabled(false);
+        }
+
+        if(particularSignUpPwdEditText.getText().toString().isEmpty()){
+            isValid = false;
+            particularSignUpPwd.setError(getString(R.string.fieldNotEmpty));
+        } else {
+            particularSignUpPwd.setErrorEnabled(false);
+        }
+
+        if(particularSignUpConfirmPwd.getEditText().getText().toString().isEmpty()){
+            isValid = false;
+            particularSignUpConfirmPwd.setError(getString(R.string.fieldNotEmpty));
+        } else {
+            particularSignUpConfirmPwd.setErrorEnabled(false);
+        }
+
+        return isValid;
+    }
+
+    public boolean checkConfirmPassword(){
+        boolean isValid = true;
         if(!particularSignUpPwd.getEditText().getText().toString().equals(particularSignUpConfirmPwd.getEditText().getText().toString())) {
             particularSignUpPwd.setError(getString(R.string.passwordNotMatching));
             particularSignUpConfirmPwd.setError(getString(R.string.passwordNotMatching));
+            isValid = false;
         } else {
             particularSignUpPwd.setErrorEnabled(false);
             particularSignUpConfirmPwd.setErrorEnabled(false);
         }
+        return isValid;
     }
 }
