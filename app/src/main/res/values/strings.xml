@@ -26,8 +26,13 @@
     <string name="addSticker">Ajouter une annonce</string>
 
     <!-- Messages d'erreurs -->
-    <string name="fieldNotEmpty">Le champ ne peut pas être vide</string>
-    <string name="passwordNotMatching">Les mots de passes ne correspondent pas</string>
+    <string name="fieldNotEmpty">Le champ ne peut pas être vide.</string>
+    <string name="fieldNotValid">Veuillez entrer une adresse mail valide, ex: abc@exemple.com.</string>
+    <string name="passwordNotMatching">Les mots de passes ne correspondent pas.</string>
+    <string name="passwordTooShort">Le mot de passe est trop court: doit être minimum 8 caractères de long.</string>
+    <string name="passwordTooLong">Le mot de passe est trop long!</string>
+    <string name="passwordWithOneNumber">Le mot de passe doit contenir au moins 1 chiffre.</string>
+    <string name="usernameNotValid">Assurez-vous que votre nom d\'utilisateur a une longueur entre 3 et 15 et que qu\'ils correspondent aux caractères et symboles a-z, 0-9, _, -</string>
 
     <!-- Descriptions images -->
     <string name="profile_pic_desc">Photo de profil</string>
@@ -58,7 +63,10 @@
     <string name="menu_manage_participants">Gérer mes participants</string>
     <string name="menu_settings">Paramètres</string>
     <string name="i_forgot">Mot de Passe oublié?</string>
-    <string name="header_log_in_particular">LOG IN - PARTICULIER</string>
+    <string name="header_log_in_particular">SE CONNECTER - PARTICULIER</string>
     <string name="email_hint">Email</string>
     <string name="pwd_hint">Mot de passe</string>
+    <string name="SignUpTextParticular">S\'ENREGISTRER - PARTICULIER</string>
+    <string name="user_hint">Nom d\'utilisateur</string>
+    <string name="ConfirmPasswordHint">Confirmez votre mot de passe</string>
 </resources>
