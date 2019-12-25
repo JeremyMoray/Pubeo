@@ -18,7 +18,8 @@
             android:name=".Particular.ParticularSignUpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Particular.ParticularCreateProfil"
+            android:name=".Particular.ParticularCreateProfilActivity"
+            android:theme="@style/AppThemeWhiteAndBlackNoActionBar"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Advertiser.AddStickerActivity"

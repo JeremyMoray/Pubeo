@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.example.pubeo.Advertiser.CompanyInformationsActivity;
 import com.example.pubeo.R;
 import com.example.pubeo.tools.validation.ValidationTextWatcher;
 import com.google.android.material.textfield.TextInputEditText;
@@ -57,7 +56,7 @@ public class ParticularSignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(checkEmtpyField()){
                     if(checkConfirmPassword()){
-                        Intent intent = new Intent(ParticularSignUpActivity.this, CompanyInformationsActivity.class);
+                        Intent intent = new Intent(ParticularSignUpActivity.this, ParticularCreateProfilActivity.class);
                         startActivity(intent);
                     }
                 }

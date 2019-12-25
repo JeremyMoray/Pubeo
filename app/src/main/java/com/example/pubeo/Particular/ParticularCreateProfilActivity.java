@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.pubeo.R;
 
-public class ParticularCreateProfil extends AppCompatActivity {
+public class ParticularCreateProfilActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -69,4 +69,8 @@
     <string name="SignUpTextParticular">S\'ENREGISTRER - PARTICULIER</string>
     <string name="user_hint">Nom d\'utilisateur</string>
     <string name="ConfirmPasswordHint">Confirmez votre mot de passe</string>
+    <string name="createProfil">Créer votre profil</string>
+    <string name="headerProfilPicture">PHOTO DE PROFILE</string>
+    <string name="firstName">Prénom</string>
+    <string name="lastName">Nom</string>
 </resources>

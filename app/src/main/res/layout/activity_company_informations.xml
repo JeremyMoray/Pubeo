@@ -17,10 +17,10 @@
 
     <ImageView
         android:id="@+id/whiteArrowCompanyInformations"
-        android:layout_width="43dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="13dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
         android:contentDescription="@string/back_arrow_desc"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -48,9 +48,9 @@
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="140dp"
         android:contentDescription="@string/profile_pic_desc"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/blackBandAdvertiserCompanyInfos"
         app:srcCompat="@drawable/ic_shop_svgrepo_com" />
 
@@ -58,10 +58,10 @@
         android:id="@+id/logoTextId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="8dp"
         android:text="@string/brandLogo"
         android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/companyLogoId" />
 
@@ -210,13 +210,13 @@
 
     <Button
         android:id="@+id/continueInformationsAdvertiserButton"
-        android:layout_width="252dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="80dp"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
         android:background="@drawable/login_button_shape"
         android:text="@string/next"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollViewSignUpCompanyProfile" />
 </androidx.constraintlayout.widget.ConstraintLayout>
