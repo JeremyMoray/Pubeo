@@ -37,4 +37,14 @@ public class HomeViewModel extends ViewModel {
         stickersListTest.add(sticker);
         stickersList.setValue(stickersListTest);
     }
+
+    public void updateSticker(Sticker sticker){
+        stickersListTest.set(sticker.getId()-1, sticker);
+        stickersList.setValue(stickersListTest);
+    }
+
+    public void deleteSticker(Sticker sticker){
+        stickersListTest.remove(sticker);
+        stickersList.setValue(stickersListTest);
+    }
 }

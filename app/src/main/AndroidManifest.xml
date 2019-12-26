@@ -10,18 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name=".Advertiser.AddStickerActivity"
+            android:name=".Advertiser.AddEditStickerActivity"
+            android:parentActivityName=".Advertiser.HomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeWhiteAndBlack"
-            android:parentActivityName=".Advertiser.HomeActivity"/>
+            android:theme="@style/AppThemeWhiteAndBlack" />
         <activity
             android:name=".Advertiser.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Advertiser.CompanyInformationsActivity"
-            android:theme="@style/AppThemeWhiteAndBlackNoActionBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeWhiteAndBlackNoActionBar" />
         <activity
             android:name=".ParticularSignUpActivity"
             android:screenOrientation="portrait" />

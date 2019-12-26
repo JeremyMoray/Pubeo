@@ -10,7 +10,7 @@ import android.widget.Button;
 import com.example.pubeo.R;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class AddStickerActivity extends AppCompatActivity {
+public class AddEditStickerActivity extends AppCompatActivity {
 
     private Button saveButtonAddSticker;
     private TextInputLayout titleStickerInput;
@@ -20,11 +20,21 @@ public class AddStickerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sticker);
 
-        getSupportActionBar().setTitle(getString(R.string.addSticker));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Intent intent = getIntent();
 
         titleStickerInput = findViewById(R.id.titleStickerInput);
         descriptionStickerInput = findViewById(R.id.descriptionStickerInput);
+
+        if(intent.hasExtra("EXTRA_ID")){
+            getSupportActionBar().setTitle(getString(R.string.editSticker));
+            titleStickerInput.getEditText().setText(intent.getStringExtra("EXTRA_TITLE"));
+            descriptionStickerInput.getEditText().setText(intent.getStringExtra("EXTRA_DESCRIPTION"));
+
+        }
+        else{
+            getSupportActionBar().setTitle(getString(R.string.addSticker));
+        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         saveButtonAddSticker = findViewById(R.id.saveButtonAddSticker);
         saveButtonAddSticker.getText();
@@ -53,8 +63,14 @@ public class AddStickerActivity extends AppCompatActivity {
 
                 if (isValid) {
                     Intent intent = new Intent();
-                    intent.putExtra("title", title);
-                    intent.putExtra("description", description);
+                    intent.putExtra("EXTRA_TITLE", title);
+                    intent.putExtra("EXTRA_DESCRIPTION", description);
+
+                    int id = getIntent().getIntExtra("EXTRA_ID", -1);
+                    if(id != -1){
+                        intent.putExtra("EXTRA_ID", id);
+                    }
+
                     setResult(RESULT_OK, intent);
                     finish();
                 }

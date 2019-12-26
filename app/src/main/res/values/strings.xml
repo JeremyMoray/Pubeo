@@ -24,6 +24,10 @@
     <string name="search">Rechercher&#8230;</string>
     <string name="eur_per_points">EUR par points</string>
     <string name="addSticker">Ajouter une annonce</string>
+    <string name="editSticker">Modifier une annonce</string>
+    <string name="confirmDeleteSticker">Etes-vous sûr de vouloir supprimer cette annonce ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
 
     <!-- Messages d'erreurs -->
     <string name="fieldNotEmpty">Le champ ne peut pas être vide</string>

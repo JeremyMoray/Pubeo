@@ -20,6 +20,7 @@ public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvert
 
     private List<Sticker> stickersList = new ArrayList<>();
     private List<Sticker> stickersListFull;
+    private OnItemClickListener listener;
 
     @NonNull
     @Override
@@ -47,6 +48,10 @@ public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvert
         notifyDataSetChanged();
     }
 
+    public Sticker getStickerAt(int position){
+        return stickersList.get(position);
+    }
+
     class StickerAdvertiserHolder extends RecyclerView.ViewHolder{
         private TextView stickerTitleAdvertiser;
         private TextView stickerDescriptionAdvertiser;
@@ -55,9 +60,26 @@ public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvert
             super(itemView);
             stickerTitleAdvertiser = itemView.findViewById(R.id.stickerTitleAdvertiser);
             stickerDescriptionAdvertiser = itemView.findViewById(R.id.stickerDescriptionAdvertiser);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(stickersList.get(position));
+                    }
+                }
+            });
         }
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(Sticker sticker);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
+    }
 
     @Override
     public Filter getFilter() {
