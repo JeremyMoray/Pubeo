@@ -1,4 +1,4 @@
-package com.example.pubeo.ui.manageParticipants;
+package com.example.pubeo.Advertiser.ui.manageParticipants;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

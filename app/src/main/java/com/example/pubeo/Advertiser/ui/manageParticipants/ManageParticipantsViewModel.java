@@ -1,16 +1,16 @@
-package com.example.pubeo.ui.companyProfile;
+package com.example.pubeo.Advertiser.ui.manageParticipants;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class CompanyProfileViewModel extends ViewModel {
+public class ManageParticipantsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public CompanyProfileViewModel() {
+    public ManageParticipantsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("JDoe24");
+        mText.setValue("This is manage participants fragment");
     }
 
     public LiveData<String> getText() {

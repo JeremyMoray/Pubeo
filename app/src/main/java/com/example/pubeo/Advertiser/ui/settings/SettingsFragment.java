@@ -1,4 +1,4 @@
-package com.example.pubeo.ui.settings;
+package com.example.pubeo.Advertiser.ui.settings;
 
 import android.content.Intent;
 import android.os.Bundle;

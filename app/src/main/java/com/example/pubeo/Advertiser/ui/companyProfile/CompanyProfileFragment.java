@@ -1,4 +1,4 @@
-package com.example.pubeo.ui.companyProfile;
+package com.example.pubeo.Advertiser.ui.companyProfile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

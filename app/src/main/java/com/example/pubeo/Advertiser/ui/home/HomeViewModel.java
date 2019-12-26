@@ -1,6 +1,5 @@
-package com.example.pubeo.ui.home;
+package com.example.pubeo.Advertiser.ui.home;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 

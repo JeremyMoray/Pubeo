@@ -1,7 +1,5 @@
-package com.example.pubeo.ui.settings;
+package com.example.pubeo.Advertiser.ui.settings;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class SettingsViewModel extends ViewModel {

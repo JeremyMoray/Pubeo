@@ -1,4 +1,4 @@
-package com.example.pubeo.ui.home;
+package com.example.pubeo.Advertiser.ui.home;
 
 import android.content.Intent;
 import android.os.Bundle;
