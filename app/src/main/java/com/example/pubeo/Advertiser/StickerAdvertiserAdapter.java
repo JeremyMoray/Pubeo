@@ -32,9 +32,9 @@ public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvert
 
     @Override
     public void onBindViewHolder(@NonNull StickerAdvertiserHolder holder, int position) {
-        Sticker currentNote = stickersList.get(position);
-        holder.stickerTitleAdvertiser.setText(currentNote.getTitle());
-        holder.stickerDescriptionAdvertiser.setText(currentNote.getDescription());
+        Sticker currentSticker = stickersList.get(position);
+        holder.stickerTitleAdvertiser.setText(currentSticker.getTitle());
+        holder.stickerDescriptionAdvertiser.setText(currentSticker.getDescription());
     }
 
     @Override
