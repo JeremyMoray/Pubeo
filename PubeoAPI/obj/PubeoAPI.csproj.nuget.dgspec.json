@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jcalm\\Workspace\\TechnologieBackEndCloud\\Laboratoires\\PubeoAPI\\PubeoAPI.csproj": {}
+    "C:\\Users\\jcalm\\Workspace\\GitHub\\Pubeo\\PubeoAPI\\PubeoAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jcalm\\Workspace\\TechnologieBackEndCloud\\Laboratoires\\PubeoAPI\\PubeoAPI.csproj": {
+    "C:\\Users\\jcalm\\Workspace\\GitHub\\Pubeo\\PubeoAPI\\PubeoAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jcalm\\Workspace\\TechnologieBackEndCloud\\Laboratoires\\PubeoAPI\\PubeoAPI.csproj",
+        "projectUniqueName": "C:\\Users\\jcalm\\Workspace\\GitHub\\Pubeo\\PubeoAPI\\PubeoAPI.csproj",
         "projectName": "PubeoAPI",
-        "projectPath": "C:\\Users\\jcalm\\Workspace\\TechnologieBackEndCloud\\Laboratoires\\PubeoAPI\\PubeoAPI.csproj",
+        "projectPath": "C:\\Users\\jcalm\\Workspace\\GitHub\\Pubeo\\PubeoAPI\\PubeoAPI.csproj",
         "packagesPath": "C:\\Users\\jcalm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jcalm\\Workspace\\TechnologieBackEndCloud\\Laboratoires\\PubeoAPI\\obj\\",
+        "outputPath": "C:\\Users\\jcalm\\Workspace\\GitHub\\Pubeo\\PubeoAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jcalm\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -37,6 +37,28 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
