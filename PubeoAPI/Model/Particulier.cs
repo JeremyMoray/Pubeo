@@ -10,7 +10,8 @@ namespace PubeoAPI.model {
             AppartenanceVehicules = new HashSet<AppartenanceVehicule>();
         }
         [Key]
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
 
         [StringLength(100)]
         public String Nom { get; set; }
@@ -29,7 +30,7 @@ namespace PubeoAPI.model {
         [StringLength(100)]
         public String Mail { get; set; }
         public String LocaliteCode { get; set; }
-        
+
         [ForeignKey("LocaliteCode")]
         public Localite Localite { get; set; }
         public virtual ICollection<Participation> Participations { get; set; }

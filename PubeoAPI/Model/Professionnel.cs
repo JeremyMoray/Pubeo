@@ -10,8 +10,9 @@ namespace PubeoAPI.model {
             Stickers = new HashSet<Sticker>();
         }
         [Key]
-        public int Id { get; set; }
-        
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
+
         [StringLength(100)]
         public String NomEntreprise { get; set; }
 

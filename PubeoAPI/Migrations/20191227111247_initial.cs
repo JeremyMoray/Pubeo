@@ -35,8 +35,7 @@ namespace PubeoAPI.Migrations
                 name: "Particuliers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(nullable: false),
                     Nom = table.Column<string>(maxLength: 100, nullable: true),
                     Prenom = table.Column<string>(maxLength: 100, nullable: true),
                     Adresse = table.Column<string>(maxLength: 300, nullable: true),
@@ -61,8 +60,7 @@ namespace PubeoAPI.Migrations
                 name: "Professionnels",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(nullable: false),
                     NomEntreprise = table.Column<string>(maxLength: 100, nullable: true),
                     Adresse = table.Column<string>(maxLength: 300, nullable: true),
                     NumeroTel = table.Column<string>(nullable: true),
@@ -86,9 +84,8 @@ namespace PubeoAPI.Migrations
                 name: "AppartenanceVehicules",
                 columns: table => new
                 {
-                    AppartenanceId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ParticulierId = table.Column<int>(nullable: false),
+                    AppartenanceId = table.Column<Guid>(nullable: false),
+                    ParticulierId = table.Column<Guid>(nullable: false),
                     Marque = table.Column<string>(nullable: true),
                     Modele = table.Column<string>(nullable: true)
                 },
@@ -113,14 +110,13 @@ namespace PubeoAPI.Migrations
                 name: "Stickers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(nullable: false),
                     Titre = table.Column<string>(nullable: true),
                     Description = table.Column<string>(maxLength: 300, nullable: true),
                     Hauteur = table.Column<int>(nullable: false),
                     Largeur = table.Column<int>(nullable: false),
                     NbUtilisationsRestantes = table.Column<int>(nullable: false),
-                    ProfessionnelId = table.Column<int>(nullable: false)
+                    ProfessionnelId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -137,10 +133,9 @@ namespace PubeoAPI.Migrations
                 name: "Participations",
                 columns: table => new
                 {
-                    ParticipationId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ParticulierId = table.Column<int>(nullable: false),
-                    StickerId = table.Column<int>(nullable: false)
+                    ParticipationId = table.Column<Guid>(nullable: false),
+                    ParticulierId = table.Column<Guid>(nullable: false),
+                    StickerId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {

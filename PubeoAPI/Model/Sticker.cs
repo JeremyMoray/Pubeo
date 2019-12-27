@@ -9,15 +9,16 @@ namespace PubeoAPI.model {
             Participations = new HashSet<Participation>();
         }
         [Key]
-        public int Id {get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id {get; set; }
         public String Titre { get; set; }
-        
+
         [StringLength(300)]
         public String Description { get; set; }
         public int Hauteur { get; set; }
         public int Largeur { get; set; }
         public int NbUtilisationsRestantes { get; set; } 
-        public int ProfessionnelId { get; set; }
+        public Guid ProfessionnelId { get; set; }
 
         [ForeignKey("ProfessionnelId")]
         public virtual Professionnel Professionnel { get; set; }   

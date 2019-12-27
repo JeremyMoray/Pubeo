@@ -10,7 +10,7 @@ using PubeoAPI;
 namespace PubeoAPI.Migrations
 {
     [DbContext(typeof(PubeoAPIdbContext))]
-    [Migration("20191227105149_initial")]
+    [Migration("20191227111247_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,10 +23,9 @@ namespace PubeoAPI.Migrations
 
             modelBuilder.Entity("PubeoAPI.model.AppartenanceVehicule", b =>
                 {
-                    b.Property<int>("AppartenanceId")
+                    b.Property<Guid>("AppartenanceId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Marque")
                         .HasColumnType("nvarchar(450)");
@@ -34,8 +33,8 @@ namespace PubeoAPI.Migrations
                     b.Property<string>("Modele")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("ParticulierId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ParticulierId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("AppartenanceId");
 
@@ -61,16 +60,15 @@ namespace PubeoAPI.Migrations
 
             modelBuilder.Entity("PubeoAPI.model.Participation", b =>
                 {
-                    b.Property<int>("ParticipationId")
+                    b.Property<Guid>("ParticipationId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ParticulierId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ParticulierId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("StickerId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("StickerId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ParticipationId");
 
@@ -83,10 +81,9 @@ namespace PubeoAPI.Migrations
 
             modelBuilder.Entity("PubeoAPI.model.Particulier", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Adresse")
                         .HasColumnType("nvarchar(300)")
@@ -126,10 +123,9 @@ namespace PubeoAPI.Migrations
 
             modelBuilder.Entity("PubeoAPI.model.Professionnel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Adresse")
                         .HasColumnType("nvarchar(300)")
@@ -164,10 +160,9 @@ namespace PubeoAPI.Migrations
 
             modelBuilder.Entity("PubeoAPI.model.Sticker", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(300)")
@@ -182,8 +177,8 @@ namespace PubeoAPI.Migrations
                     b.Property<int>("NbUtilisationsRestantes")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProfessionnelId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ProfessionnelId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Titre")
                         .HasColumnType("nvarchar(max)");

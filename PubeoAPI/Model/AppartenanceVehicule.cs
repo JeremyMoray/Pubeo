@@ -6,8 +6,9 @@ namespace PubeoAPI.model {
     public class AppartenanceVehicule {
 
         [Key]
-        public int AppartenanceId { get; set; }
-        public int ParticulierId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid AppartenanceId { get; set; }
+        public Guid ParticulierId { get; set; }
 
         [ForeignKey("ParticulierId")]
         public virtual Particulier Particulier { get; set; }
@@ -17,7 +18,7 @@ namespace PubeoAPI.model {
 
         [Column(Order=2)]
         public String Modele { get; set; }
-        
+
         [ForeignKey("Marque,Modele")]
         public virtual Vehicule Vehicule { get; set; }
     }
