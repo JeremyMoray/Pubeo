@@ -5,6 +5,14 @@ namespace PubeoAPI
 {
     public class PubeoAPIdbContext : DbContext {
 
+        public PubeoAPIdbContext()
+        {}
+
+        public PubeoAPIdbContext(DbContextOptions<PubeoAPIdbContext> options) : base(options)
+        {
+             this.Database.EnsureCreated();
+        }
+
         public DbSet<AppartenanceVehicule> AppartenanceVehicules { get; set; }
         public DbSet<Localite> Localites { get; set; }
         public DbSet<Participation> Participations { get; set; }
@@ -15,7 +23,7 @@ namespace PubeoAPI
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=localhost, 1433;Initial Catalog=pubeotest;User ID=sa;Password=Cj380uAtetu32745;");
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
