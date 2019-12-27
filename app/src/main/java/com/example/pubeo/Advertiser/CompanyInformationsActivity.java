@@ -132,7 +132,7 @@ public class CompanyInformationsActivity extends AppCompatActivity {
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
-            byte[] image=stream.toByteArray();
+            byte[] image = stream.toByteArray();
             String img_str = Base64.encodeToString(image, 0);
 
             SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
