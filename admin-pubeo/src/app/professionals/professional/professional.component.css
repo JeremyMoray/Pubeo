@@ -1,0 +1,12 @@
+.form-group>label{
+    font-weight: lighter;
+}
+
+form{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.div-add-form{
+    width: 50%;
+    margin: auto;
+}
