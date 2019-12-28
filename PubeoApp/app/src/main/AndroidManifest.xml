@@ -11,7 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Particular.ParticularProfilCreationActivity"></activity>
+        <activity
+            android:name=".Particular.AddFirstVehiculeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeWhiteAndBlackNoActionBar" />
         <activity
             android:name=".Particular.ParticularHomeActivity"
             android:label="@string/title_activity_particular_home"

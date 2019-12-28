@@ -91,4 +91,7 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="CarBrand">Marque</string>
+    <string name="CarModel">Modèle</string>
+    <string name="BirthDate">Date de naissance</string>
 </resources>
