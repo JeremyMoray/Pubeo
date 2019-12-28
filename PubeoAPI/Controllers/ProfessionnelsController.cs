@@ -25,6 +25,7 @@ namespace PubeoAPI.Controllers {
             var professionnels = new HashSet<ProfessionnelsDTO>();
             foreach(var professionnel in _context.Professionnels){
                 professionnels.Add(new ProfessionnelsDTO{
+                    Id = professionnel.Id,
                     NomEntreprise = professionnel.NomEntreprise,
                     Adresse = professionnel.Adresse,
                     NumeroTel = professionnel.NumeroTel,
@@ -41,6 +42,7 @@ namespace PubeoAPI.Controllers {
             foreach(var sticker in _context.Stickers){
                 if(sticker.ProfessionnelId!=null && sticker.ProfessionnelId.Equals(professionnel.Id)){
                     var stickerDTO = new StickersDTO();
+                    stickerDTO.Id = sticker.Id;
                     stickerDTO.Titre = sticker.Titre;
                     stickerDTO.Description = sticker.Description;
                     stickerDTO.NbUtilisationsRestantes = sticker.NbUtilisationsRestantes;

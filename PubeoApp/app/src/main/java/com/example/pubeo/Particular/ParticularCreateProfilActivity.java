@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.example.pubeo.Particular.OpenData.TestODSActivity;
 import com.example.pubeo.R;
 import com.example.pubeo.tools.validation.ValidationTextWatcher;
 import com.google.android.material.textfield.TextInputLayout;
@@ -83,7 +84,7 @@ public class ParticularCreateProfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(checkEmtpyField()){
-                    Intent intent = new Intent(ParticularCreateProfilActivity.this, AddFirstVehiculeActivity.class);
+                    Intent intent = new Intent(ParticularCreateProfilActivity.this, TestODSActivity.class);
                     startActivity(intent);
                 }
             }
