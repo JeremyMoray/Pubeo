@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 
+import com.example.pubeo.Particular.ParticularSignInActivity;
+import com.example.pubeo.Particular.ParticularSignUpActivity;
+
 import com.example.pubeo.Advertiser.AdvertiserSignInActivity;
 import com.example.pubeo.Advertiser.AdvertiserSignUpActivity;
 
@@ -16,7 +19,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.signInButton) Button SignInButton;
+    @BindView(R.id.particularSignInButton) Button SignInButton;
     @BindView(R.id.signUpButton) Button SignUpButton;
     @BindView(R.id.advertiserButton) RadioButton advertiserButton;
 

@@ -8,7 +8,7 @@
     tools:context=".MainActivity" >
 
     <Button
-        android:id="@+id/signInButton"
+        android:id="@+id/particularSignInButton"
         android:layout_width="223dp"
         android:layout_height="50dp"
         android:layout_marginStart="161dp"
@@ -35,7 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signInButton" />
+        app:layout_constraintTop_toBottomOf="@+id/particularSignInButton" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -47,7 +47,7 @@
         android:background="@drawable/box_user_type_choice"
         android:checkedButton="@+id/particularButton"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/signInButton"
+        app:layout_constraintBottom_toTopOf="@+id/particularSignInButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 

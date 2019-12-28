@@ -21,7 +21,9 @@
     <string name="brandLogo">LOGO DE L\ENTREPRISE</string>
     <string name="Save">Enregistrer</string>
     <string name="payments">Paiements</string>
+    <string name="myRewards">Mes récompenses</string>
     <string name="search">Rechercher&#8230;</string>
+    <string name="pointsReward">points</string>
     <string name="eur_per_points">EUR par points</string>
     <string name="addSticker">Ajouter une annonce</string>
     <string name="editSticker">Modifier une annonce</string>
@@ -30,9 +32,22 @@
     <string name="no">Non</string>
     <string name="choosePicture">Choisissez une image</string>
 
+    <!-- label spinner -->
+    <string-array name="gender_array">
+        <item>Homme</item>
+        <item>Femme</item>
+        <item>Autre</item>
+    </string-array>
+
     <!-- Messages d'erreurs -->
-    <string name="fieldNotEmpty">Le champ ne peut pas être vide</string>
-    <string name="passwordNotMatching">Les mots de passes ne correspondent pas</string>
+    <string name="fieldNotEmpty">Le champ ne peut pas être vide.</string>
+    <string name="fieldNotValid">Veuillez entrer une adresse mail valide, ex: abc@exemple.com.</string>
+    <string name="passwordNotMatching">Les mots de passes ne correspondent pas.</string>
+    <string name="passwordTooShort">Le mot de passe est trop court: doit être minimum 8 caractères de long.</string>
+    <string name="passwordTooLong">Le mot de passe est trop long!</string>
+    <string name="passwordWithOneNumber">Le mot de passe doit contenir au moins 1 chiffre.</string>
+    <string name="usernameNotValid">Assurez-vous que votre nom d\'utilisateur a une longueur entre 3 et 15 et que qu\'ils correspondent aux caractères et symboles a-z, 0-9, _, -</string>
+    <string name="phoneNumberNotValid">Entrez un numéro de téléphone valide</string>
 
     <!-- Descriptions images -->
     <string name="profile_pic_desc">Photo de profil</string>
@@ -55,6 +70,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">LE LOCAL</string>
     <string name="nav_header_subtitle">Utilisateur professionel</string>
+    <string name="nav_header_particular_subtitle">Utilisateur particulier</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -62,4 +78,25 @@
     <string name="menu_company_profile">Profil</string>
     <string name="menu_manage_participants">Gérer mes participants</string>
     <string name="menu_settings">Paramètres</string>
+    <string name="i_forgot">Mot de Passe oublié?</string>
+    <string name="header_log_in_particular">SE CONNECTER - PARTICULIER</string>
+    <string name="email_hint">Email</string>
+    <string name="pwd_hint">Mot de passe</string>
+    <string name="SignUpTextParticular">S\'ENREGISTRER - PARTICULIER</string>
+    <string name="user_hint">Nom d\'utilisateur</string>
+    <string name="ConfirmPasswordHint">Confirmez votre mot de passe</string>
+    <string name="createProfil">Créer votre profil</string>
+    <string name="headerProfilPicture">PHOTO DE PROFILE</string>
+    <string name="firstName">Prénom</string>
+    <string name="lastName">Nom</string>
+    <string name="phoneNumber">Téléphone</string>
+    <string name="homeAddress">Adresse Domicile</string>
+    <string name="city">Ville</string>
+    <string name="zipCode">Code Postale</string>
+    <string name="title_activity_particular_home">ParticularHomeActivity</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
 </resources>

@@ -12,6 +12,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
+            android:name=".Particular.ParticularHomeActivity"
+            android:label="@string/title_activity_particular_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Particular.ParticularCreateProfilActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeWhiteAndBlackNoActionBar" />
+        <activity
+            android:name=".Particular.ParticularSignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Particular.ParticularSignInActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Advertiser.AddEditStickerActivity"
             android:parentActivityName=".Advertiser.HomeActivity"
             android:screenOrientation="portrait"
@@ -25,13 +39,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeWhiteAndBlackNoActionBar" />
         <activity
-            android:name=".ParticularSignUpActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".Advertiser.AdvertiserSignUpActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ParticularSignInActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Advertiser.AdvertiserSignInActivity"
