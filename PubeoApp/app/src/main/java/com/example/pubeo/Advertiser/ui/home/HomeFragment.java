@@ -56,6 +56,10 @@ public class HomeFragment extends Fragment {
                 intent.putExtra("EXTRA_ID", sticker.getId());
                 intent.putExtra("EXTRA_TITLE", sticker.getTitle());
                 intent.putExtra("EXTRA_DESCRIPTION", sticker.getDescription());
+                intent.putExtra("EXTRA_HEIGHT", sticker.getHauteur());
+                intent.putExtra("EXTRA_WIDTH", sticker.getLargeur());
+                intent.putExtra("EXTRA_LEFT_USES", sticker.getNbUtilisationsRestantes());
+
                 startActivityForResult(intent, EDIT_STICKER_REQUEST);
             }
         });
@@ -128,17 +132,23 @@ public class HomeFragment extends Fragment {
         if (requestCode == ADD_STICKER_REQUEST && resultCode == RESULT_OK) {
                 String title = data.getStringExtra("EXTRA_TITLE");
                 String description = data.getStringExtra("EXTRA_DESCRIPTION");
+                int hauteur = data.getIntExtra("EXTRA_HEIGHT", -1);
+                int largeur = data.getIntExtra("EXTRA_WIDTH", -1);
+                int nbUtilisationsRestantes = data.getIntExtra("EXTRA_LEFT_USES", -1);
 
-                Sticker sticker = new Sticker(11, title, description);
+                Sticker sticker = new Sticker("90a4eea9-59ad-411c-9454-096c63b3bfe9", title, description, hauteur, largeur, nbUtilisationsRestantes);
                 homeViewModel.addSticker(sticker);
         }
         else if (requestCode == EDIT_STICKER_REQUEST && resultCode == RESULT_OK) {
-            int id = data.getIntExtra("EXTRA_ID", -1);
+            String id = data.getStringExtra("EXTRA_ID");
 
             String title = data.getStringExtra("EXTRA_TITLE");
             String description = data.getStringExtra("EXTRA_DESCRIPTION");
+            int hauteur = data.getIntExtra("EXTRA_HEIGHT", 0);
+            int largeur = data.getIntExtra("EXTRA_WIDTH", 0);
+            int nbUtilisationsRestantes = data.getIntExtra("EXTRA_LEFT_USES", 0);
 
-            Sticker sticker = new Sticker(id, title, description);
+            Sticker sticker = new Sticker(id, title, description, hauteur, largeur, nbUtilisationsRestantes);
             Toast.makeText(getContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
             homeViewModel.updateSticker(sticker);
         }
