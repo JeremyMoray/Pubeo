@@ -31,6 +31,7 @@
     <string name="yes">Oui</string>
     <string name="no">Non</string>
     <string name="choosePicture">Choisissez une image</string>
+    <string name="mailNotExist">L\'adresse mail n\'existe pas</string>
 
     <!-- label spinner -->
     <string-array name="gender_array">

@@ -131,7 +131,18 @@ public class AdvertiserSignInActivity extends AppCompatActivity {
                     mailAdvertiserSignInField.setError(getString(R.string.fieldNotEmpty));
                 }
                 else{
-                    mailAdvertiserSignInField.setErrorEnabled(false);
+                    int i = 0;
+                    while(i < advertisers.size() && !advertisers.get(i).getMail().equals(mailAdvertiserSignInField.getEditText().getText().toString())){
+                        i++;
+                    }
+
+                    if(i == advertisers.size()){
+                        isValid = false;
+                        mailAdvertiserSignInField.setError(getString(R.string.mailNotExist));
+                    }
+                    else{
+                        mailAdvertiserSignInField.setErrorEnabled(false);
+                    }
                 }
 
                 if(passwordAdvertiserSignInField.getEditText().getText().toString().isEmpty()){
@@ -140,15 +151,6 @@ public class AdvertiserSignInActivity extends AppCompatActivity {
                 }
                 else{
                     passwordAdvertiserSignInField.setErrorEnabled(false);
-                }
-
-                int i = 0;
-                while(i < advertisers.size() && !advertisers.get(i).getMail().equals(mailAdvertiserSignInField.getEditText().getText().toString())){
-                    i++;
-                }
-
-                if(i == advertisers.size()){
-                    isValid = false;
                 }
 
                 if (isValid) {

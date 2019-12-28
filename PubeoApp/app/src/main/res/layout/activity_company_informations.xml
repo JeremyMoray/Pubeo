@@ -94,6 +94,7 @@
                 tools:layout_editor_absoluteY="620dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/companyNameFieldEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/companyName"
@@ -117,6 +118,7 @@
                 tools:layout_editor_absoluteY="620dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/companyVATFieldEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/VATNumber"
@@ -140,6 +142,7 @@
                 tools:layout_editor_absoluteY="620dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/companyPhoneFieldEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/phone"
@@ -163,6 +166,7 @@
                 tools:layout_editor_absoluteY="620dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/companyAddressFieldEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/companyAddress"
@@ -221,4 +225,5 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollViewSignUpCompanyProfile" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

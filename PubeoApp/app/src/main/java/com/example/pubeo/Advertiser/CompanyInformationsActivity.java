@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.pubeo.R;
+import com.example.pubeo.tools.validation.ValidationTextWatcher;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.ByteArrayOutputStream;
@@ -26,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.provider.Telephony.Mms.Part.TEXT;
+import static com.example.pubeo.tools.constants.constantTags.*;
 
 public class CompanyInformationsActivity extends AppCompatActivity {
 
@@ -33,7 +36,9 @@ public class CompanyInformationsActivity extends AppCompatActivity {
     @BindView(R.id.companyNameField) TextInputLayout companyNameField;
     @BindView(R.id.companyVATField) TextInputLayout companyVATField;
     @BindView(R.id.companyPhoneField) TextInputLayout companyPhoneField;
+    @BindView(R.id.companyPhoneFieldEditText) TextInputEditText companyPhoneFieldEditText;
     @BindView(R.id.companyAddressField) TextInputLayout companyAddressField;
+
     private ImageView whiteArrowCompanyInformations;
     private ImageView companyLogoId;
     private Uri imageUrl;
@@ -47,6 +52,9 @@ public class CompanyInformationsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_company_informations);
 
         ButterKnife.bind(this);
+
+        companyPhoneField.setTag(PHONENUMBER_TAG);
+
         continueInformationsAdvertiserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -73,6 +81,9 @@ public class CompanyInformationsActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(gallery, String.valueOf(R.string.choosePicture)), 1);
             }
         });
+
+        companyPhoneFieldEditText
+                .addTextChangedListener(new ValidationTextWatcher(this, companyPhoneField));
     }
 
     @Override
@@ -94,36 +105,41 @@ public class CompanyInformationsActivity extends AppCompatActivity {
     public void openHomeActivity(){
         boolean isValid = true;
 
-        if(companyNameField.getEditText().getText().toString().isEmpty()){
+        if(companyPhoneField.isErrorEnabled()){
             isValid = false;
-            companyNameField.setError(getString(R.string.fieldNotEmpty));
         }
         else{
-            companyNameField.setErrorEnabled(false);
-        }
+            if(companyNameField.getEditText().getText().toString().isEmpty()){
+                isValid = false;
+                companyNameField.setError(getString(R.string.fieldNotEmpty));
+            }
+            else{
+                companyNameField.setErrorEnabled(false);
+            }
 
-        if(companyVATField.getEditText().getText().toString().isEmpty()){
-            isValid = false;
-            companyVATField.setError(getString(R.string.fieldNotEmpty));
-        }
-        else{
-            companyVATField.setErrorEnabled(false);
-        }
+            if(companyVATField.getEditText().getText().toString().isEmpty()){
+                isValid = false;
+                companyVATField.setError(getString(R.string.fieldNotEmpty));
+            }
+            else{
+                companyVATField.setErrorEnabled(false);
+            }
 
-        if(companyPhoneField.getEditText().getText().toString().isEmpty()){
-            isValid = false;
-            companyPhoneField.setError(getString(R.string.fieldNotEmpty));
-        }
-        else{
-            companyPhoneField.setErrorEnabled(false);
-        }
+            if(companyPhoneField.getEditText().getText().toString().isEmpty()){
+                isValid = false;
+                companyPhoneField.setError(getString(R.string.fieldNotEmpty));
+            }
+            else{
+                companyPhoneField.setErrorEnabled(false);
+            }
 
-        if(companyAddressField.getEditText().getText().toString().isEmpty()){
-            isValid = false;
-            companyAddressField.setError(getString(R.string.fieldNotEmpty));
-        }
-        else{
-            companyAddressField.setErrorEnabled(false);
+            if(companyAddressField.getEditText().getText().toString().isEmpty()){
+                isValid = false;
+                companyAddressField.setError(getString(R.string.fieldNotEmpty));
+            }
+            else{
+                companyAddressField.setErrorEnabled(false);
+            }
         }
 
         if (isValid) {
