@@ -64,7 +64,7 @@
     <string name="title">Titre</string>
     <string name="description">Description</string>
     <string name="reward">récompense : 25 points par session</string>
-    <string name="participants">participants : 6 / 10</string>
+    <string name="participants">participants restants :</string>
     <string name="points">1.2</string>
 
     <string name="title_activity_home">HomeActivity</string>

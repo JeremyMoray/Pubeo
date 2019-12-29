@@ -36,6 +36,8 @@ public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvert
         Sticker currentSticker = stickersList.get(position);
         holder.stickerTitleAdvertiser.setText(currentSticker.getTitle());
         holder.stickerDescriptionAdvertiser.setText(currentSticker.getDescription());
+        String participants = "participants restants : " + currentSticker.getNbUtilisationsRestantes();
+        holder.participantsTextAdvertiser.setText(participants);
     }
 
     @Override
@@ -56,11 +58,13 @@ public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvert
     class StickerAdvertiserHolder extends RecyclerView.ViewHolder{
         private TextView stickerTitleAdvertiser;
         private TextView stickerDescriptionAdvertiser;
+        private TextView participantsTextAdvertiser;
 
         public StickerAdvertiserHolder(@NonNull View itemView) {
             super(itemView);
             stickerTitleAdvertiser = itemView.findViewById(R.id.stickerTitleAdvertiser);
             stickerDescriptionAdvertiser = itemView.findViewById(R.id.stickerDescriptionAdvertiser);
+            participantsTextAdvertiser = itemView.findViewById(R.id.participantsTextAdvertiser);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
