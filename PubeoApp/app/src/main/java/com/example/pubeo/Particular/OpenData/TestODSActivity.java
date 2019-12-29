@@ -3,12 +3,9 @@ package com.example.pubeo.Particular.OpenData;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pubeo.Particular.OpenData.pojo.Manufacturers;
-import com.example.pubeo.Particular.OpenData.pojo.MultipleResource;
 import com.example.pubeo.R;
 
 import java.util.List;

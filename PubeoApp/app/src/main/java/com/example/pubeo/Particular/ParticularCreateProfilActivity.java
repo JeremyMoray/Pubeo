@@ -84,7 +84,7 @@ public class ParticularCreateProfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(checkEmtpyField()){
-                    Intent intent = new Intent(ParticularCreateProfilActivity.this, TestODSActivity.class);
+                    Intent intent = new Intent(ParticularCreateProfilActivity.this, AddFirstVehiculeActivity.class);
                     startActivity(intent);
                 }
             }
