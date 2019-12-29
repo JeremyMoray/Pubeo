@@ -3,6 +3,7 @@ package com.example.pubeo.Advertiser;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.pubeo.DAO.AdvertiserDAO;
 import com.example.pubeo.R;
 import com.example.pubeo.Services.ServiceAPI;
 import com.example.pubeo.model.Advertiser;
@@ -63,7 +65,7 @@ public class AdvertiserSignInActivity extends AppCompatActivity {
             }
         });
     }
-
+/*
     public static OkHttpClient.Builder getUnsafeOkHttpClient() {
 
         try {
@@ -104,10 +106,10 @@ public class AdvertiserSignInActivity extends AppCompatActivity {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
     public void openHomeActivity(){
-
+/*
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ServiceAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -164,6 +166,61 @@ public class AdvertiserSignInActivity extends AppCompatActivity {
             public void onFailure(Call<List<Advertiser>> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
+
+        new LoadAdvertiser().execute();
+    }
+
+    private class LoadAdvertiser extends AsyncTask<String, Void, ArrayList<Advertiser>>{
+        @Override
+        protected ArrayList<Advertiser> doInBackground(String... params){
+            AdvertiserDAO advertiserDAO = new AdvertiserDAO();
+            ArrayList<Advertiser> advertisers = new ArrayList<>();
+            try{
+                advertisers = advertiserDAO.getAllAdvertisers();
+            }
+            catch (Exception e){
+                return advertisers;
+            }
+            return advertisers;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Advertiser> advertisers){
+            boolean isValid = true;
+
+            if(mailAdvertiserSignInField.getEditText().getText().toString().isEmpty()){
+                isValid = false;
+                mailAdvertiserSignInField.setError(getString(R.string.fieldNotEmpty));
+            }
+            else{
+                int i = 0;
+                while(i < advertisers.size() && !advertisers.get(i).getMail().equals(mailAdvertiserSignInField.getEditText().getText().toString())){
+                    i++;
+                }
+
+                if(i == advertisers.size()){
+                    isValid = false;
+                    mailAdvertiserSignInField.setError(getString(R.string.mailNotExist));
+                }
+                else{
+                    mailAdvertiserSignInField.setErrorEnabled(false);
+                }
+            }
+
+            if(passwordAdvertiserSignInField.getEditText().getText().toString().isEmpty()){
+                isValid = false;
+                passwordAdvertiserSignInField.setError(getString(R.string.fieldNotEmpty));
+            }
+            else{
+                passwordAdvertiserSignInField.setErrorEnabled(false);
+            }
+
+            if (isValid) {
+                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        }
     }
 }
