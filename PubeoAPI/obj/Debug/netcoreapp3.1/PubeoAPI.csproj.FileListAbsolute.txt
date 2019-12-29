@@ -41,3 +41,5 @@ C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\obj\Debug\netcoreapp3.1\PubeoAPI.
 C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\obj\Debug\netcoreapp3.1\PubeoAPI.csproj.CopyComplete
 C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\obj\Debug\netcoreapp3.1\PubeoAPI.dll
 C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\obj\Debug\netcoreapp3.1\PubeoAPI.pdb
+C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\bin\Debug\netcoreapp3.1\System.Security.Cryptography.Pkcs.dll
+C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Cryptography.Pkcs.dll

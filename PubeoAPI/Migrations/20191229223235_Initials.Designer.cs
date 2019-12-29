@@ -10,8 +10,8 @@ using PubeoAPI;
 namespace PubeoAPI.Migrations
 {
     [DbContext(typeof(PubeoAPIdbContext))]
-    [Migration("20191227111247_initial")]
-    partial class initial
+    [Migration("20191229223235_Initials")]
+    partial class Initials
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

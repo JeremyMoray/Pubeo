@@ -150,7 +150,7 @@ namespace PubeoAPI.Controllers {
         private async Task<ICollection<StickersDTO>> GetStickersDTOs(Professionnel professionnel){
             var stickers = new HashSet<StickersDTO>();
             foreach(var sticker in _context.Stickers){
-                if(sticker.ProfessionnelId!=null && sticker.ProfessionnelId.Equals(professionnel.Id)){
+                if(sticker.Id!=null && sticker.Id.Equals(professionnel.Id)){
                     var stickerDTO = new StickersDTO();
                     stickerDTO.Id = sticker.Id;
                     stickerDTO.Titre = sticker.Titre;
