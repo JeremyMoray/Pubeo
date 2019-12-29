@@ -2,14 +2,18 @@ package com.example.pubeo.DAO;
 
 import android.util.Log;
 
+import com.example.pubeo.Service.ServiceAPI;
 import com.example.pubeo.model.Advertiser;
 import com.example.pubeo.model.Sticker;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.KeyManagementException;
@@ -23,7 +27,14 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class AdvertiserDAO {
+    private ServiceAPI serviceAPI;
     public ArrayList<Advertiser> getAllAdvertisers() throws Exception {
         disableSSLCertificateChecking();
         URL url = new URL("https://10.0.2.2:5001/Professionnels");
@@ -37,6 +48,34 @@ public class AdvertiserDAO {
         buffer.close();
         stringJSON = builder.toString();
         return jsonToAdvertisers(stringJSON);
+    }
+
+    public void updateAdvertiser(Advertiser advertiserReceived) throws Exception{
+        disableSSLCertificateChecking();
+        Gson gson = new GsonBuilder().serializeNulls().create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://localhost:5001/")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+
+        serviceAPI = retrofit.create(ServiceAPI.class);
+
+        Advertiser advertiser = new Advertiser(null, advertiserReceived.getNomEntreprise(), advertiserReceived.getAdresse(), advertiserReceived.getNumeroTel(), advertiserReceived.getMail(), advertiserReceived.getNumeroTVA(), null);
+        Call<Advertiser> call = serviceAPI.patchPost(advertiserReceived.getNomEntreprise(), advertiser);
+        call.enqueue(new Callback<Advertiser>() {
+            @Override
+            public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
+                if (!response.isSuccessful()) {
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Advertiser> call, Throwable t) {
+            }
+        });
     }
 
     private ArrayList<Advertiser>jsonToAdvertisers(String stringJSON) throws Exception{
