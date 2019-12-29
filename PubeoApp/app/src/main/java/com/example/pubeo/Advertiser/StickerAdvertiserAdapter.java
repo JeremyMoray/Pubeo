@@ -1,5 +1,6 @@
 package com.example.pubeo.Advertiser;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvertiserAdapter.StickerAdvertiserHolder> implements Filterable {
 
-    private List<Sticker> stickersList = new ArrayList<>();
+    private List<Sticker> stickersList;
     private List<Sticker> stickersListFull;
     private OnItemClickListener listener;
 

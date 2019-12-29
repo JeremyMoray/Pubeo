@@ -1,6 +1,8 @@
 package com.example.pubeo.model;
 
-public class Sticker {
+import java.io.Serializable;
+
+public class Sticker implements Serializable {
     private String id;
     private String title;
     private String description;

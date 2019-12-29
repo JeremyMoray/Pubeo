@@ -3,6 +3,7 @@ package com.example.pubeo.Advertiser.ui.home;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pubeo.Advertiser.AddEditStickerActivity;
 import com.example.pubeo.R;
+import com.example.pubeo.model.Advertiser;
 import com.example.pubeo.model.Sticker;
 import com.example.pubeo.Advertiser.StickerAdvertiserAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -39,6 +41,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        Advertiser advertiser = (Advertiser) getActivity().getIntent().getSerializableExtra("Advertiser");
+        homeViewModel.setAdvertiser(advertiser);
 
         SearchView searchView;
 

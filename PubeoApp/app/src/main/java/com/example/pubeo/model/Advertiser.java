@@ -1,9 +1,10 @@
 package com.example.pubeo.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Advertiser {
+public class Advertiser implements Serializable {
 
     private String id;
     private String nomEntreprise;
@@ -13,14 +14,14 @@ public class Advertiser {
     private String numeroTVA;
     private List<Sticker> stickers;
 
-    public Advertiser(String id, String nomEntreprise, String adresse, String numeroTel, String mail, String numeroTVA) {
+    public Advertiser(String id, String nomEntreprise, String adresse, String numeroTel, String mail, String numeroTVA, List<Sticker> stickers) {
         this.id = id;
         this.nomEntreprise = nomEntreprise;
         this.adresse = adresse;
         this.numeroTel = numeroTel;
         this.mail = mail;
         this.numeroTVA = numeroTVA;
-        stickers = new ArrayList<>();
+        this.stickers = stickers;
     }
 
     public String getId() {
@@ -45,5 +46,9 @@ public class Advertiser {
 
     public String getNumeroTVA() {
         return numeroTVA;
+    }
+
+    public List<Sticker> getStickers() {
+        return stickers;
     }
 }

@@ -1,6 +1,9 @@
 package com.example.pubeo.DAO;
 
+import android.util.Log;
+
 import com.example.pubeo.model.Advertiser;
+import com.example.pubeo.model.Sticker;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -42,16 +45,38 @@ public class AdvertiserDAO {
         JSONArray jsonArray = new JSONArray(stringJSON);
         for(int i = 0; i < jsonArray.length(); i++){
             JSONObject jsonAdvertiser = jsonArray.getJSONObject(i);
+
+            JSONArray ja = jsonAdvertiser.getJSONArray("stickers");
+            int len = ja.length();
+
+            ArrayList<Sticker> stickers = new ArrayList<>();
+
+            for(int j=0; j<len; j++) {
+                JSONObject jsonStickers = ja.getJSONObject(j);
+                stickers.add(
+                        new Sticker(
+                            jsonStickers.getString("id"),
+                            jsonStickers.getString("titre"),
+                            jsonStickers.getString("description"),
+                            jsonStickers.getInt("hauteur"),
+                            jsonStickers.getInt("largeur"),
+                            jsonStickers.getInt("nbUtilisationsRestantes")
+                        )
+                );
+            }
+
             advertiser = new Advertiser(
                     jsonAdvertiser.getString("id"),
                     jsonAdvertiser.getString("nomEntreprise"),
                     jsonAdvertiser.getString("adresse"),
                     jsonAdvertiser.getString("numeroTel"),
                     jsonAdvertiser.getString("mail"),
-                    jsonAdvertiser.getString("numeroTVA")
+                    jsonAdvertiser.getString("numeroTVA"),
+                    stickers
             );
             advertisers.add(advertiser);
         }
+
         return advertisers;
     }
 
