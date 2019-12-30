@@ -1,5 +1,7 @@
 package com.example.pubeo.Advertiser.ui.companyProfile;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -23,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.pubeo.Advertiser.AdvertiserSignInActivity;
 import com.example.pubeo.DAO.AdvertiserDAO;
+import com.example.pubeo.MainActivity;
 import com.example.pubeo.R;
 import com.example.pubeo.Service.ServiceAPI;
 import com.example.pubeo.model.Advertiser;
@@ -47,6 +51,7 @@ public class CompanyProfileFragment extends Fragment {
     private EditText companyProfileAddressField;
     private EditText mailAdvertiserProfileField;
     private Button saveProfileAdvertiserButton;
+    private TextView deleteProfileAdvertiserTextView;
     private String originalName;
     private Advertiser advertiser;
 
@@ -72,6 +77,7 @@ public class CompanyProfileFragment extends Fragment {
         companyProfileAddressField = root.findViewById(R.id.companyProfileAddressField);
         mailAdvertiserProfileField = root.findViewById(R.id.mailAdvertiserProfileField);
         saveProfileAdvertiserButton = root.findViewById(R.id.saveProfileAdvertiserButton);
+        deleteProfileAdvertiserTextView = root.findViewById(R.id.deleteProfileAdvertiserTextView);
 
         advertiser = (Advertiser) getActivity().getIntent().getSerializableExtra("Advertiser");
         companyProfileViewModel.setAdvertiser(advertiser);
@@ -95,6 +101,37 @@ public class CompanyProfileFragment extends Fragment {
                         advertiser.getStickers()
                 );
                 updateAdvertiser(newAdvertiser);
+            }
+        });
+
+        deleteProfileAdvertiserTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(getContext())
+                        .setMessage(R.string.deleteProfileConfirm)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                AdvertiserDAO advertiserDAO = new AdvertiserDAO();
+                                try{
+                                    if(advertiserDAO.deleteAdvertiser(advertiser.getId())){
+                                        Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                    }
+                                }
+                                catch (Exception e){
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                            }
+                        })
+                        .create()
+                        .show();
             }
         });
 

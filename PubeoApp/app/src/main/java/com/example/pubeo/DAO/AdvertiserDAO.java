@@ -1,7 +1,9 @@
 package com.example.pubeo.DAO;
 
+import android.content.Intent;
 import android.util.Log;
 
+import com.example.pubeo.MainActivity;
 import com.example.pubeo.Service.ServiceAPI;
 import com.example.pubeo.model.Advertiser;
 import com.example.pubeo.model.Sticker;
@@ -38,6 +40,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AdvertiserDAO {
     private ServiceAPI serviceAPI;
+    private Gson gson = new GsonBuilder().serializeNulls().create();
+
+    private Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("https://10.0.2.2:5001/")
+            .client(getUnsafeOkHttpClient())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build();
+
     public ArrayList<Advertiser> getAllAdvertisers() throws Exception {
         disableSSLCertificateChecking();
         URL url = new URL("https://10.0.2.2:5001/Professionnels");
@@ -55,19 +65,11 @@ public class AdvertiserDAO {
 
     public void updateAdvertiser(Advertiser advertiserReceived) throws Exception{
         disableSSLCertificateChecking();
-        Gson gson = new GsonBuilder().serializeNulls().create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://10.0.2.2:5001/")
-                .client(getUnsafeOkHttpClient())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
 
         serviceAPI = retrofit.create(ServiceAPI.class);
 
         Advertiser advertiser = new Advertiser(advertiserReceived.getId(), advertiserReceived.getNomEntreprise(), advertiserReceived.getAdresse(), advertiserReceived.getNumeroTel(), advertiserReceived.getMail(), advertiserReceived.getNumeroTVA(), advertiserReceived.getStickers());
-        Call<Advertiser> call = serviceAPI.patchPost(advertiserReceived.getId(), advertiser);
+        Call<Advertiser> call = serviceAPI.putAdvertiser(advertiserReceived.getId(), advertiser);
         call.enqueue(new Callback<Advertiser>() {
             @Override
             public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
@@ -80,6 +82,28 @@ public class AdvertiserDAO {
             public void onFailure(Call<Advertiser> call, Throwable t) {
             }
         });
+    }
+
+    public boolean deleteAdvertiser(String id) throws Exception{
+        disableSSLCertificateChecking();
+
+        serviceAPI = retrofit.create(ServiceAPI.class);
+
+        Call<Advertiser> call = serviceAPI.deleteAdvertiser(id);
+        call.enqueue(new Callback<Advertiser>() {
+            @Override
+            public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
+                if (!response.isSuccessful()) {
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Advertiser> call, Throwable t) {
+            }
+        });
+
+        return true;
     }
 
     private ArrayList<Advertiser>jsonToAdvertisers(String stringJSON) throws Exception{
