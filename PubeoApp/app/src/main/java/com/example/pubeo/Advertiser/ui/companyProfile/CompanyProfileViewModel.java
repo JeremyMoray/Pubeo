@@ -13,7 +13,7 @@ public class CompanyProfileViewModel extends ViewModel {
 
     public CompanyProfileViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("JDoe24");
+        mText.setValue("Profil");
     }
     public void setAdvertiser(Advertiser advertiser){
         this.advertiser.setValue(advertiser);

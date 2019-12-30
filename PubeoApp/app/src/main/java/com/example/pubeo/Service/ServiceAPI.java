@@ -8,6 +8,6 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ServiceAPI {
-    @PUT("Professionnels/{nomEntreprise}")
-    Call<Advertiser> patchPost(@Path("nomEntreprise") String nomEntreprise, @Body Advertiser advertiser);
+    @PUT("Professionnels/{id}")
+    Call<Advertiser> patchPost(@Path("id") String id, @Body Advertiser advertiser);
 }

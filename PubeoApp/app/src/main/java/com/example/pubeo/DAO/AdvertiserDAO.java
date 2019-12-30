@@ -66,8 +66,8 @@ public class AdvertiserDAO {
 
         serviceAPI = retrofit.create(ServiceAPI.class);
 
-        Advertiser advertiser = new Advertiser(null, advertiserReceived.getNomEntreprise(), advertiserReceived.getAdresse(), advertiserReceived.getNumeroTel(), advertiserReceived.getMail(), advertiserReceived.getNumeroTVA(), null);
-        Call<Advertiser> call = serviceAPI.patchPost(advertiserReceived.getNomEntreprise(), advertiser);
+        Advertiser advertiser = new Advertiser(advertiserReceived.getId(), advertiserReceived.getNomEntreprise(), advertiserReceived.getAdresse(), advertiserReceived.getNumeroTel(), advertiserReceived.getMail(), advertiserReceived.getNumeroTVA(), advertiserReceived.getStickers());
+        Call<Advertiser> call = serviceAPI.patchPost(advertiserReceived.getId(), advertiser);
         call.enqueue(new Callback<Advertiser>() {
             @Override
             public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {

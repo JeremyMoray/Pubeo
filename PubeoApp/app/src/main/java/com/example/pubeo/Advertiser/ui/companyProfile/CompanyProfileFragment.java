@@ -47,6 +47,8 @@ public class CompanyProfileFragment extends Fragment {
     private EditText companyProfileAddressField;
     private EditText mailAdvertiserProfileField;
     private Button saveProfileAdvertiserButton;
+    private String originalName;
+    private Advertiser advertiser;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -71,7 +73,7 @@ public class CompanyProfileFragment extends Fragment {
         mailAdvertiserProfileField = root.findViewById(R.id.mailAdvertiserProfileField);
         saveProfileAdvertiserButton = root.findViewById(R.id.saveProfileAdvertiserButton);
 
-        Advertiser advertiser = (Advertiser) getActivity().getIntent().getSerializableExtra("Advertiser");
+        advertiser = (Advertiser) getActivity().getIntent().getSerializableExtra("Advertiser");
         companyProfileViewModel.setAdvertiser(advertiser);
 
         companyProfileNameField.setText(advertiser.getNomEntreprise());
@@ -83,7 +85,16 @@ public class CompanyProfileFragment extends Fragment {
         saveProfileAdvertiserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateAdvertiser(advertiser);
+                Advertiser newAdvertiser = new Advertiser(
+                        advertiser.getId(),
+                        companyProfileNameField.getText().toString(),
+                        companyProfileAddressField.getText().toString(),
+                        companyProfilePhoneField.getText().toString(),
+                        mailAdvertiserProfileField.getText().toString(),
+                        companyProfileVATField.getText().toString(),
+                        advertiser.getStickers()
+                );
+                updateAdvertiser(newAdvertiser);
             }
         });
 
