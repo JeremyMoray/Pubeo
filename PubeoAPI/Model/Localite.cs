@@ -11,6 +11,7 @@ namespace PubeoAPI.model {
         }
         [Key]
         public String CodePostal { get; set; }
+        [Required]
         public String Ville { get; set; }
         public virtual ICollection<Particulier> Particuliers { get; set; }
         public virtual ICollection<Professionnel> Professionnels { get; set; }

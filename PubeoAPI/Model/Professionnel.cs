@@ -14,15 +14,21 @@ namespace PubeoAPI.model {
         public Guid Id { get; set; }
 
         [StringLength(100)]
+        [Required(AllowEmptyStrings = false)]
         public String NomEntreprise { get; set; }
 
         [StringLength(300)]
+        [Required(AllowEmptyStrings = false)]
         public String Adresse { get; set; }
+        [Required(AllowEmptyStrings = false)]
         public String NumeroTel { get; set; }
+        [Required(AllowEmptyStrings = false)]
         public String MotDePasse { get; set; }
 
         [StringLength(100)]
+        [Required(AllowEmptyStrings = false)]
         public String Mail { get; set; }
+        [Required(AllowEmptyStrings = false)]
         public String NumeroTVA { get; set; }
         public String LocaliteCode { get; set; }
 

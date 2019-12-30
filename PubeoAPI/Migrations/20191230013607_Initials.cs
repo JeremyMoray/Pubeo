@@ -12,7 +12,7 @@ namespace PubeoAPI.Migrations
                 columns: table => new
                 {
                     CodePostal = table.Column<string>(nullable: false),
-                    Ville = table.Column<string>(nullable: true)
+                    Ville = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,13 +36,13 @@ namespace PubeoAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Nom = table.Column<string>(maxLength: 100, nullable: true),
-                    Prenom = table.Column<string>(maxLength: 100, nullable: true),
-                    Adresse = table.Column<string>(maxLength: 300, nullable: true),
-                    Pseudo = table.Column<string>(maxLength: 100, nullable: true),
+                    Nom = table.Column<string>(maxLength: 100, nullable: false),
+                    Prenom = table.Column<string>(maxLength: 100, nullable: false),
+                    Adresse = table.Column<string>(maxLength: 300, nullable: false),
+                    Pseudo = table.Column<string>(maxLength: 100, nullable: false),
                     DateNaissance = table.Column<DateTime>(nullable: false),
-                    NumeroTel = table.Column<string>(nullable: true),
-                    Mail = table.Column<string>(maxLength: 100, nullable: true),
+                    NumeroTel = table.Column<string>(nullable: false),
+                    Mail = table.Column<string>(maxLength: 100, nullable: false),
                     LocaliteCode = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -61,12 +61,12 @@ namespace PubeoAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    NomEntreprise = table.Column<string>(maxLength: 100, nullable: true),
-                    Adresse = table.Column<string>(maxLength: 300, nullable: true),
-                    NumeroTel = table.Column<string>(nullable: true),
-                    MotDePasse = table.Column<string>(nullable: true),
-                    Mail = table.Column<string>(maxLength: 100, nullable: true),
-                    NumeroTVA = table.Column<string>(nullable: true),
+                    NomEntreprise = table.Column<string>(maxLength: 100, nullable: false),
+                    Adresse = table.Column<string>(maxLength: 300, nullable: false),
+                    NumeroTel = table.Column<string>(nullable: false),
+                    MotDePasse = table.Column<string>(nullable: false),
+                    Mail = table.Column<string>(maxLength: 100, nullable: false),
+                    NumeroTVA = table.Column<string>(nullable: false),
                     LocaliteCode = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -111,7 +111,7 @@ namespace PubeoAPI.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Titre = table.Column<string>(nullable: true),
+                    Titre = table.Column<string>(nullable: false),
                     Description = table.Column<string>(maxLength: 300, nullable: true),
                     Hauteur = table.Column<int>(nullable: false),
                     Largeur = table.Column<int>(nullable: false),

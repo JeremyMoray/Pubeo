@@ -11,12 +11,16 @@ namespace PubeoAPI.model {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id {get; set; }
+        [Required(AllowEmptyStrings = false)]
         public String Titre { get; set; }
 
         [StringLength(300)]
         public String Description { get; set; }
+        [Required]
         public int Hauteur { get; set; }
+        [Required]
         public int Largeur { get; set; }
+        [Required]
         public int NbUtilisationsRestantes { get; set; } 
         public Guid ProfessionnelId { get; set; }
 
