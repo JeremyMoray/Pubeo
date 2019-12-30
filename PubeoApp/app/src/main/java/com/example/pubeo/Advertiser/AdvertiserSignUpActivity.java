@@ -100,6 +100,8 @@ public class AdvertiserSignUpActivity extends AppCompatActivity {
 
         if (isValid) {
             Intent intent = new Intent(this, CompanyInformationsActivity.class);
+            intent.putExtra("mail", mailAdvertiserSignUpField.getEditText().getText().toString());
+            intent.putExtra("password", passwordAdvertiserSignUpField.getEditText().getText().toString());
             startActivity(intent);
         }
     }

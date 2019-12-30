@@ -63,6 +63,26 @@ public class AdvertiserDAO {
         return jsonToAdvertisers(stringJSON);
     }
 
+    public void addAdvertiser(Advertiser advertiserReceived) throws Exception{
+        disableSSLCertificateChecking();
+
+        serviceAPI = retrofit.create(ServiceAPI.class);
+
+        Call<Advertiser> call = serviceAPI.addAdvertiser(advertiserReceived);
+        call.enqueue(new Callback<Advertiser>() {
+            @Override
+            public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
+                if (!response.isSuccessful()) {
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Advertiser> call, Throwable t) {
+            }
+        });
+    }
+
     public void updateAdvertiser(Advertiser advertiserReceived) throws Exception{
         disableSSLCertificateChecking();
 

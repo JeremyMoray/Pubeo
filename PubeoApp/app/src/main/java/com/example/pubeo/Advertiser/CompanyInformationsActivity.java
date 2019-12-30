@@ -16,13 +16,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.pubeo.DAO.AdvertiserDAO;
 import com.example.pubeo.R;
+import com.example.pubeo.model.Advertiser;
+import com.example.pubeo.model.Sticker;
 import com.example.pubeo.tools.validation.ValidationTextWatcher;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +47,10 @@ public class CompanyInformationsActivity extends AppCompatActivity {
     private ImageView companyLogoId;
     private Uri imageUrl;
 
+    private String mail;
+    private String password;
+    private Advertiser advertiser;
+
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String IMAGEPATH = "imagePath";
 
@@ -52,6 +60,9 @@ public class CompanyInformationsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_company_informations);
 
         ButterKnife.bind(this);
+
+        mail = getIntent().getStringExtra("mail");
+        password = getIntent().getStringExtra("password");
 
         companyPhoneField.setTag(PHONENUMBER_TAG);
 
@@ -158,7 +169,25 @@ public class CompanyInformationsActivity extends AppCompatActivity {
 
             editor.apply();
 
+            AdvertiserDAO advertiserDAO = new AdvertiserDAO();
+            try{
+                 advertiser = new Advertiser(
+                        null,
+                        companyNameField.getEditText().getText().toString(),
+                        companyAddressField.getEditText().getText().toString(),
+                        companyPhoneField.getEditText().getText().toString(),
+                        mail,
+                        companyVATField.getEditText().getText().toString(),
+                        new ArrayList<>()
+                );
+                advertiserDAO.addAdvertiser(advertiser);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+
             Intent intent = new Intent(this, HomeActivity.class);
+            intent.putExtra("Advertiser", advertiser);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
