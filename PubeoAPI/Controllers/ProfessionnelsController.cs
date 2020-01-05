@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,26 +20,38 @@ namespace PubeoAPI.Controllers {
             _context = context;
         }
 
-        // GET : api/Professionnels
+        // GET : /Professionnels
         [HttpGet]
-        public async Task<IEnumerable<ProfessionnelsDTO>> GetProfessionnels()
+        public IEnumerable<ProfessionnelsDTO> GetProfessionnels()
         {
             var professionnels = new HashSet<ProfessionnelsDTO>();
-            foreach(var professionnel in _context.Professionnels){
-                professionnels.Add(new ProfessionnelsDTO{
+            foreach (var professionnel in _context.Professionnels)
+            {
+                professionnels.Add(new ProfessionnelsDTO
+                {
                     Id = professionnel.Id,
                     NomEntreprise = professionnel.NomEntreprise,
                     Adresse = professionnel.Adresse,
                     NumeroTel = professionnel.NumeroTel,
                     Mail = professionnel.Mail,
                     NumeroTVA = professionnel.NumeroTVA,
-                    Stickers = await GetStickersDTOs(professionnel)
+                    Stickers = GetStickersDTOs(professionnel)
                 });
             }
             return professionnels;
         }
 
-        // GET : api/Professionnels/{companyname}
+        // GET : /Professionels/AllProfessionnels
+        [Route("AllProfessionnels")]
+        public IEnumerable<Professionnel> GetAllProfessionnels()
+        {
+            var professionnels = _context.Professionnels
+                                        .Include(x => x.Stickers).ToList();
+
+            return professionnels;
+        }
+
+        // GET : /Professionnels/{companyname}
         [HttpGet("{nomentreprise}")]
         public async Task<IActionResult> GetProfessionnelByCompanyName([FromRoute] string nomentreprise)
         {
@@ -55,25 +68,21 @@ namespace PubeoAPI.Controllers {
             else 
             {
                 var user = new ProfessionnelsDTO{
-                NomEntreprise = nomentreprise,
-                Id = professionnel.Id
+                    NomEntreprise = nomentreprise,
+                    Id = professionnel.Id
                 };
-                if (professionnel.Adresse != null)
-                    user.Adresse = professionnel.Adresse;
-                if (professionnel.NumeroTel != null)
-                    user.NumeroTel = professionnel.NumeroTel;
-                if (professionnel.Mail != null)
-                    user.Mail = professionnel.Mail;
-                if (professionnel.NumeroTVA != null)
-                    user.NumeroTVA = professionnel.NumeroTVA;
+                if (professionnel.Adresse != null) user.Adresse = professionnel.Adresse;
+                if (professionnel.NumeroTel != null) user.NumeroTel = professionnel.NumeroTel;
+                if (professionnel.Mail != null) user.Mail = professionnel.Mail;
+                if (professionnel.NumeroTVA != null) user.NumeroTVA = professionnel.NumeroTVA;
 
-                user.Stickers = await GetStickersDTOs(professionnel);
+                user.Stickers = GetStickersDTOs(professionnel);
 
                 return Ok(professionnel);
             }
         }
 
-        // PUT: api/professionnels/{nomentreprise}
+        // PUT: /professionnels/{nomentreprise}
         [HttpPut("{nomentreprise}")]
         public async Task<IActionResult> PutProfessionnels([FromRoute] string nomentreprise, [FromBody] Professionnel professionnel)
         {
@@ -94,12 +103,17 @@ namespace PubeoAPI.Controllers {
             }
             catch (DbUpdateConcurrencyException)
             {
-                throw;
+                if(!ProfessionnelExists(nomentreprise))
+                    return NotFound();
+                else {
+                    throw;
+                }
+
             }
             return NoContent();
         }
 
-        //POST: api/Professionnels
+        //POST: /Professionnels
         [HttpPost]
         public async Task<IActionResult> PostProfessionnels([FromBody] Professionnel professionnel)
         {
@@ -111,10 +125,10 @@ namespace PubeoAPI.Controllers {
             await _context.Professionnels.AddAsync(professionnel);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProfessionnel", new { id = professionnel.Id }, professionnel);
+            return CreatedAtAction("GetProfessionnels", new { id = professionnel.Id }, professionnel);
         }
 
-        //DELETE: api/Professionnels/{id}
+        //DELETE: /Professionnels/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProfessionnels([FromRoute] Guid id)
         {
@@ -134,10 +148,16 @@ namespace PubeoAPI.Controllers {
             return Ok(user);
         }
 
+        private bool ProfessionnelExists(string nomentreprise)
+        {
+            return _context.Professionnels.Any(p => p.NomEntreprise.Equals(nomentreprise));
+        }
+
         private Professionnel Modification(Professionnel initialPro, Professionnel targetPro){
             var retour = initialPro;
             if(targetPro.NomEntreprise != null) retour.NomEntreprise = targetPro.NomEntreprise;
             if(targetPro.Adresse != null) retour.Adresse = targetPro.Adresse;
+            if(targetPro.MotDePasse != null) retour.MotDePasse = targetPro.MotDePasse;
             if(targetPro.NumeroTel != null) retour.NumeroTel = targetPro.NumeroTel;
             if(targetPro.Mail != null) retour.Mail = targetPro.Mail;
             if(targetPro.NumeroTVA != null) retour.NumeroTVA = targetPro.NumeroTVA;
@@ -147,17 +167,23 @@ namespace PubeoAPI.Controllers {
             return retour;
         }
 
-        private async Task<ICollection<StickersDTO>> GetStickersDTOs(Professionnel professionnel){
+        private ICollection<StickersDTO> GetStickersDTOs(Professionnel professionnel)
+        {
             var stickers = new HashSet<StickersDTO>();
-            foreach(var sticker in _context.Stickers){
-                if(sticker.Id!=null && sticker.Id.Equals(professionnel.Id)){
-                    var stickerDTO = new StickersDTO();
-                    stickerDTO.Id = sticker.Id;
-                    stickerDTO.Titre = sticker.Titre;
-                    stickerDTO.Description = sticker.Description;
-                    stickerDTO.NbUtilisationsRestantes = sticker.NbUtilisationsRestantes;
-                    stickerDTO.Hauteur = sticker.Hauteur;
-                    stickerDTO.Largeur = sticker.Largeur;
+            foreach (var sticker in _context.Stickers)
+            {
+                if (sticker.Id != null && sticker.ProfessionnelId.Equals(professionnel.Id))
+                {
+                    var stickerDTO = new StickersDTO()
+                    {
+                        Id = sticker.Id,
+                        Titre = sticker.Titre,
+                        Description = sticker.Description,
+                        NbUtilisationsRestantes = sticker.NbUtilisationsRestantes,
+                        Hauteur = sticker.Hauteur,
+                        Largeur = sticker.Largeur,
+                        NomEntreprise = professionnel.NomEntreprise,
+                    };
                     stickers.Add(stickerDTO);
                 }
             }

@@ -56,20 +56,17 @@ namespace PubeoAPI.Controllers {
             return CreatedAtAction("GetSticker", new { id = sticker.Id }, sticker);
         }
 
-        // DELETE: /Stickers
-        [HttpDelete]
-        public async Task<IActionResult> DeleteSticker([FromBody] StickersDTO stickers)
+        // DELETE: /Stickers/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteSticker([FromRoute] Guid id)
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if(!ModelState.IsValid) return BadRequest(ModelState);
 
-            var sticker = await DeleteFromBond(stickers);
-            foreach(var remSticker in sticker)
-            {
-                _context.Stickers.Remove(remSticker);
+            var sticker = await _context.Stickers.SingleOrDefaultAsync(s => s.Id.Equals(id));
+            if (sticker == null) return NotFound();
 
-            }
+            _context.Stickers.Remove(sticker);
             await _context.SaveChangesAsync();
-
             return Ok(sticker);
         }
 
@@ -78,26 +75,17 @@ namespace PubeoAPI.Controllers {
             var stickerTemp = new Sticker();
             if(stickers.NomEntreprise != null)
             {
+                stickerTemp.Id = stickers.Id;
+                stickerTemp.Titre = stickers.Titre;
+                stickerTemp.Description = stickers.Description;
+                stickerTemp.Hauteur = stickers.Hauteur;
+                stickerTemp.Largeur = stickers.Largeur;
+                stickerTemp.NbUtilisationsRestantes = stickerTemp.NbUtilisationsRestantes;
                 var pro = await _context.Professionnels
                     .FirstOrDefaultAsync(p => p.NomEntreprise.Equals(stickers.NomEntreprise));
                 stickerTemp.ProfessionnelId = pro.Id;
             }
             return stickerTemp; 
-        }
-
-        private async Task<IEnumerable<Sticker>> DeleteFromBond(StickersDTO stickers)
-        {
-            var stickerTemp = new HashSet<Sticker>();
-            foreach(var sticker in _context.Stickers)
-            {
-                if(sticker.ProfessionnelId != null)
-                {
-                    var pro = await _context.Professionnels.FirstOrDefaultAsync(p => p.NomEntreprise.Equals(stickers.NomEntreprise));
-                    if(sticker.ProfessionnelId.Equals(pro.Id)) 
-                        stickerTemp.Add(sticker);
-                }
-            }
-            return stickerTemp;
         }
     }
 }
