@@ -27,4 +27,13 @@ export class PubeoService {
   addProfessional(professionelForm: Professionals){
     return this.http.post(this.apiUrl + "Professionnels", professionelForm);
   }
+
+  deleteProfessional(id){
+    return this.http.delete(this.apiUrl + "Professionnels/" + id);
+  }
+
+  updateProfessional(professionelForm: Professionals){
+    console.log(professionelForm);
+    return this.http.put(this.apiUrl + "Professionnels/" + professionelForm.nomEntreprise, professionelForm);
+  }
 }

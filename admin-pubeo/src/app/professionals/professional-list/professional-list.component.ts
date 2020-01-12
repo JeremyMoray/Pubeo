@@ -16,4 +16,12 @@ export class ProfessionalListComponent implements OnInit {
     return this.pubeoService.getAllProfessionals().subscribe(data => this.list = data);
   }
 
+  onDelete(id: string) {
+    if (confirm('Etes-vous sûr de vouloir supprimer cette ligne ?')) {
+      this.pubeoService.deleteProfessional(id).subscribe(res => {
+        window.location.reload();
+      });
+    }
+  }
+
 }
