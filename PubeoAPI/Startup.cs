@@ -22,9 +22,11 @@ namespace PubeoAPI
 {
     public class Startup
     {
+        private readonly SymmetricSecurityKey _signingKey;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetValue("SecretKey","")));
         }
 
         public IConfiguration Configuration { get; }
@@ -32,14 +34,13 @@ namespace PubeoAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string SecretKey = "JuucRDtdUZe0RgOGueGZ4f0RtWCc9Qbz";
 
-            SymmetricSecurityKey _signingKey = new SymmetricSecurityKey
-            (Encoding.ASCII.GetBytes(SecretKey));
+            var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
+
             services.Configure<JwtIssuerOptions>(options => 
             {
-                options.Issuer = "PubeoAPITokenServer";
-                options.Audience = "http://localhost:5000";
+                options.Issuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
+                options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
                 options.SigningCredentials = new SigningCredentials(_signingKey,
                 SecurityAlgorithms.HmacSha256);
             });
@@ -47,10 +48,10 @@ namespace PubeoAPI
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,
-                ValidIssuer = "PubeoAPITokenServer",
+                ValidIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)],
 
                 ValidateAudience = true,
-                ValidAudience = "http://localhost:5000",
+                ValidAudience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)],
 
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = _signingKey,
@@ -69,8 +70,8 @@ namespace PubeoAPI
                     })
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
                     {
-                        options.Audience = "http://localhost:5000";
-                        options.ClaimsIssuer = "PubeoAPITokenServer";
+                        options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
+                        options.ClaimsIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
                         options.TokenValidationParameters = tokenValidationParameters;
                         options.SaveToken = true;
                     });             

@@ -49,7 +49,8 @@ namespace PubeoAPI.Controllers {
         public IEnumerable<Professionnel> GetAllProfessionnels()
         {
             var professionnels = _context.Professionnels
-                                        .Include(x => x.Stickers).ToList();
+                                        .Include(x => x.Stickers)
+                                        .Include(x => x.Localite).ToList();
 
             return professionnels;
         }
