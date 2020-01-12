@@ -10,13 +10,13 @@ import { PubeoService } from 'src/app/shared/pubeo.service';
 })
 export class ProfessionalDetailsComponent implements OnInit {
 
-  Id;
+  nomEntreprise;
   professional: Professionals;
   constructor(private route:ActivatedRoute, private pubeoService: PubeoService) { }
 
   ngOnInit() {
-    this.Id= this.route.snapshot.paramMap.get('Id');
-    this.professional = this.pubeoService.getProfessionalById(this.Id);
+    this.nomEntreprise = this.route.snapshot.paramMap.get('nomEntreprise');
+    return this.pubeoService.getProfessionalByName(this.nomEntreprise).subscribe(data => this.professional = data);
   }
 
 }
