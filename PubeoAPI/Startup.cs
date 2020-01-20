@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using PubeoAPI.model;
 using PubeoAPI.Repository;
 using securityJWT.Options;
 
@@ -82,6 +84,12 @@ namespace PubeoAPI
             services.AddDbContext<PubeoAPIdbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("PubeoAppDB")));
 
+            /*
+            services.AddIdentity<Professionnel, IdentityRole>()
+                .AddEntityFrameworkStores<PubeoAPIdbContext>()
+                .AddDefaultTokenProviders();
+            */
+            
             services.AddControllers();
 
             services.AddMvc(option => option.EnableEndpointRouting = false)
@@ -102,6 +110,8 @@ namespace PubeoAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

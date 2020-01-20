@@ -83,7 +83,7 @@ namespace PubeoAPI.Controllers {
                 stickerTemp.Description = stickers.Description;
                 stickerTemp.Hauteur = stickers.Hauteur;
                 stickerTemp.Largeur = stickers.Largeur;
-                stickerTemp.NbUtilisationsRestantes = stickerTemp.NbUtilisationsRestantes;
+                stickerTemp.NbUtilisationsRestantes = stickers.NbUtilisationsRestantes;
                 var pro = await _context.Professionnels
                     .FirstOrDefaultAsync(p => p.NomEntreprise.Equals(stickers.NomEntreprise));
                 stickerTemp.ProfessionnelId = pro.Id;
