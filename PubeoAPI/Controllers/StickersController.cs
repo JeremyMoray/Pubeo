@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PubeoAPI.DTO;
@@ -9,6 +11,7 @@ using PubeoAPI.model;
 
 namespace PubeoAPI.Controllers {
 
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("[controller]")]
     public class StickersController : ControllerBase
@@ -80,7 +83,7 @@ namespace PubeoAPI.Controllers {
                 stickerTemp.Description = stickers.Description;
                 stickerTemp.Hauteur = stickers.Hauteur;
                 stickerTemp.Largeur = stickers.Largeur;
-                stickerTemp.NbUtilisationsRestantes = stickerTemp.NbUtilisationsRestantes;
+                stickerTemp.NbUtilisationsRestantes = stickers.NbUtilisationsRestantes;
                 var pro = await _context.Professionnels
                     .FirstOrDefaultAsync(p => p.NomEntreprise.Equals(stickers.NomEntreprise));
                 stickerTemp.ProfessionnelId = pro.Id;

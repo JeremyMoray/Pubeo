@@ -2,13 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PubeoAPI.DTO;
 using PubeoAPI.model;
+using Scrypt;
 
 namespace PubeoAPI.Controllers {
 
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("[controller]")]
     public class ProfessionnelsController : ControllerBase
@@ -46,7 +50,8 @@ namespace PubeoAPI.Controllers {
         public IEnumerable<Professionnel> GetAllProfessionnels()
         {
             var professionnels = _context.Professionnels
-                                        .Include(x => x.Stickers).ToList();
+                                        .Include(x => x.Stickers)
+                                        .Include(x => x.Localite).ToList();
 
             return professionnels;
         }
@@ -117,15 +122,26 @@ namespace PubeoAPI.Controllers {
         [HttpPost]
         public async Task<IActionResult> PostProfessionnels([FromBody] Professionnel professionnel)
         {
+            ScryptEncoder encoder = new ScryptEncoder();
+
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            await _context.Professionnels.AddAsync(professionnel);
+            var pro = new Professionnel{
+                NomEntreprise = professionnel.NomEntreprise,
+                Mail = professionnel.Mail,
+                Adresse = professionnel.Adresse,
+                NumeroTel = professionnel.NumeroTel,
+                MotDePasse = encoder.Encode(professionnel.MotDePasse),
+                NumeroTVA = professionnel.NumeroTVA,
+                LocaliteCode = professionnel?.LocaliteCode
+            };
+            await _context.Professionnels.AddAsync(pro);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProfessionnels", new { id = professionnel.Id }, professionnel);
+            return CreatedAtAction("GetProfessionnels", new { id = pro.Id }, pro);
         }
 
         //DELETE: /Professionnels/{id}
@@ -154,10 +170,11 @@ namespace PubeoAPI.Controllers {
         }
 
         private Professionnel Modification(Professionnel initialPro, Professionnel targetPro){
+            ScryptEncoder encoder = new ScryptEncoder();
             var retour = initialPro;
             if(targetPro.NomEntreprise != null) retour.NomEntreprise = targetPro.NomEntreprise;
             if(targetPro.Adresse != null) retour.Adresse = targetPro.Adresse;
-            if(targetPro.MotDePasse != null) retour.MotDePasse = targetPro.MotDePasse;
+            if(targetPro.MotDePasse != null) retour.MotDePasse = encoder.Encode(targetPro.MotDePasse);
             if(targetPro.NumeroTel != null) retour.NumeroTel = targetPro.NumeroTel;
             if(targetPro.Mail != null) retour.Mail = targetPro.Mail;
             if(targetPro.NumeroTVA != null) retour.NumeroTVA = targetPro.NumeroTVA;
