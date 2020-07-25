@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
+using PubeoAPI.model;
 
 namespace PubeoAPI.DTO {
 
-    public class StickersDTO
+    public class StickersDetailsDTO
     {
         public Guid Id { get; set; }
         public String Titre { get; set; }
@@ -10,6 +12,7 @@ namespace PubeoAPI.DTO {
         public int Hauteur { get; set; }
         public int Largeur { get; set; }
         public int NbUtilisationsRestantes { get; set; }
-        public Guid ProfessionnelId { get; set; }
+        public ProfessionnelsSimpleDTO Professionnel { get; set; }   
+        public ICollection<Participation> Participations { get; set; } 
     }
 }

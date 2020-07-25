@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -28,8 +27,9 @@ namespace PubeoAPI.Controllers {
 
         // GET: /Stickers
         [HttpGet]
-        public IEnumerable<Sticker> GetAll(){
-            return _context.Stickers;
+        public IEnumerable<StickersDTO> GetAll(){
+            var stickersDetails = _context.Stickers;
+            return mapper.Map<List<StickersDTO>> (stickersDetails);
         }
 
 
@@ -37,61 +37,90 @@ namespace PubeoAPI.Controllers {
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSticker([FromRoute] Guid id)
         {
-            if(!ModelState.IsValid) return BadRequest(ModelState);
+            if(!ModelState.IsValid) 
+                return BadRequest(ModelState);
 
-            var sticker = await _context.Stickers.SingleOrDefaultAsync(s => s.Id == id);
+            var sticker = await _context.Stickers
+                .Include(x => x.Professionnel)
+                    .ThenInclude(x => x.Localite)
+                .Include(x => x.Participations)
+                .SingleOrDefaultAsync(s => s.Id == id);
 
-            if(sticker == null) return NotFound();
+            if(sticker == null) 
+                return NotFound();
 
-            return Ok(sticker);
+            return Ok(mapper.Map<StickersDetailsDTO> (sticker));
         }
 
         // POST: /Stickers
         [HttpPost]
-        public async Task<IActionResult> PostSticker([FromBody] StickersDTO stickers)
+        public async Task<IActionResult> Create([FromBody] Sticker sticker)
         {
             if(!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
-            var sticker = await BondToProfessionnel(stickers);
-            await _context.Stickers.AddAsync(sticker);
+            if(!await _context.Professionnels.AnyAsync(x => x.Id == sticker.ProfessionnelId))
+                return NotFound();
+
+            var validSticker = new Sticker{
+                Titre = sticker.Titre,
+                Description = sticker.Description,
+                Hauteur = sticker.Hauteur,
+                Largeur = sticker.Largeur,
+                NbUtilisationsRestantes = sticker.NbUtilisationsRestantes,
+                ProfessionnelId = sticker.ProfessionnelId
+            };
+            
+            await _context.Stickers.AddAsync(validSticker);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAll", new { id = sticker.Id }, sticker);
+            return CreatedAtAction("GetSticker", new { id = validSticker.Id }, validSticker);
+        }
+
+        // PUT: /Stickers/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] Sticker sticker)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if(!await _context.Professionnels.AnyAsync(x => x.Id == sticker.ProfessionnelId))
+                return NotFound();
+
+            var initialSticker = await _context.Stickers.SingleOrDefaultAsync(x => x.Id == id);
+
+            initialSticker = Modification(initialSticker, sticker);
+            _context.Entry(initialSticker).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
         }
 
         // DELETE: /Stickers/{id}
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSticker([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            if(!ModelState.IsValid) return BadRequest(ModelState);
+            if(!ModelState.IsValid) 
+                return BadRequest(ModelState);
 
             var sticker = await _context.Stickers.SingleOrDefaultAsync(s => s.Id.Equals(id));
-            if (sticker == null) return NotFound();
+            if (sticker == null) 
+                return NotFound();
 
             _context.Stickers.Remove(sticker);
             await _context.SaveChangesAsync();
-            return Ok(sticker);
+            return Ok();
         }
 
-        private async Task<Sticker> BondToProfessionnel(StickersDTO stickers)
-        {
-            var stickerTemp = new Sticker();
-            if(stickers.NomEntreprise != null)
-            {
-                stickerTemp.Id = stickers.Id;
-                stickerTemp.Titre = stickers.Titre;
-                stickerTemp.Description = stickers.Description;
-                stickerTemp.Hauteur = stickers.Hauteur;
-                stickerTemp.Largeur = stickers.Largeur;
-                stickerTemp.NbUtilisationsRestantes = stickers.NbUtilisationsRestantes;
-                var pro = await _context.Professionnels
-                    .FirstOrDefaultAsync(p => p.NomEntreprise.Equals(stickers.NomEntreprise));
-                stickerTemp.ProfessionnelId = pro.Id;
-            }
-            return stickerTemp; 
+        private Sticker Modification(Sticker initialSticker, Sticker targetSticker){
+            var retour = initialSticker;
+            retour.Titre = targetSticker.Titre;
+            if(targetSticker.Description != null) retour.Description = targetSticker.Description;
+            retour.Hauteur = targetSticker.Hauteur;
+            retour.Largeur = targetSticker.Largeur;
+            retour.NbUtilisationsRestantes = targetSticker.NbUtilisationsRestantes;
+            return retour;
         }
     }
 }

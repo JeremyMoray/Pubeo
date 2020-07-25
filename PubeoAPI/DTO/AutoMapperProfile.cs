@@ -10,8 +10,12 @@ namespace PubeoAPI.DTO {
             CreateMap<LocaliteDTO, Localite>();
             CreateMap<Professionnel, ProfessionnelsDTO>();
             CreateMap<ProfessionnelsDTO, Professionnel>();
+            CreateMap<Professionnel, ProfessionnelsSimpleDTO>();
+            CreateMap<ProfessionnelsSimpleDTO, Professionnel>();
             CreateMap<Sticker, StickersDTO>();
             CreateMap<StickersDTO, Sticker>();
+            CreateMap<Sticker, StickersDetailsDTO>();
+            CreateMap<StickersDetailsDTO, Sticker>();
         }
     }
 }
