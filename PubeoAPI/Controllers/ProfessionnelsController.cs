@@ -70,13 +70,14 @@ namespace PubeoAPI.Controllers {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if(professionnel == null)
-                return BadRequest();
-
             if(!ProfessionnelExists(id))
                     return NotFound();
+            
+            if(await _context.Professionnels.AnyAsync(x => x.Mail == professionnel.Mail && x.Id != id))
+                return Conflict();
 
             var user = await _context.Professionnels.SingleOrDefaultAsync(p => p.Id.Equals(id));
+
             user = Modification(user, professionnel);
             _context.Entry(user).State = EntityState.Modified;
 
@@ -92,9 +93,10 @@ namespace PubeoAPI.Controllers {
             ScryptEncoder encoder = new ScryptEncoder();
 
             if(!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
+
+            if(await _context.Professionnels.AnyAsync(x => x.Mail == professionnel.Mail))
+                return Conflict();
 
             var pro = new Professionnel{
                 NomEntreprise = professionnel.NomEntreprise,
