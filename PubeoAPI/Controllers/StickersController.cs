@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,15 +18,17 @@ namespace PubeoAPI.Controllers {
     public class StickersController : ControllerBase
     {
         private readonly PubeoAPIdbContext _context;
+        private readonly IMapper mapper;
 
-        public StickersController(PubeoAPIdbContext context)
+        public StickersController(PubeoAPIdbContext context, IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
         }
 
         // GET: /Stickers
         [HttpGet]
-        public IEnumerable<Sticker> GetStickers(){
+        public IEnumerable<Sticker> GetAll(){
             return _context.Stickers;
         }
 
@@ -56,7 +59,7 @@ namespace PubeoAPI.Controllers {
             await _context.Stickers.AddAsync(sticker);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetSticker", new { id = sticker.Id }, sticker);
+            return CreatedAtAction("GetAll", new { id = sticker.Id }, sticker);
         }
 
         // DELETE: /Stickers/{id}

@@ -73,7 +73,7 @@ namespace PubeoAPI.Controllers {
             if(!ProfessionnelExists(id))
                     return NotFound();
             
-            if(await _context.Professionnels.AnyAsync(x => x.Mail == professionnel.Mail && x.Id != id))
+            if(await _context.Professionnels.AnyAsync(x => (x.Mail == professionnel.Mail || x.NomEntreprise == professionnel.NomEntreprise) && x.Id != id))
                 return Conflict();
 
             var user = await _context.Professionnels.SingleOrDefaultAsync(p => p.Id.Equals(id));
@@ -95,7 +95,7 @@ namespace PubeoAPI.Controllers {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if(await _context.Professionnels.AnyAsync(x => x.Mail == professionnel.Mail))
+            if(await _context.Professionnels.AnyAsync(x => x.Mail == professionnel.Mail || x.NomEntreprise == professionnel.NomEntreprise))
                 return Conflict();
 
             var pro = new Professionnel{
@@ -118,19 +118,15 @@ namespace PubeoAPI.Controllers {
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             if(!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             var user = await _context.Professionnels.SingleOrDefaultAsync(p => p.Id.Equals(id));
             if (user == null)
-            {
                 return NotFound();
-            }
 
             _context.Professionnels.Remove(user);
             await _context.SaveChangesAsync();
-            return Ok(user);
+            return Ok();
         }
 
         private bool ProfessionnelExists(Guid id)
