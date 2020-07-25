@@ -13,7 +13,8 @@ namespace PubeoAPI.DTO {
         public String NumeroTel { get; set; }
         public String Mail { get; set; }
         public String NumeroTVA { get; set; }
-        
+
+        public LocaliteDTO Localite { get; set; }
         public ICollection<StickersDTO> Stickers { get; set; }
     }
 }

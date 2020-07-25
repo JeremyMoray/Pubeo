@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using PubeoAPI.model;
+using Scrypt;
 using securityJWT.Options;
 
 namespace PubeoAPI.Controllers
@@ -31,9 +32,10 @@ namespace PubeoAPI.Controllers
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
             var authProfessionnels = _context.Professionnels;
-            Professionnel professionnelFound = authProfessionnels.FirstOrDefault(pro => pro.Mail == loginDTO.Mail && pro.MotDePasse == loginDTO.MotDePasse);
+            ScryptEncoder encoder = new ScryptEncoder();
+            Professionnel professionnelFound = authProfessionnels.FirstOrDefault(pro => pro.Mail == loginDTO.Mail);
 
-            if(professionnelFound == null) {
+            if(professionnelFound == null || !encoder.Compare(loginDTO.MotDePasse, professionnelFound.MotDePasse)) {
                 return Unauthorized();
             }
             

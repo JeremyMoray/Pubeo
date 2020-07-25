@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jcalm\\Workspace\\GitHub\\Pubeo\\PubeoAPI\\PubeoAPI.csproj": {}
+    "C:\\Users\\Jeremy\\StudioProjects\\Pubeo\\PubeoAPI\\PubeoAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jcalm\\Workspace\\GitHub\\Pubeo\\PubeoAPI\\PubeoAPI.csproj": {
+    "C:\\Users\\Jeremy\\StudioProjects\\Pubeo\\PubeoAPI\\PubeoAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jcalm\\Workspace\\GitHub\\Pubeo\\PubeoAPI\\PubeoAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Jeremy\\StudioProjects\\Pubeo\\PubeoAPI\\PubeoAPI.csproj",
         "projectName": "PubeoAPI",
-        "projectPath": "C:\\Users\\jcalm\\Workspace\\GitHub\\Pubeo\\PubeoAPI\\PubeoAPI.csproj",
-        "packagesPath": "C:\\Users\\jcalm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jcalm\\Workspace\\GitHub\\Pubeo\\PubeoAPI\\obj\\",
+        "projectPath": "C:\\Users\\Jeremy\\StudioProjects\\Pubeo\\PubeoAPI\\PubeoAPI.csproj",
+        "packagesPath": "C:\\Users\\Jeremy\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Jeremy\\StudioProjects\\Pubeo\\PubeoAPI\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\jcalm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Jeremy\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -38,6 +41,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[3.1.0, )"
@@ -101,6 +108,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.2, 3.1.2]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -109,7 +122,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

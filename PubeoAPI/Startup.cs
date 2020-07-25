@@ -16,9 +16,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using PubeoAPI.DTO;
 using PubeoAPI.model;
 using PubeoAPI.Repository;
 using securityJWT.Options;
+using AutoMapper;
 
 namespace PubeoAPI
 {
@@ -36,7 +38,6 @@ namespace PubeoAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
 
             services.Configure<JwtIssuerOptions>(options => 
@@ -96,7 +97,8 @@ namespace PubeoAPI
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
-            services.AddTransient<ILocalRepository, LocalRepository>();        
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddTransient<ILocalRepository, LocalRepository>();       
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
