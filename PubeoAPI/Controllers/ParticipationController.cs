@@ -28,7 +28,7 @@ namespace PubeoAPI.Controllers {
 
         // GET: /Participation/GetAllStickersByParticulierId/{particulierrId}
         [HttpGet("GetAllStickersByParticulierId/{particulierrId}")]
-        public async Task<IActionResult> GetAllStickersByParticulierId([FromRoute] Guid particulierrId)
+        public async Task<IActionResult> GetAllStickersByParticulierId([FromRoute] Guid particulierId)
         {
             if(!ModelState.IsValid) 
                 return BadRequest(ModelState);
@@ -36,7 +36,7 @@ namespace PubeoAPI.Controllers {
             var particulier = await _context.Particuliers
                 .Include(x => x.Participations)
                     .ThenInclude(x => x.Sticker)
-                .SingleOrDefaultAsync(x => x.Id == particulierrId);
+                .SingleOrDefaultAsync(x => x.Id == particulierId);
             
             if(particulier == null) 
                 return NotFound();
