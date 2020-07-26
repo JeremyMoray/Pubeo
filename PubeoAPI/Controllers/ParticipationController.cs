@@ -67,5 +67,45 @@ namespace PubeoAPI.Controllers {
 
             return Ok(particuliers);
         }
+
+        // POST: /Participation
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] Participation participation)
+        {
+
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if(await _context.Participations.AnyAsync(x => x.ParticulierId == participation.ParticulierId && x.StickerId == participation.StickerId))
+                return Conflict();
+
+            if(!await _context.Particuliers.AnyAsync(x => x.Id == participation.ParticulierId) || !await _context.Stickers.AnyAsync(x => x.Id == participation.StickerId))
+                return NotFound();
+
+            var validParticipation = new Participation{
+                ParticulierId = participation.ParticulierId,
+                StickerId = participation.StickerId
+            };
+            await _context.Participations.AddAsync(validParticipation);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        // DELETE: /Participation/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var participation = await _context.Participations.SingleOrDefaultAsync(x => x.ParticipationId.Equals(id));
+            if (participation == null)
+                return NotFound();
+
+            _context.Participations.Remove(participation);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
