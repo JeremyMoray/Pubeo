@@ -29,13 +29,14 @@ namespace PubeoAPI.Controllers {
 
         // GET : /Professionnels
         [HttpGet]
-        public IEnumerable<ProfessionnelsSimpleDTO> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var professionnelsDetails = _context.Professionnels
+            var professionnelsDetails = await _context.Professionnels
                                             .Include(x => x.Localite)
-                                            .Include(x => x.Stickers);
+                                            .Include(x => x.Stickers)
+                                            .ToListAsync();
             var professionnels = mapper.Map<List<ProfessionnelsSimpleDTO>> (professionnelsDetails);
-            return professionnels;
+            return Ok(professionnels);
         }
 
         // GET: /Professionnels/{id}

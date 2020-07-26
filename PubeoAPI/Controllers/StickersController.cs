@@ -27,29 +27,41 @@ namespace PubeoAPI.Controllers {
 
         // GET: /Stickers
         [HttpGet]
-        public IEnumerable<StickersDTO> GetAll(){
-            var stickersDetails = _context.Stickers;
-            return mapper.Map<List<StickersDTO>> (stickersDetails);
+        public async Task<IActionResult> GetAll(){
+            var stickersDetails = await _context.Stickers.ToListAsync();
+            return Ok(mapper.Map<List<StickersDTO>> (stickersDetails));
         }
-
 
         // GET: /Stickers/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSticker([FromRoute] Guid id)
         {
-            if(!ModelState.IsValid) 
+            if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var sticker = await _context.Stickers
-                .Include(x => x.Professionnel)
-                    .ThenInclude(x => x.Localite)
-                .Include(x => x.Participations)
-                .SingleOrDefaultAsync(s => s.Id == id);
+                                    .Include(x => x.Professionnel)
+                                        .ThenInclude(x => x.Localite)
+                                    .Include(x => x.Participations)
+                                    .SingleOrDefaultAsync(s => s.Id == id);
 
-            if(sticker == null) 
+            if(sticker == null)
                 return NotFound();
 
             return Ok(mapper.Map<StickersDetailsDTO> (sticker));
+        }
+
+        // GET: /Stickers/GetAllByProfessionnelId/{professionnelId}
+        [HttpGet("GetAllByProfessionnelId/{professionnelId}")]
+        public async Task<IActionResult> GetAllByProfessionnelId([FromRoute] Guid professionnelId)
+        {
+            if(!ModelState.IsValid) 
+                return BadRequest(ModelState);
+
+            var stickers = await _context.Stickers.ToListAsync();
+            var stickersList = stickers.FindAll(s => s.ProfessionnelId == professionnelId);
+
+            return Ok(mapper.Map<List<StickersDTO>> (stickersList));
         }
 
         // POST: /Stickers
