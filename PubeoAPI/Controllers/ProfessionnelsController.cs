@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -37,6 +38,22 @@ namespace PubeoAPI.Controllers {
                                             .ToListAsync();
             var professionnels = mapper.Map<List<ProfessionnelsSimpleDTO>> (professionnelsDetails);
             return Ok(professionnels);
+        }
+
+        // GET: /Professionnels/GetMe
+        [HttpGet("GetMe")]
+        public async Task<IActionResult> GetMe()
+        {
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+            var professionnel = await _context.Professionnels
+                                    .Include(x => x.Localite)
+                                    .Include(x => x.Stickers)
+                                    .SingleOrDefaultAsync(x => x.Mail == email);
+
+            if(professionnel == null) 
+                return NotFound();
+
+            return Ok(mapper.Map<ProfessionnelsDTO> (professionnel));
         }
 
         // GET: /Professionnels/{id}
@@ -137,6 +154,34 @@ namespace PubeoAPI.Controllers {
             return NoContent();
         }
 
+        // PUT: /Professionnels/UpdateMyAccount
+        [HttpPut("UpdateMyAccount")]
+        public async Task<IActionResult> UpdateMyAccount([FromBody] Professionnel professionnel)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+
+            var user = await _context.Professionnels.SingleOrDefaultAsync(p => p.Mail.Equals(email));
+
+            if(user == null)
+                    return NotFound();
+            
+            if(await _context.Professionnels.AnyAsync(x => (x.Mail == professionnel.Mail || x.NomEntreprise == professionnel.NomEntreprise) && x.Id != user.Id))
+                return Conflict();
+
+            if(professionnel.LocaliteCode != null && !await _context.Localites.AnyAsync(x => x.CodePostal.Equals(professionnel.LocaliteCode)))
+                return NotFound();
+
+            user = Modification(user, professionnel);
+            _context.Entry(user).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         // DELETE: /Professionnels/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
@@ -145,6 +190,21 @@ namespace PubeoAPI.Controllers {
                 return BadRequest(ModelState);
 
             var user = await _context.Professionnels.SingleOrDefaultAsync(p => p.Id.Equals(id));
+            if (user == null)
+                return NotFound();
+
+            _context.Professionnels.Remove(user);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        // DELETE: /Professionnels/DeleteMyAccount
+        [HttpDelete("DeleteMyAccount")]
+        public async Task<IActionResult> DeleteMyAccount()
+        {
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+
+            var user = await _context.Professionnels.SingleOrDefaultAsync(p => p.Mail.Equals(email));
             if (user == null)
                 return NotFound();
 
