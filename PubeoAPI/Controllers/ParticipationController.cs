@@ -26,8 +26,8 @@ namespace PubeoAPI.Controllers {
             this.mapper = mapper;
         }
 
-        // GET: /Participation/GetAllStickersByParticulierId/{particulierrId}
-        [HttpGet("GetAllStickersByParticulierId/{particulierrId}")]
+        // GET: /Participation/GetAllStickersByParticulierId/{particulierId}
+        [HttpGet("GetAllStickersByParticulierId/{particulierId}")]
         public async Task<IActionResult> GetAllStickersByParticulierId([FromRoute] Guid particulierId)
         {
             if(!ModelState.IsValid) 
