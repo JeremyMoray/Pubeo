@@ -42,9 +42,6 @@ public class HomeFragment extends Fragment {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        Advertiser advertiser = (Advertiser) getActivity().getIntent().getSerializableExtra("Advertiser");
-        homeViewModel.setAdvertiser(advertiser);
-
         SearchView searchView;
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerAdvertiserStickers);
@@ -141,7 +138,7 @@ public class HomeFragment extends Fragment {
                 int largeur = data.getIntExtra("EXTRA_WIDTH", -1);
                 int nbUtilisationsRestantes = data.getIntExtra("EXTRA_LEFT_USES", -1);
 
-                Sticker sticker = new Sticker("90a4eea9-59ad-411c-9454-096c63b3bfe9", title, description, hauteur, largeur, nbUtilisationsRestantes);
+                Sticker sticker = new Sticker("90a4eea9-59ad-411c-9454-096c63b3bfe9", title, description, hauteur, largeur, nbUtilisationsRestantes, "ds");
                 homeViewModel.addSticker(sticker);
         }
         else if (requestCode == EDIT_STICKER_REQUEST && resultCode == RESULT_OK) {
@@ -153,7 +150,7 @@ public class HomeFragment extends Fragment {
             int largeur = data.getIntExtra("EXTRA_WIDTH", 0);
             int nbUtilisationsRestantes = data.getIntExtra("EXTRA_LEFT_USES", 0);
 
-            Sticker sticker = new Sticker(id, title, description, hauteur, largeur, nbUtilisationsRestantes);
+            Sticker sticker = new Sticker(id, title, description, hauteur, largeur, nbUtilisationsRestantes, "ds");
             Toast.makeText(getContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
             homeViewModel.updateSticker(sticker);
         }

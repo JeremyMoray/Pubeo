@@ -10,16 +10,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.pubeo.DAO.AdvertiserDAO;
 import com.example.pubeo.R;
 import com.example.pubeo.model.Advertiser;
-import com.example.pubeo.model.Sticker;
 import com.example.pubeo.tools.validation.ValidationTextWatcher;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -31,7 +28,6 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.provider.Telephony.Mms.Part.TEXT;
 import static com.example.pubeo.tools.constants.constantTags.*;
 
 public class CompanyInformationsActivity extends AppCompatActivity {

@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,21 +20,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.pubeo.Advertiser.AdvertiserSignInActivity;
 import com.example.pubeo.DAO.AdvertiserDAO;
 import com.example.pubeo.MainActivity;
 import com.example.pubeo.R;
-import com.example.pubeo.Service.ServiceAPI;
 import com.example.pubeo.model.Advertiser;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -52,13 +44,10 @@ public class CompanyProfileFragment extends Fragment {
     private EditText mailAdvertiserProfileField;
     private Button saveProfileAdvertiserButton;
     private TextView deleteProfileAdvertiserTextView;
-    private String originalName;
     private Advertiser advertiser;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        companyProfileViewModel =
-                ViewModelProviders.of(this).get(CompanyProfileViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        companyProfileViewModel = ViewModelProviders.of(this).get(CompanyProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_company_profile, container, false);
 
         final TextView textView = root.findViewById(R.id.text_company_profile);

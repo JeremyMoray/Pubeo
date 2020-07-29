@@ -32,6 +32,7 @@
     <string name="no">Non</string>
     <string name="choosePicture">Choisissez une image</string>
     <string name="mailNotExist">L\'adresse mail n\'existe pas</string>
+    <string name="passwordIncorrect">Le mot de passe est incorrect</string>
     <string name="impossibleConnection">Connexion impossible</string>
     <string name="deleteProfile">Supprimer mon profil</string>
     <string name="deleteProfileConfirm">Voulez-vous vraiment supprimer votre profil ?</string>

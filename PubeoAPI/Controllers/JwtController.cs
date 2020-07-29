@@ -26,8 +26,8 @@ namespace PubeoAPI.Controllers
             _context = context;
         }        
 
-        [HttpPost]
-        public async Task<IActionResult> Login([FromBody] DTO.LoginDTO loginDTO)
+        [HttpPost("LoginAdvertiser")]
+        public async Task<IActionResult> LoginAdvertiser([FromBody] DTO.LoginDTO loginDTO)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -35,9 +35,11 @@ namespace PubeoAPI.Controllers
             ScryptEncoder encoder = new ScryptEncoder();
             Professionnel professionnelFound = authProfessionnels.FirstOrDefault(pro => pro.Mail == loginDTO.Mail);
 
-            if(professionnelFound == null || !encoder.Compare(loginDTO.MotDePasse, professionnelFound.MotDePasse)) {
+            if(professionnelFound == null)
+                return NotFound();
+                
+            if(!encoder.Compare(loginDTO.MotDePasse, professionnelFound.MotDePasse))
                 return Unauthorized();
-            }
             
             var claims = new[]
             {

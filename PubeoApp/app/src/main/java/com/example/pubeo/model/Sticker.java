@@ -9,14 +9,16 @@ public class Sticker implements Serializable {
     public int hauteur;
     public int largeur;
     public int nbUtilisationsRestantes;
+    public String professionnelId;
 
-    public Sticker(String id, String title, String description, int hauteur, int largeur, int nbUtilisationsRestantes) {
+    public Sticker(String id, String title, String description, int hauteur, int largeur, int nbUtilisationsRestantes, String professionnelId) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.hauteur = hauteur;
         this.largeur = largeur;
         this.nbUtilisationsRestantes = nbUtilisationsRestantes;
+        this.professionnelId = professionnelId;
     }
 
     public String getId() {
@@ -41,5 +43,9 @@ public class Sticker implements Serializable {
 
     public int getNbUtilisationsRestantes() {
         return nbUtilisationsRestantes;
+    }
+
+    public String getProfessionnelId() {
+        return professionnelId;
     }
 }

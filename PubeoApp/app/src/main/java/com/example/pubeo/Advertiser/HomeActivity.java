@@ -3,7 +3,6 @@ package com.example.pubeo.Advertiser;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.navigation.NavController;
@@ -21,10 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ImageView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

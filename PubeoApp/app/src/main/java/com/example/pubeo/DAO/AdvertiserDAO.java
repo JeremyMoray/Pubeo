@@ -1,27 +1,23 @@
 package com.example.pubeo.DAO;
 
+import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import android.content.SharedPreferences;
+import android.widget.Toast;
 
-import com.example.pubeo.MainActivity;
+import com.example.pubeo.Advertiser.AdvertiserSignInActivity;
+import com.example.pubeo.Advertiser.HomeActivity;
+import com.example.pubeo.R;
 import com.example.pubeo.Service.ServiceAPI;
 import com.example.pubeo.model.Advertiser;
-import com.example.pubeo.model.Sticker;
+import com.example.pubeo.model.LoginAdvertiser;
+import com.example.pubeo.model.Token;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
-import java.util.ArrayList;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -48,19 +44,11 @@ public class AdvertiserDAO {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
 
-    public ArrayList<Advertiser> getAllAdvertisers() throws Exception {
+    public Call<Token> login(LoginAdvertiser loginAdvertiser) {
         disableSSLCertificateChecking();
-        URL url = new URL("https://10.0.2.2:5001/Professionnels");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        BufferedReader buffer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        StringBuilder builder = new StringBuilder();
-        String stringJSON = "",line;
-        while((line = buffer.readLine()) != null){
-            builder.append(line);
-        }
-        buffer.close();
-        stringJSON = builder.toString();
-        return jsonToAdvertisers(stringJSON);
+        serviceAPI = retrofit.create(ServiceAPI.class);
+
+        return serviceAPI.loginAdvertiser(loginAdvertiser);
     }
 
     public void addAdvertiser(Advertiser advertiserReceived) throws Exception{
@@ -124,47 +112,6 @@ public class AdvertiserDAO {
         });
 
         return true;
-    }
-
-    private ArrayList<Advertiser>jsonToAdvertisers(String stringJSON) throws Exception{
-        ArrayList<Advertiser> advertisers = new ArrayList<>();
-        Advertiser advertiser;
-        JSONArray jsonArray = new JSONArray(stringJSON);
-        for(int i = 0; i < jsonArray.length(); i++){
-            JSONObject jsonAdvertiser = jsonArray.getJSONObject(i);
-
-            JSONArray ja = jsonAdvertiser.getJSONArray("stickers");
-            int len = ja.length();
-
-            ArrayList<Sticker> stickers = new ArrayList<>();
-
-            for(int j=0; j<len; j++) {
-                JSONObject jsonStickers = ja.getJSONObject(j);
-                stickers.add(
-                        new Sticker(
-                            jsonStickers.getString("id"),
-                            jsonStickers.getString("titre"),
-                            jsonStickers.getString("description"),
-                            jsonStickers.getInt("hauteur"),
-                            jsonStickers.getInt("largeur"),
-                            jsonStickers.getInt("nbUtilisationsRestantes")
-                        )
-                );
-            }
-
-            advertiser = new Advertiser(
-                    jsonAdvertiser.getString("id"),
-                    jsonAdvertiser.getString("nomEntreprise"),
-                    jsonAdvertiser.getString("adresse"),
-                    jsonAdvertiser.getString("numeroTel"),
-                    jsonAdvertiser.getString("mail"),
-                    jsonAdvertiser.getString("numeroTVA"),
-                    stickers
-            );
-            advertisers.add(advertiser);
-        }
-
-        return advertisers;
     }
 
     public OkHttpClient getUnsafeOkHttpClient() {
