@@ -1,5 +1,6 @@
 package com.example.pubeo.Advertiser.ui.companyProfile;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,9 @@ import com.example.pubeo.R;
 import com.example.pubeo.model.Advertiser;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -69,59 +74,73 @@ public class CompanyProfileFragment extends Fragment {
         deleteProfileAdvertiserTextView = root.findViewById(R.id.deleteProfileAdvertiserTextView);
         advertiserLogoProfileImageView = root.findViewById(R.id.advertiserLogoProfileImageView);
 
-        advertiser = new Advertiser("dsds", "Hello", "dfsfsd", "dsds", "fdsf", "dsqdsq", null);
-        companyProfileViewModel.setAdvertiser(advertiser);
+        SharedPreferences sharedPref = getActivity().getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String token = sharedPref.getString("access_token", null);
 
-        companyProfileNameField.setText(advertiser.getNomEntreprise());
-        companyProfileVATField.setText(advertiser.getNumeroTVA());
-        companyProfilePhoneField.setText(advertiser.getNumeroTel());
-        companyProfileAddressField.setText(advertiser.getAdresse());
-        mailAdvertiserProfileField.setText(advertiser.getMail());
-
-        saveProfileAdvertiserButton.setOnClickListener(new View.OnClickListener() {
+        AdvertiserDAO advertiserDAO = new AdvertiserDAO();
+        Call<Advertiser> call = advertiserDAO.getMeAdvertiser(token);
+        call.enqueue(new Callback<Advertiser>() {
             @Override
-            public void onClick(View v) {
-                Advertiser newAdvertiser = new Advertiser(
-                        advertiser.getId(),
-                        companyProfileNameField.getText().toString(),
-                        companyProfileAddressField.getText().toString(),
-                        companyProfilePhoneField.getText().toString(),
-                        mailAdvertiserProfileField.getText().toString(),
-                        companyProfileVATField.getText().toString(),
-                        advertiser.getStickers()
-                );
-                updateAdvertiser(newAdvertiser);
-            }
-        });
+            public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
+                advertiser = response.body();
 
-        deleteProfileAdvertiserTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(getContext())
-                        .setMessage(R.string.deleteProfileConfirm)
-                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                AdvertiserDAO advertiserDAO = new AdvertiserDAO();
-                                try{
-                                    if(advertiserDAO.deleteAdvertiser(advertiser.getId())){
-                                        Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(intent);
+                companyProfileNameField.setText(advertiser.getNomEntreprise());
+                companyProfileVATField.setText(advertiser.getNumeroTVA());
+                companyProfilePhoneField.setText(advertiser.getNumeroTel());
+                companyProfileAddressField.setText(advertiser.getAdresse());
+                mailAdvertiserProfileField.setText(advertiser.getMail());
+
+                /*saveProfileAdvertiserButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Advertiser newAdvertiser = new Advertiser(
+                                advertiser.getId(),
+                                companyProfileNameField.getText().toString(),
+                                companyProfileAddressField.getText().toString(),
+                                companyProfilePhoneField.getText().toString(),
+                                mailAdvertiserProfileField.getText().toString(),
+                                companyProfileVATField.getText().toString(),
+                                advertiser.getStickers()
+                        );
+                        updateAdvertiser(newAdvertiser);
+                    }
+                });*/
+
+                deleteProfileAdvertiserTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new AlertDialog.Builder(getContext())
+                                .setMessage(R.string.deleteProfileConfirm)
+                                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        AdvertiserDAO advertiserDAO = new AdvertiserDAO();
+                                        try{
+                                            if(advertiserDAO.deleteAdvertiser(advertiser.getId())){
+                                                Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                startActivity(intent);
+                                            }
+                                        }
+                                        catch (Exception e){
+                                            e.printStackTrace();
+                                        }
+
                                     }
-                                }
-                                catch (Exception e){
-                                    e.printStackTrace();
-                                }
+                                })
+                                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
 
-                            }
-                        })
-                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
+                                    }
+                                })
+                                .create()
+                                .show();
+                    }
+                });
+            }
 
-                            }
-                        })
-                        .create()
-                        .show();
+            @Override
+            public void onFailure(Call<Advertiser> call, Throwable t) {
+
             }
         });
 

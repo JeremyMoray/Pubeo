@@ -1,5 +1,6 @@
 package com.example.pubeo.Service;
 
+import com.example.pubeo.DTO.AdvertiserDTO;
 import com.example.pubeo.model.Advertiser;
 import com.example.pubeo.model.LoginAdvertiser;
 import com.example.pubeo.model.Token;
@@ -19,7 +20,7 @@ public interface ServiceAPI {
     Call<Token> loginAdvertiser(@Body LoginAdvertiser loginAdvertiser);
 
     @GET("Professionnels/GetMe")
-    Call<Advertiser> getMeAdvertiser(@Header("Authorization") String token);
+    Call<Advertiser> getMeAdvertiser(@Header("authorization") String token);
 
     @PUT("Professionnels/{id}")
     Call<Advertiser> putAdvertiser(@Path("id") String id, @Body Advertiser advertiser);

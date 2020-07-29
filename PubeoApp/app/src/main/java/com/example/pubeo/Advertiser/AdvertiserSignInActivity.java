@@ -39,6 +39,7 @@ public class AdvertiserSignInActivity extends AppCompatActivity {
     @BindView(R.id.mailAdvertiserSignInField)TextInputLayout mailAdvertiserSignInField;
     @BindView(R.id.passwordAdvertiserSignInField)TextInputLayout passwordAdvertiserSignInField;
     private ImageView whiteArrowSignInAdvertiser;
+    public static final String SHARED_PREFS = "sharedPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,9 +93,9 @@ public class AdvertiserSignInActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Token> call, Response<Token> response) {
                     if (response.isSuccessful()){
-                        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putString("access_token", response.body().getAccess_token());
+                        editor.putString("access_token", "Bearer " + response.body().getAccess_token());
                         editor.apply();
 
                         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
