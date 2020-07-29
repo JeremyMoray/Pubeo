@@ -67,8 +67,9 @@ public class CompanyProfileFragment extends Fragment {
         mailAdvertiserProfileField = root.findViewById(R.id.mailAdvertiserProfileField);
         saveProfileAdvertiserButton = root.findViewById(R.id.saveProfileAdvertiserButton);
         deleteProfileAdvertiserTextView = root.findViewById(R.id.deleteProfileAdvertiserTextView);
+        advertiserLogoProfileImageView = root.findViewById(R.id.advertiserLogoProfileImageView);
 
-        advertiser = (Advertiser) getActivity().getIntent().getSerializableExtra("Advertiser");
+        advertiser = new Advertiser("dsds", "Hello", "dfsfsd", "dsds", "fdsf", "dsqdsq", null);
         companyProfileViewModel.setAdvertiser(advertiser);
 
         companyProfileNameField.setText(advertiser.getNomEntreprise());
@@ -129,8 +130,6 @@ public class CompanyProfileFragment extends Fragment {
 
         byte[] decodedString = Base64.decode(img_str, Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-
-        advertiserLogoProfileImageView = root.findViewById(R.id.advertiserLogoProfileImageView);
 
         Glide.with(getActivity()).load(decodedByte).override(200,200).into(advertiserLogoProfileImageView);
         return root;

@@ -7,13 +7,19 @@ import com.example.pubeo.model.Token;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ServiceAPI {
+
     @POST("Jwt/LoginAdvertiser")
     Call<Token> loginAdvertiser(@Body LoginAdvertiser loginAdvertiser);
+
+    @GET("Professionnels/GetMe")
+    Call<Advertiser> getMeAdvertiser(@Header("Authorization") String token);
 
     @PUT("Professionnels/{id}")
     Call<Advertiser> putAdvertiser(@Path("id") String id, @Body Advertiser advertiser);
