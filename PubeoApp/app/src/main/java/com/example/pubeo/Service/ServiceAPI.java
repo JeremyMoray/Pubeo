@@ -1,5 +1,6 @@
 package com.example.pubeo.Service;
 
+import com.example.pubeo.DTO.AdvertiserCreateDTO;
 import com.example.pubeo.DTO.AdvertiserUpdateDTO;
 import com.example.pubeo.model.Advertiser;
 import com.example.pubeo.model.LoginAdvertiser;
@@ -29,5 +30,5 @@ public interface ServiceAPI {
     Call<Void> deleteAdvertiser(@Header("Authorization") String token);
 
     @POST("Professionnels")
-    Call<Advertiser> addAdvertiser(@Body Advertiser advertiser);
+    Call<Advertiser> addAdvertiser(@Body AdvertiserCreateDTO advertiser);
 }

@@ -66,19 +66,13 @@ public class AdvertiserSignUpActivity extends AppCompatActivity {
     public void openCompanyInformationsActivity(){
         boolean isValid = true;
 
-        if(mailAdvertiserSignUpField.isErrorEnabled()){
-            isValid = false;
-        }
-        else if(passwordAdvertiserSignUpField.isErrorEnabled()){
+        if(mailAdvertiserSignUpField.isErrorEnabled() || passwordAdvertiserSignUpField.isErrorEnabled()){
             isValid = false;
         }
         else{
             if(mailAdvertiserSignUpField.getEditText().getText().toString().isEmpty()){
                 isValid = false;
                 mailAdvertiserSignUpField.setError(getString(R.string.fieldNotEmpty));
-            }
-            else{
-                mailAdvertiserSignUpField.setErrorEnabled(false);
             }
 
             if(passwordAdvertiserSignUpField.getEditText().getText().toString().isEmpty()){

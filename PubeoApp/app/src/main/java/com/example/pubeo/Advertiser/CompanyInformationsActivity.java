@@ -10,23 +10,36 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.pubeo.DAO.AdvertiserDAO;
+import com.example.pubeo.DTO.AdvertiserCreateDTO;
 import com.example.pubeo.R;
 import com.example.pubeo.model.Advertiser;
+import com.example.pubeo.model.LoginAdvertiser;
+import com.example.pubeo.model.Token;
 import com.example.pubeo.tools.validation.ValidationTextWatcher;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.example.pubeo.tools.constants.constantTags.*;
 
@@ -38,14 +51,10 @@ public class CompanyInformationsActivity extends AppCompatActivity {
     @BindView(R.id.companyPhoneField) TextInputLayout companyPhoneField;
     @BindView(R.id.companyPhoneFieldEditText) TextInputEditText companyPhoneFieldEditText;
     @BindView(R.id.companyAddressField) TextInputLayout companyAddressField;
+    @BindView(R.id.companyPostalCodeField) TextInputLayout companyPostalCodeField;
 
     private ImageView whiteArrowCompanyInformations;
     private ImageView companyLogoId;
-    private Uri imageUrl;
-
-    private String mail;
-    private String password;
-    private Advertiser advertiser;
 
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String IMAGEPATH = "imagePath";
@@ -56,9 +65,6 @@ public class CompanyInformationsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_company_informations);
 
         ButterKnife.bind(this);
-
-        mail = getIntent().getStringExtra("mail");
-        password = getIntent().getStringExtra("password");
 
         companyPhoneField.setTag(PHONENUMBER_TAG);
 
@@ -98,9 +104,9 @@ public class CompanyInformationsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 1 && resultCode == RESULT_OK){
-            imageUrl = data.getData();
+            Uri imageUrl = data.getData();
             try{
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUrl);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUrl);
                 companyLogoId.setImageBitmap(bitmap);
             }
             catch(IOException e){
@@ -162,33 +168,62 @@ public class CompanyInformationsActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
             editor.putString(IMAGEPATH, img_str);
-
             editor.apply();
 
             AdvertiserDAO advertiserDAO = new AdvertiserDAO();
-            try{
-                 advertiser = new Advertiser(
-                        null,
-                        companyNameField.getEditText().getText().toString(),
-                        companyAddressField.getEditText().getText().toString(),
-                        companyPhoneField.getEditText().getText().toString(),
-                        null,
-                        mail,
-                        companyVATField.getEditText().getText().toString(),
-                        null,
-                        null,
-                        new ArrayList<>()
-                );
-                advertiserDAO.addAdvertiser(advertiser);
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
+            String postalCode = (companyPostalCodeField.getEditText() == null?null:companyPostalCodeField.getEditText().getText().toString());
 
-            Intent intent = new Intent(this, HomeActivity.class);
-            intent.putExtra("Advertiser", advertiser);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+            AdvertiserCreateDTO advertiser = new AdvertiserCreateDTO(
+                    companyNameField.getEditText().getText().toString(),
+                    companyAddressField.getEditText().getText().toString(),
+                    companyPhoneField.getEditText().getText().toString(),
+                    getIntent().getStringExtra("password"),
+                    getIntent().getStringExtra("mail"),
+                    companyVATField.getEditText().getText().toString(),
+                    postalCode
+            );
+
+            Call<Advertiser> call = advertiserDAO.addAdvertiser(advertiser);
+
+            call.enqueue(new Callback<Advertiser>() {
+                @Override
+                public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
+                    if(response.isSuccessful()){
+                        LoginAdvertiser loginAdvertiser = new LoginAdvertiser(advertiser.getMail(), advertiser.getMotDePasse());
+                        AdvertiserDAO advertiserDAO = new AdvertiserDAO();
+
+                        Call<Token> tokenCall = advertiserDAO.login(loginAdvertiser);
+                        tokenCall.enqueue(new Callback<Token>() {
+                            @Override
+                            public void onResponse(Call<Token> call, Response<Token> response) {
+                                if(response.isSuccessful()){
+                                    editor.putString("access_token", "Bearer " + response.body().getAccess_token());
+                                    editor.apply();
+                                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Token> call, Throwable t) {
+
+                            }
+                        });
+                    }
+
+                    if(response.code() == 409)
+                        Toast.makeText(getApplicationContext(), R.string.companyNameConflict, Toast.LENGTH_SHORT).show();
+
+                    if(response.code() == 404)
+                        Toast.makeText(getApplicationContext(), R.string.postalCodeNotValid, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(Call<Advertiser> call, Throwable t) {
+
+                }
+            });
         }
     }
 }

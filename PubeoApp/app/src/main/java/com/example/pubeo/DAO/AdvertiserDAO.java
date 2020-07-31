@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.example.pubeo.Advertiser.AdvertiserSignInActivity;
 import com.example.pubeo.Advertiser.HomeActivity;
+import com.example.pubeo.DTO.AdvertiserCreateDTO;
 import com.example.pubeo.DTO.AdvertiserUpdateDTO;
 import com.example.pubeo.R;
 import com.example.pubeo.Service.ServiceAPI;
@@ -59,24 +60,12 @@ public class AdvertiserDAO {
         return serviceAPI.getMeAdvertiser(token);
     }
 
-    public void addAdvertiser(Advertiser advertiserReceived) throws Exception{
+    public Call<Advertiser> addAdvertiser(AdvertiserCreateDTO advertiserReceived) {
         disableSSLCertificateChecking();
 
         serviceAPI = retrofit.create(ServiceAPI.class);
 
-        Call<Advertiser> call = serviceAPI.addAdvertiser(advertiserReceived);
-        call.enqueue(new Callback<Advertiser>() {
-            @Override
-            public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Advertiser> call, Throwable t) {
-            }
-        });
+        return serviceAPI.addAdvertiser(advertiserReceived);
     }
 
     public Call<Void> updateAdvertiser(String token, AdvertiserUpdateDTO advertiser) {
