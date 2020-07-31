@@ -105,6 +105,9 @@ public class CompanyProfileFragment extends Fragment {
                                 if(response.isSuccessful())
                                     Toast.makeText(getActivity(), R.string.confirmUpdate, Toast.LENGTH_SHORT).show();
 
+                                if(response.code() == 409)
+                                    Toast.makeText(getActivity(), R.string.emailConflict, Toast.LENGTH_SHORT).show();
+
                                 if(response.code() == 404)
                                     Toast.makeText(getActivity(), R.string.postalCodeNotValid, Toast.LENGTH_SHORT).show();
                             }
@@ -123,18 +126,22 @@ public class CompanyProfileFragment extends Fragment {
                                 .setMessage(R.string.deleteProfileConfirm)
                                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        AdvertiserDAO advertiserDAO = new AdvertiserDAO();
-                                        try{
-                                            if(advertiserDAO.deleteAdvertiser(advertiser.getId())){
-                                                Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-                                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                startActivity(intent);
+                                        Call<Void> call = advertiserDAO.deleteAdvertiser(token);
+                                        call.enqueue(new Callback<Void>() {
+                                            @Override
+                                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                                if(response.isSuccessful()){
+                                                    Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    startActivity(intent);
+                                                }
                                             }
-                                        }
-                                        catch (Exception e){
-                                            e.printStackTrace();
-                                        }
 
+                                            @Override
+                                            public void onFailure(Call<Void> call, Throwable t) {
+
+                                            }
+                                        });
                                     }
                                 })
                                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {

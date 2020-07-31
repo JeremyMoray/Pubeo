@@ -87,26 +87,12 @@ public class AdvertiserDAO {
         return serviceAPI.updateAdvertiser(token, advertiser);
     }
 
-    public boolean deleteAdvertiser(String id) throws Exception{
+    public Call<Void> deleteAdvertiser(String token) {
         disableSSLCertificateChecking();
 
         serviceAPI = retrofit.create(ServiceAPI.class);
 
-        Call<Advertiser> call = serviceAPI.deleteAdvertiser(id);
-        call.enqueue(new Callback<Advertiser>() {
-            @Override
-            public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Advertiser> call, Throwable t) {
-            }
-        });
-
-        return true;
+        return serviceAPI.deleteAdvertiser(token);
     }
 
     public OkHttpClient getUnsafeOkHttpClient() {

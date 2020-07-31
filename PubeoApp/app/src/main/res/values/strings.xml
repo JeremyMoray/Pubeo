@@ -38,6 +38,7 @@
     <string name="deleteProfile">Supprimer mon profil</string>
     <string name="deleteProfileConfirm">Voulez-vous vraiment supprimer votre profil ?</string>
     <string name="confirmUpdate">Données enregistrées</string>
+    <string name="emailConflict">L\'adresse mail existe déjà</string>
 
     <!-- label spinner -->
     <string-array name="gender_array">

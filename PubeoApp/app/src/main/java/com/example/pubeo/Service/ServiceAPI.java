@@ -25,8 +25,8 @@ public interface ServiceAPI {
     @PUT("Professionnels/UpdateMyAccount")
     Call<Void> updateAdvertiser(@Header("Authorization") String token, @Body AdvertiserUpdateDTO advertiser);
 
-    @DELETE("Professionnels/{id}")
-    Call<Advertiser> deleteAdvertiser(@Path("id") String id);
+    @DELETE("Professionnels/DeleteMyAccount")
+    Call<Void> deleteAdvertiser(@Header("Authorization") String token);
 
     @POST("Professionnels")
     Call<Advertiser> addAdvertiser(@Body Advertiser advertiser);
