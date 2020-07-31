@@ -172,8 +172,11 @@ public class CompanyInformationsActivity extends AppCompatActivity {
                         companyNameField.getEditText().getText().toString(),
                         companyAddressField.getEditText().getText().toString(),
                         companyPhoneField.getEditText().getText().toString(),
+                        null,
                         mail,
                         companyVATField.getEditText().getText().toString(),
+                        null,
+                        null,
                         new ArrayList<>()
                 );
                 advertiserDAO.addAdvertiser(advertiser);

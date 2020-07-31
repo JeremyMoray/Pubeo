@@ -5,96 +5,79 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text_company_profile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/advertiserLogoProfileImageView"
         android:layout_width="98dp"
         android:layout_height="98dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="15dp"
         android:contentDescription="@string/profile_pic_desc"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_company_profile"
-        app:civ_border_width="1dp"
+        android:src="@mipmap/ic_launcher_round"
         app:civ_border_color="@color/black"
-        android:src="@mipmap/ic_launcher_round" />
+        app:civ_border_width="1dp"
+        app:layout_constraintStart_toEndOf="@+id/companyProfileNameField"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/companyNameProfileTextField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="110dp"
+        android:layout_marginBottom="5dp"
         android:text="@string/companyName"
         android:textColor="@color/grey"
-        app:layout_constraintEnd_toStartOf="@+id/advertiserLogoProfileImageView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_company_profile" />
+        app:layout_constraintBottom_toTopOf="@+id/companyProfileNameField"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/emailProfileTextField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
         android:text="@string/emailHint"
         android:textColor="@color/grey"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/companyProfileAddressField" />
+        app:layout_constraintBottom_toTopOf="@+id/mailAdvertiserProfileField"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/companyProfileNameField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="60dp"
         android:ems="10"
-        android:inputType="text"
         android:hint="@null"
-        tools:ignore="Autofill"
-        app:layout_constraintEnd_toStartOf="@+id/advertiserLogoProfileImageView"
+        android:inputType="text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/companyNameProfileTextField" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/companyProfileVATField"
         android:layout_width="290dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:inputType="number"
         android:hint="@null"
-        tools:ignore="Autofill"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/companyProfileNameField" />
+        app:layout_constraintTop_toBottomOf="@+id/companyProfileNameField"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/companyProfilePhoneField"
         android:layout_width="290dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:inputType="phone"
         android:hint="@null"
-        tools:ignore="Autofill"
+        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/companyProfileVATField" />
+        app:layout_constraintTop_toBottomOf="@+id/companyProfileVATField"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/companyProfileAddressField"
@@ -103,53 +86,53 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:inputType="text"
         android:hint="@null"
-        tools:ignore="Autofill"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/companyProfilePhoneField" />
+        app:layout_constraintTop_toBottomOf="@+id/companyProfilePhoneField"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/mailAdvertiserProfileField"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="360dp"
+        android:layout_height="0dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="45dp"
         android:layout_marginEnd="15dp"
         android:ems="10"
-        android:inputType="textEmailAddress"
         android:hint="@null"
-        tools:ignore="Autofill"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailProfileTextField" />
+        app:layout_constraintTop_toBottomOf="@+id/companyProfileAddressField"
+        tools:ignore="Autofill" />
 
     <ImageView
         android:id="@+id/VATLogoId"
         android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="27dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="28dp"
         android:contentDescription="@string/VAT_desc"
+        app:layout_constraintBottom_toBottomOf="@+id/companyProfileVATField"
         app:layout_constraintEnd_toStartOf="@+id/companyProfileVATField"
-        app:layout_constraintTop_toBottomOf="@+id/companyProfileNameField"
+        app:layout_constraintTop_toTopOf="@+id/companyProfileVATField"
         app:srcCompat="@drawable/ic_work_grey_700_24dp" />
 
     <ImageView
         android:id="@+id/phoneLogoId"
         android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="33dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="28dp"
         android:contentDescription="@string/phone_desc"
+        app:layout_constraintBottom_toBottomOf="@+id/companyProfilePhoneField"
         app:layout_constraintEnd_toStartOf="@+id/companyProfilePhoneField"
-        app:layout_constraintTop_toBottomOf="@+id/VATLogoId"
+        app:layout_constraintTop_toTopOf="@+id/companyProfilePhoneField"
         app:srcCompat="@drawable/ic_phone_grey_700_24dp" />
 
     <ImageView
         android:id="@+id/businessLogoId"
         android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_height="0dp"
         android:layout_marginTop="33dp"
         android:layout_marginEnd="28dp"
         android:contentDescription="@string/business_desc"
@@ -162,14 +145,14 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="94dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="94dp"
         android:background="@drawable/black_border_button"
         android:text="@string/Save"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mailAdvertiserProfileField" />
+        app:layout_constraintTop_toBottomOf="@+id/postalCodeAdvertiserProfileField" />
 
     <TextView
         android:id="@+id/deleteProfileAdvertiserTextView"
@@ -183,5 +166,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/saveProfileAdvertiserButton" />
+
+    <TextView
+        android:id="@+id/postalCodeProfileTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/postalCodeHint"
+        android:textColor="@color/grey"
+        app:layout_constraintBottom_toTopOf="@+id/postalCodeAdvertiserProfileField"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/postalCodeAdvertiserProfileField"
+        android:layout_width="360dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="15dp"
+        android:ems="10"
+        android:hint="@null"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mailAdvertiserProfileField"
+        tools:ignore="Autofill" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

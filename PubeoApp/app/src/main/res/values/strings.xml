@@ -8,6 +8,7 @@
     <string name="you_are">Vous êtes un&#8230;</string>
     <string name="password_forgotten">Mot de passe oublié ?</string>
     <string name="emailHint">Email</string>
+    <string name="postalCodeHint">Code postal</string>
     <string name="passwordHint">Mot de passe</string>
     <string name="confirmPasswordHint">Confirmer le mot de passe</string>
     <string name="loginTextAdvertiser">SE CONNECTER - ANNONCEUR</string>
@@ -36,6 +37,7 @@
     <string name="impossibleConnection">Connexion impossible</string>
     <string name="deleteProfile">Supprimer mon profil</string>
     <string name="deleteProfileConfirm">Voulez-vous vraiment supprimer votre profil ?</string>
+    <string name="confirmUpdate">Données enregistrées</string>
 
     <!-- label spinner -->
     <string-array name="gender_array">
@@ -53,6 +55,7 @@
     <string name="passwordWithOneNumber">Le mot de passe doit contenir au moins 1 chiffre.</string>
     <string name="usernameNotValid">Assurez-vous que votre nom d\'utilisateur a une longueur entre 3 et 15 et que qu\'ils correspondent aux caractères et symboles a-z, 0-9, _, -</string>
     <string name="phoneNumberNotValid">Entrez un numéro de téléphone valide</string>
+    <string name="postalCodeNotValid">Entrez un code postal valide</string>
 
     <!-- Descriptions images -->
     <string name="profile_pic_desc">Photo de profil</string>

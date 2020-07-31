@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -24,7 +25,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
+import com.example.pubeo.Advertiser.HomeActivity;
 import com.example.pubeo.DAO.AdvertiserDAO;
+import com.example.pubeo.DTO.AdvertiserUpdateDTO;
 import com.example.pubeo.MainActivity;
 import com.example.pubeo.R;
 import com.example.pubeo.model.Advertiser;
@@ -47,22 +50,13 @@ public class CompanyProfileFragment extends Fragment {
     private EditText companyProfilePhoneField;
     private EditText companyProfileAddressField;
     private EditText mailAdvertiserProfileField;
+    private EditText postalCodeAdvertiserProfileField;
     private Button saveProfileAdvertiserButton;
     private TextView deleteProfileAdvertiserTextView;
     private Advertiser advertiser;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        companyProfileViewModel = ViewModelProviders.of(this).get(CompanyProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_company_profile, container, false);
-
-        final TextView textView = root.findViewById(R.id.text_company_profile);
-
-        companyProfileViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
         companyProfileViewModel = ViewModelProviders.of(this).get(CompanyProfileViewModel.class);
         companyProfileNameField = root.findViewById(R.id.companyProfileNameField);
@@ -70,6 +64,7 @@ public class CompanyProfileFragment extends Fragment {
         companyProfilePhoneField = root.findViewById(R.id.companyProfilePhoneField);
         companyProfileAddressField = root.findViewById(R.id.companyProfileAddressField);
         mailAdvertiserProfileField = root.findViewById(R.id.mailAdvertiserProfileField);
+        postalCodeAdvertiserProfileField = root.findViewById(R.id.postalCodeAdvertiserProfileField);
         saveProfileAdvertiserButton = root.findViewById(R.id.saveProfileAdvertiserButton);
         deleteProfileAdvertiserTextView = root.findViewById(R.id.deleteProfileAdvertiserTextView);
         advertiserLogoProfileImageView = root.findViewById(R.id.advertiserLogoProfileImageView);
@@ -89,22 +84,37 @@ public class CompanyProfileFragment extends Fragment {
                 companyProfilePhoneField.setText(advertiser.getNumeroTel());
                 companyProfileAddressField.setText(advertiser.getAdresse());
                 mailAdvertiserProfileField.setText(advertiser.getMail());
+                postalCodeAdvertiserProfileField.setText(advertiser.getLocalite().getCodePostal());
 
-                /*saveProfileAdvertiserButton.setOnClickListener(new View.OnClickListener() {
+                saveProfileAdvertiserButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Advertiser newAdvertiser = new Advertiser(
-                                advertiser.getId(),
+                        AdvertiserUpdateDTO newAdvertiser = new AdvertiserUpdateDTO(
                                 companyProfileNameField.getText().toString(),
                                 companyProfileAddressField.getText().toString(),
                                 companyProfilePhoneField.getText().toString(),
                                 mailAdvertiserProfileField.getText().toString(),
                                 companyProfileVATField.getText().toString(),
-                                advertiser.getStickers()
+                                postalCodeAdvertiserProfileField.getText().toString()
                         );
-                        updateAdvertiser(newAdvertiser);
+
+                        Call<Void> call = advertiserDAO.updateAdvertiser(token, newAdvertiser);
+                        call.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if(response.isSuccessful())
+                                    Toast.makeText(getActivity(), R.string.confirmUpdate, Toast.LENGTH_SHORT).show();
+
+                                if(response.code() == 404)
+                                    Toast.makeText(getActivity(), R.string.postalCodeNotValid, Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                            }
+                        });
                     }
-                });*/
+                });
 
                 deleteProfileAdvertiserTextView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -152,16 +162,5 @@ public class CompanyProfileFragment extends Fragment {
 
         Glide.with(getActivity()).load(decodedByte).override(200,200).into(advertiserLogoProfileImageView);
         return root;
-    }
-
-    public void updateAdvertiser(Advertiser advertiser){
-
-        AdvertiserDAO advertiserDAO = new AdvertiserDAO();
-        try{
-            advertiserDAO.updateAdvertiser(advertiser);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
     }
 }

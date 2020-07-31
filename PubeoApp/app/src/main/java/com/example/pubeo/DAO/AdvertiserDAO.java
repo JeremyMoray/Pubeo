@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import com.example.pubeo.Advertiser.AdvertiserSignInActivity;
 import com.example.pubeo.Advertiser.HomeActivity;
-import com.example.pubeo.DTO.AdvertiserDTO;
+import com.example.pubeo.DTO.AdvertiserUpdateDTO;
 import com.example.pubeo.R;
 import com.example.pubeo.Service.ServiceAPI;
 import com.example.pubeo.model.Advertiser;
@@ -79,25 +79,12 @@ public class AdvertiserDAO {
         });
     }
 
-    public void updateAdvertiser(Advertiser advertiserReceived) throws Exception{
+    public Call<Void> updateAdvertiser(String token, AdvertiserUpdateDTO advertiser) {
         disableSSLCertificateChecking();
 
         serviceAPI = retrofit.create(ServiceAPI.class);
 
-        Advertiser advertiser = new Advertiser(advertiserReceived.getId(), advertiserReceived.getNomEntreprise(), advertiserReceived.getAdresse(), advertiserReceived.getNumeroTel(), advertiserReceived.getMail(), advertiserReceived.getNumeroTVA(), advertiserReceived.getStickers());
-        Call<Advertiser> call = serviceAPI.putAdvertiser(advertiserReceived.getId(), advertiser);
-        call.enqueue(new Callback<Advertiser>() {
-            @Override
-            public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Advertiser> call, Throwable t) {
-            }
-        });
+        return serviceAPI.updateAdvertiser(token, advertiser);
     }
 
     public boolean deleteAdvertiser(String id) throws Exception{
