@@ -58,10 +58,12 @@ namespace PubeoAPI.Controllers {
             if(!ModelState.IsValid) 
                 return BadRequest(ModelState);
 
-            var stickers = await _context.Stickers.ToListAsync();
+            var stickers = await _context.Stickers
+                                    .Include(x => x.Participations)
+                                    .ToListAsync();
             var stickersList = stickers.FindAll(s => s.ProfessionnelId == professionnelId);
 
-            return Ok(mapper.Map<List<StickersDTO>> (stickersList));
+            return Ok(mapper.Map<List<StickersDetailsDTO>> (stickersList));
         }
 
         // POST: /Stickers

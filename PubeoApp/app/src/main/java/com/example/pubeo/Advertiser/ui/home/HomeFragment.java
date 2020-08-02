@@ -2,6 +2,7 @@ package com.example.pubeo.Advertiser.ui.home;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pubeo.Advertiser.AddEditStickerActivity;
+import com.example.pubeo.DAO.AdvertiserDAO;
+import com.example.pubeo.DAO.StickerDAO;
+import com.example.pubeo.DTO.StickerDetailsDTO;
 import com.example.pubeo.R;
 import com.example.pubeo.model.Advertiser;
 import com.example.pubeo.model.Sticker;
@@ -30,16 +34,23 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment {
     public static final int ADD_STICKER_REQUEST = 1;
     public static final int EDIT_STICKER_REQUEST = 2;
+    private static final String SHARED_PREFS = "sharedPrefs";
 
     private HomeViewModel homeViewModel;
     private FloatingActionButton fabAddButton;
+    private StickerDAO stickerDAO;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
+
+        SharedPreferences sharedPref = getActivity().getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String token = sharedPref.getString("access_token", null);
+        homeViewModel.initStickers(token);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         SearchView searchView;
@@ -53,10 +64,10 @@ public class HomeFragment extends Fragment {
 
         adapter.setOnItemClickListener(new StickerAdvertiserAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(Sticker sticker) {
+            public void onItemClick(StickerDetailsDTO sticker) {
                 Intent intent = new Intent(getActivity(), AddEditStickerActivity.class);
                 intent.putExtra("EXTRA_ID", sticker.getId());
-                intent.putExtra("EXTRA_TITLE", sticker.getTitle());
+                intent.putExtra("EXTRA_TITLE", sticker.getTitre());
                 intent.putExtra("EXTRA_DESCRIPTION", sticker.getDescription());
                 intent.putExtra("EXTRA_HEIGHT", sticker.getHauteur());
                 intent.putExtra("EXTRA_WIDTH", sticker.getLargeur());
@@ -68,9 +79,9 @@ public class HomeFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
 
-        homeViewModel.getStickersList().observe(this, new Observer<List<Sticker>>() {
+        homeViewModel.getStickersList().observe(this, new Observer<List<StickerDetailsDTO>>() {
             @Override
-            public void onChanged(@Nullable List<Sticker> stickersList) {
+            public void onChanged(@Nullable List<StickerDetailsDTO> stickersList) {
                 adapter.setStickers(stickersList);
             }
         });
@@ -138,7 +149,7 @@ public class HomeFragment extends Fragment {
                 int largeur = data.getIntExtra("EXTRA_WIDTH", -1);
                 int nbUtilisationsRestantes = data.getIntExtra("EXTRA_LEFT_USES", -1);
 
-                Sticker sticker = new Sticker("90a4eea9-59ad-411c-9454-096c63b3bfe9", title, description, hauteur, largeur, nbUtilisationsRestantes, "ds");
+            StickerDetailsDTO sticker = new StickerDetailsDTO("90a4eea9-59ad-411c-9454-096c63b3bfe9", title, description, hauteur, largeur, nbUtilisationsRestantes, null, null);
                 homeViewModel.addSticker(sticker);
         }
         else if (requestCode == EDIT_STICKER_REQUEST && resultCode == RESULT_OK) {
@@ -150,7 +161,7 @@ public class HomeFragment extends Fragment {
             int largeur = data.getIntExtra("EXTRA_WIDTH", 0);
             int nbUtilisationsRestantes = data.getIntExtra("EXTRA_LEFT_USES", 0);
 
-            Sticker sticker = new Sticker(id, title, description, hauteur, largeur, nbUtilisationsRestantes, "ds");
+            StickerDetailsDTO sticker = new StickerDetailsDTO(id, title, description, hauteur, largeur, nbUtilisationsRestantes, null, null);
             Toast.makeText(getContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
             homeViewModel.updateSticker(sticker);
         }

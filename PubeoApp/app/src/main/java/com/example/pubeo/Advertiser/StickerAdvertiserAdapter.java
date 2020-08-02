@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pubeo.DTO.StickerDetailsDTO;
 import com.example.pubeo.R;
 import com.example.pubeo.model.Sticker;
 
@@ -19,8 +20,8 @@ import java.util.List;
 
 public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvertiserAdapter.StickerAdvertiserHolder> implements Filterable {
 
-    private List<Sticker> stickersList;
-    private List<Sticker> stickersListFull;
+    private List<StickerDetailsDTO> stickersList;
+    private List<StickerDetailsDTO> stickersListFull;
     private OnItemClickListener listener;
 
     @NonNull
@@ -33,8 +34,8 @@ public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvert
 
     @Override
     public void onBindViewHolder(@NonNull StickerAdvertiserHolder holder, int position) {
-        Sticker currentSticker = stickersList.get(position);
-        holder.stickerTitleAdvertiser.setText(currentSticker.getTitle());
+        StickerDetailsDTO currentSticker = stickersList.get(position);
+        holder.stickerTitleAdvertiser.setText(currentSticker.getTitre());
         holder.stickerDescriptionAdvertiser.setText(currentSticker.getDescription());
         String participants = "participants restants : " + currentSticker.getNbUtilisationsRestantes();
         holder.participantsTextAdvertiser.setText(participants);
@@ -45,13 +46,13 @@ public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvert
         return stickersList == null ? 0 : stickersList.size();
     }
 
-    public void setStickers(List<Sticker> stickersList) {
+    public void setStickers(List<StickerDetailsDTO> stickersList) {
         this.stickersList = stickersList;
         stickersListFull = new ArrayList<>(stickersList);
         notifyDataSetChanged();
     }
 
-    public Sticker getStickerAt(int position){
+    public StickerDetailsDTO getStickerAt(int position){
         return stickersList.get(position);
     }
 
@@ -79,7 +80,7 @@ public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvert
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Sticker sticker);
+        void onItemClick(StickerDetailsDTO sticker);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){
@@ -94,15 +95,15 @@ public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvert
     private Filter exampleFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<Sticker> filteredList = new ArrayList<>();
+            List<StickerDetailsDTO> filteredList = new ArrayList<>();
 
             if (constraint == null || constraint.length() == 0) {
                 filteredList.addAll(stickersListFull);
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
-                for (Sticker item : stickersListFull) {
-                    if (item.getTitle().toLowerCase().contains(filterPattern) || item.getDescription().toLowerCase().contains(filterPattern)) {
+                for (StickerDetailsDTO item : stickersListFull) {
+                    if (item.getTitre().toLowerCase().contains(filterPattern) || item.getDescription().toLowerCase().contains(filterPattern)) {
                         filteredList.add(item);
                     }
                 }

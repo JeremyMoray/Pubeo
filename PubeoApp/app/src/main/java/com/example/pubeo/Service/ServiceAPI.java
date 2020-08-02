@@ -2,9 +2,12 @@ package com.example.pubeo.Service;
 
 import com.example.pubeo.DTO.AdvertiserCreateDTO;
 import com.example.pubeo.DTO.AdvertiserUpdateDTO;
+import com.example.pubeo.DTO.StickerDetailsDTO;
 import com.example.pubeo.model.Advertiser;
 import com.example.pubeo.model.LoginAdvertiser;
 import com.example.pubeo.model.Token;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -31,4 +34,7 @@ public interface ServiceAPI {
 
     @POST("Professionnels")
     Call<Advertiser> addAdvertiser(@Body AdvertiserCreateDTO advertiser);
+
+    @GET("Stickers/GetAllByProfessionnelId/{professionnelId}")
+    Call<List<StickerDetailsDTO>> GetAllByProfessionnelId(@Header("Authorization") String token, @Path("professionnelId") String professionnelId);
 }

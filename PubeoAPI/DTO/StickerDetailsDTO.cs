@@ -13,6 +13,6 @@ namespace PubeoAPI.DTO {
         public int Largeur { get; set; }
         public int NbUtilisationsRestantes { get; set; }
         public ProfessionnelsSimpleDTO Professionnel { get; set; }   
-        public ICollection<Participation> Participations { get; set; } 
+        public ICollection<ParticipationSimpleDTO> Participations { get; set; } 
     }
 }
