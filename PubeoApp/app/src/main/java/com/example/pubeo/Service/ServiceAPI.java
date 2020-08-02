@@ -2,9 +2,11 @@ package com.example.pubeo.Service;
 
 import com.example.pubeo.DTO.AdvertiserCreateDTO;
 import com.example.pubeo.DTO.AdvertiserUpdateDTO;
+import com.example.pubeo.DTO.StickerCreateDTO;
 import com.example.pubeo.DTO.StickerDetailsDTO;
 import com.example.pubeo.model.Advertiser;
 import com.example.pubeo.model.LoginAdvertiser;
+import com.example.pubeo.model.Sticker;
 import com.example.pubeo.model.Token;
 
 import java.util.List;
@@ -37,4 +39,7 @@ public interface ServiceAPI {
 
     @GET("Stickers/GetAllByProfessionnelId/{professionnelId}")
     Call<List<StickerDetailsDTO>> GetAllByProfessionnelId(@Header("Authorization") String token, @Path("professionnelId") String professionnelId);
+
+    @POST("Stickers")
+    Call<Sticker> addSticker(@Header("Authorization") String token, @Body StickerCreateDTO sticker);
 }

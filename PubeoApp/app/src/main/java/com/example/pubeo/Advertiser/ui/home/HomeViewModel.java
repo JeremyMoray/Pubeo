@@ -7,10 +7,12 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.pubeo.DAO.AdvertiserDAO;
 import com.example.pubeo.DAO.StickerDAO;
+import com.example.pubeo.DTO.StickerCreateDTO;
 import com.example.pubeo.DTO.StickerDetailsDTO;
 import com.example.pubeo.model.Advertiser;
 import com.example.pubeo.model.Sticker;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,14 +39,12 @@ public class HomeViewModel extends ViewModel {
                     callStickers.enqueue(new Callback<List<StickerDetailsDTO>>() {
                         @Override
                         public void onResponse(Call<List<StickerDetailsDTO>> call, Response<List<StickerDetailsDTO>> response) {
-                            Log.e("dffsd", "bbb " + response.code());
                             if(response.isSuccessful())
                                 stickersList.setValue(response.body());
                         }
 
                         @Override
                         public void onFailure(Call<List<StickerDetailsDTO>> call, Throwable t) {
-
                         }
                     });
                 }
@@ -61,9 +61,33 @@ public class HomeViewModel extends ViewModel {
         return stickersList;
     }
 
-    public void addSticker(StickerDetailsDTO sticker){
-        /*stickersListTest.add(sticker);
-        stickersList.setValue(stickersListTest);*/
+    public void addSticker(String token, StickerCreateDTO sticker){
+        Call<Sticker> call = stickerDAO.addSticker(token, sticker);
+        call.enqueue(new Callback<Sticker>() {
+            @Override
+            public void onResponse(Call<Sticker> call, Response<Sticker> response) {
+                if(response.isSuccessful()){
+                    List<StickerDetailsDTO> stickerDetails = stickersList.getValue();
+                    StickerDetailsDTO stickerAdd = new StickerDetailsDTO(
+                            response.body().getId(),
+                            response.body().getTitre(),
+                            response.body().getDescription(),
+                            response.body().getHauteur(),
+                            response.body().getLargeur(),
+                            response.body().getNbUtilisationsRestantes(),
+                            response.body().getProfessionnel(),
+                            response.body().getParticipations()
+                    );
+                    stickerDetails.add(stickerAdd);
+                    stickersList.setValue(stickerDetails);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Sticker> call, Throwable t) {
+
+            }
+        });
     }
 
     public void updateSticker(StickerDetailsDTO sticker){

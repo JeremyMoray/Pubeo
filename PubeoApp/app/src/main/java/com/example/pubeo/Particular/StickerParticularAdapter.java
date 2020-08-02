@@ -32,7 +32,7 @@ public class StickerParticularAdapter extends RecyclerView.Adapter<StickerPartic
     @Override
     public void onBindViewHolder(@NonNull StickerParticularHolder holder, int position) {
         Sticker currentSticker = stickersList.get(position);
-        holder.stickerTitleParticular.setText(currentSticker.getTitle());
+        holder.stickerTitleParticular.setText(currentSticker.getTitre());
         holder.stickerDescriptionParticular.setText(currentSticker.getDescription());
     }
 

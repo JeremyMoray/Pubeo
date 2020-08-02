@@ -18,6 +18,8 @@ namespace PubeoAPI.DTO {
             CreateMap<StickersDetailsDTO, Sticker>();
             CreateMap<Particulier, ParticulierSimpleDTO>();
             CreateMap<ParticulierSimpleDTO, Particulier>();
+            CreateMap<ParticipationSimpleDTO, Participation>();
+            CreateMap<Participation, ParticipationSimpleDTO>();
         }
     }
 }

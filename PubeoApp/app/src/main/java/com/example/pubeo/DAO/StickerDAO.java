@@ -1,5 +1,6 @@
 package com.example.pubeo.DAO;
 
+import com.example.pubeo.DTO.StickerCreateDTO;
 import com.example.pubeo.DTO.StickerDetailsDTO;
 import com.example.pubeo.Service.ServiceAPI;
 import com.example.pubeo.model.Sticker;
@@ -40,6 +41,13 @@ public class StickerDAO {
         serviceAPI = retrofit.create(ServiceAPI.class);
 
         return serviceAPI.GetAllByProfessionnelId(token, professionnelId);
+    }
+
+    public Call<Sticker> addSticker(String token, StickerCreateDTO sticker){
+        disableSSLCertificateChecking();
+        serviceAPI = retrofit.create(ServiceAPI.class);
+
+        return serviceAPI.addSticker(token, sticker);
     }
 
     public OkHttpClient getUnsafeOkHttpClient() {
