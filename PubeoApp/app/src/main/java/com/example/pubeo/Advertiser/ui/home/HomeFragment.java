@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
                 intent.putExtra("EXTRA_DESCRIPTION", sticker.getDescription());
                 intent.putExtra("EXTRA_HEIGHT", sticker.getHauteur());
                 intent.putExtra("EXTRA_WIDTH", sticker.getLargeur());
-                intent.putExtra("EXTRA_LEFT_USES", sticker.getNbUtilisationsRestantes());
+                intent.putExtra("EXTRA_NUMBER_OF_USE", sticker.getNbUtilisationsRestantes());
 
                 startActivityForResult(intent, EDIT_STICKER_REQUEST);
             }
@@ -152,7 +152,7 @@ public class HomeFragment extends Fragment {
                 String description = data.getStringExtra("EXTRA_DESCRIPTION");
                 int hauteur = data.getIntExtra("EXTRA_HEIGHT", 1);
                 int largeur = data.getIntExtra("EXTRA_WIDTH", 1);
-                int nbUtilisationsRestantes = data.getIntExtra("EXTRA_LEFT_USES", 1);
+                int nbUtilisationsRestantes = data.getIntExtra("EXTRA_NUMBER_OF_USE", 1);
 
             SharedPreferences sharedPref = getActivity().getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
             String token = sharedPref.getString("access_token", null);
@@ -177,9 +177,9 @@ public class HomeFragment extends Fragment {
 
             String titre = data.getStringExtra("EXTRA_TITLE");
             String description = data.getStringExtra("EXTRA_DESCRIPTION");
-            int hauteur = data.getIntExtra("EXTRA_HEIGHT", 0);
-            int largeur = data.getIntExtra("EXTRA_WIDTH", 0);
-            int nbUtilisationsRestantes = data.getIntExtra("EXTRA_LEFT_USES", 0);
+            int hauteur = data.getIntExtra("EXTRA_HEIGHT", 1);
+            int largeur = data.getIntExtra("EXTRA_WIDTH", 1);
+            int nbUtilisationsRestantes = data.getIntExtra("EXTRA_NUMBER_OF_USE", 1);
 
             StickerDetailsDTO sticker = new StickerDetailsDTO(id, titre, description, hauteur, largeur, nbUtilisationsRestantes, null, null);
             Toast.makeText(getContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();

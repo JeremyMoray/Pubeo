@@ -71,6 +71,9 @@
     <!-- Données écrasée par API -->
     <string name="title">Titre</string>
     <string name="description">Description</string>
+    <string name="height">Hauteur</string>
+    <string name="width">Largeur</string>
+    <string name="numberOfUse">Nombre d\'utilisations</string>
     <string name="reward">récompense : 25 points par session</string>
     <string name="participants">participants restants :</string>
     <string name="points">1.2</string>

@@ -4,17 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.pubeo.R;
 import com.google.android.material.textfield.TextInputLayout;
 
+import static java.lang.Integer.parseInt;
+
 public class AddEditStickerActivity extends AppCompatActivity {
 
     private Button saveButtonAddSticker;
     private TextInputLayout titleStickerInput;
     private TextInputLayout descriptionStickerInput;
+    private TextInputLayout heightStickerInput;
+    private TextInputLayout widthStickerInput;
+    private TextInputLayout numberOfUseStickerInput;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,11 +31,18 @@ public class AddEditStickerActivity extends AppCompatActivity {
 
         titleStickerInput = findViewById(R.id.titleStickerInput);
         descriptionStickerInput = findViewById(R.id.descriptionStickerInput);
+        heightStickerInput = findViewById(R.id.heightStickerInput);
+        widthStickerInput = findViewById(R.id.widthStickerInput);
+        numberOfUseStickerInput = findViewById(R.id.numberOfUseStickerInput);
 
         if(intent.hasExtra("EXTRA_ID")){
             getSupportActionBar().setTitle(getString(R.string.editSticker));
             titleStickerInput.getEditText().setText(intent.getStringExtra("EXTRA_TITLE"));
             descriptionStickerInput.getEditText().setText(intent.getStringExtra("EXTRA_DESCRIPTION"));
+            heightStickerInput.getEditText().setText(String.format("%s", intent.getIntExtra("EXTRA_HEIGHT", 1)));
+            widthStickerInput.getEditText().setText(String.format("%s", intent.getIntExtra("EXTRA_WIDTH", 1)));
+            numberOfUseStickerInput.getEditText().setText(String.format("%s", intent.getIntExtra("EXTRA_NUMBER_OF_USE", 1)));
+
 
         }
         else{
@@ -42,8 +56,12 @@ public class AddEditStickerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 boolean isValid = true;
+
                 String title = titleStickerInput.getEditText().getText().toString();
                 String description = descriptionStickerInput.getEditText().getText().toString();
+                int height = parseInt(heightStickerInput.getEditText().getText().toString());
+                int width = parseInt(widthStickerInput.getEditText().getText().toString());
+                int numberOfUse = parseInt(numberOfUseStickerInput.getEditText().getText().toString());
 
                 if(title.isEmpty()){
                     isValid = false;
@@ -65,6 +83,9 @@ public class AddEditStickerActivity extends AppCompatActivity {
                     Intent intent = new Intent();
                     intent.putExtra("EXTRA_TITLE", title);
                     intent.putExtra("EXTRA_DESCRIPTION", description);
+                    intent.putExtra("EXTRA_HEIGHT", height);
+                    intent.putExtra("EXTRA_WIDTH", width);
+                    intent.putExtra("EXTRA_NUMBER_OF_USE", numberOfUse);
 
                     int id = getIntent().getIntExtra("EXTRA_ID", -1);
                     if(id != -1){
