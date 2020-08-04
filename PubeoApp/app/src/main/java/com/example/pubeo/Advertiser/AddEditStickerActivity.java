@@ -59,9 +59,9 @@ public class AddEditStickerActivity extends AppCompatActivity {
 
                 String title = titleStickerInput.getEditText().getText().toString();
                 String description = descriptionStickerInput.getEditText().getText().toString();
-                int height = parseInt(heightStickerInput.getEditText().getText().toString());
-                int width = parseInt(widthStickerInput.getEditText().getText().toString());
-                int numberOfUse = parseInt(numberOfUseStickerInput.getEditText().getText().toString());
+                String height = heightStickerInput.getEditText().getText().toString();
+                String width = widthStickerInput.getEditText().getText().toString();
+                String numberOfUse = numberOfUseStickerInput.getEditText().getText().toString();
 
                 if(title.isEmpty()){
                     isValid = false;
@@ -79,16 +79,40 @@ public class AddEditStickerActivity extends AppCompatActivity {
                     descriptionStickerInput.setErrorEnabled(false);
                 }
 
+                if(heightStickerInput.getEditText().getText().toString().isEmpty()){
+                    isValid = false;
+                    heightStickerInput.setError(getString(R.string.fieldNotEmpty));
+                }
+                else{
+                    heightStickerInput.setErrorEnabled(false);
+                }
+
+                if(widthStickerInput.getEditText().getText().toString().isEmpty()){
+                    isValid = false;
+                    widthStickerInput.setError(getString(R.string.fieldNotEmpty));
+                }
+                else{
+                    widthStickerInput.setErrorEnabled(false);
+                }
+
+                if(numberOfUseStickerInput.getEditText().getText().toString().isEmpty()){
+                    isValid = false;
+                    numberOfUseStickerInput.setError(getString(R.string.fieldNotEmpty));
+                }
+                else{
+                    numberOfUseStickerInput.setErrorEnabled(false);
+                }
+
                 if (isValid) {
                     Intent intent = new Intent();
                     intent.putExtra("EXTRA_TITLE", title);
                     intent.putExtra("EXTRA_DESCRIPTION", description);
-                    intent.putExtra("EXTRA_HEIGHT", height);
-                    intent.putExtra("EXTRA_WIDTH", width);
-                    intent.putExtra("EXTRA_NUMBER_OF_USE", numberOfUse);
+                    intent.putExtra("EXTRA_HEIGHT", parseInt(height));
+                    intent.putExtra("EXTRA_WIDTH", parseInt(width));
+                    intent.putExtra("EXTRA_NUMBER_OF_USE", parseInt(numberOfUse));
 
-                    int id = getIntent().getIntExtra("EXTRA_ID", -1);
-                    if(id != -1){
+                    String id = getIntent().getStringExtra("EXTRA_ID");
+                    if(id != null && !id.equals("-1")){
                         intent.putExtra("EXTRA_ID", id);
                     }
 

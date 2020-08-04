@@ -90,13 +90,46 @@ public class HomeViewModel extends ViewModel {
         });
     }
 
-    public void updateSticker(StickerDetailsDTO sticker){
-        /*stickersListTest.set(stickersListTest.indexOf(sticker), sticker);
-        stickersList.setValue(stickersListTest);*/
+    public void updateSticker(String token, String id, StickerCreateDTO sticker){
+        Call<Sticker> call = stickerDAO.updateSticker(token, id, sticker);
+        call.enqueue(new Callback<Sticker>() {
+            @Override
+            public void onResponse(Call<Sticker> call, Response<Sticker> response) {
+                if(response.isSuccessful()){
+                    List<StickerDetailsDTO> stickerDetails = stickersList.getValue();
+                    StickerDetailsDTO stickerUpdate = new StickerDetailsDTO(
+                            response.body().getId(),
+                            response.body().getTitre(),
+                            response.body().getDescription(),
+                            response.body().getHauteur(),
+                            response.body().getLargeur(),
+                            response.body().getNbUtilisationsRestantes(),
+                            response.body().getProfessionnel(),
+                            response.body().getParticipations()
+                    );
+                    int index = getIndexById(id, stickerDetails);
+                    stickerDetails.set(index, stickerUpdate);
+                    stickersList.setValue(stickerDetails);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Sticker> call, Throwable t) {
+            }
+        });
     }
 
     public void deleteSticker(StickerDetailsDTO sticker){
         /*stickersListTest.remove(sticker);
         stickersList.setValue(stickersListTest);*/
+    }
+
+    public int getIndexById(String id, List<StickerDetailsDTO> stickerDetails){
+        for (int i = 0; i < stickerDetails.size(); i++) {
+            if (stickerDetails.get(i) != null && stickerDetails.get(i).getId().equals(id)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

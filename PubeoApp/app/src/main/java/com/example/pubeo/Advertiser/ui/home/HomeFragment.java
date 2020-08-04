@@ -147,6 +147,8 @@ public class HomeFragment extends Fragment {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        SharedPreferences sharedPref = getActivity().getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        String token = sharedPref.getString("access_token", null);
         if (requestCode == ADD_STICKER_REQUEST && resultCode == RESULT_OK) {
                 String titre = data.getStringExtra("EXTRA_TITLE");
                 String description = data.getStringExtra("EXTRA_DESCRIPTION");
@@ -154,8 +156,6 @@ public class HomeFragment extends Fragment {
                 int largeur = data.getIntExtra("EXTRA_WIDTH", 1);
                 int nbUtilisationsRestantes = data.getIntExtra("EXTRA_NUMBER_OF_USE", 1);
 
-            SharedPreferences sharedPref = getActivity().getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-            String token = sharedPref.getString("access_token", null);
             Call<Advertiser> callAdvertiser = advertiserDAO.getMeAdvertiser(token);
             callAdvertiser.enqueue(new Callback<Advertiser>() {
                 @Override
@@ -174,16 +174,27 @@ public class HomeFragment extends Fragment {
         }
         else if (requestCode == EDIT_STICKER_REQUEST && resultCode == RESULT_OK) {
             String id = data.getStringExtra("EXTRA_ID");
-
             String titre = data.getStringExtra("EXTRA_TITLE");
             String description = data.getStringExtra("EXTRA_DESCRIPTION");
             int hauteur = data.getIntExtra("EXTRA_HEIGHT", 1);
             int largeur = data.getIntExtra("EXTRA_WIDTH", 1);
             int nbUtilisationsRestantes = data.getIntExtra("EXTRA_NUMBER_OF_USE", 1);
 
-            StickerDetailsDTO sticker = new StickerDetailsDTO(id, titre, description, hauteur, largeur, nbUtilisationsRestantes, null, null);
-            Toast.makeText(getContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
-            homeViewModel.updateSticker(sticker);
+            Call<Advertiser> callAdvertiser = advertiserDAO.getMeAdvertiser(token);
+            callAdvertiser.enqueue(new Callback<Advertiser>() {
+                @Override
+                public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
+                    if(response.isSuccessful()){
+                        StickerCreateDTO sticker = new StickerCreateDTO(titre, description, hauteur, largeur, nbUtilisationsRestantes, response.body().getId());
+                        homeViewModel.updateSticker(token, id, sticker);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Advertiser> call, Throwable t) {
+
+                }
+            });
         }
     }
 }

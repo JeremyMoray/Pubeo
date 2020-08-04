@@ -42,4 +42,7 @@ public interface ServiceAPI {
 
     @POST("Stickers")
     Call<Sticker> addSticker(@Header("Authorization") String token, @Body StickerCreateDTO sticker);
+
+    @PUT("Stickers/{id}")
+    Call<Sticker> updateSticker(@Header("Authorization") String token, @Path("id") String id, @Body StickerCreateDTO sticker);
 }

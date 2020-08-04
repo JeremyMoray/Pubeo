@@ -50,6 +50,13 @@ public class StickerDAO {
         return serviceAPI.addSticker(token, sticker);
     }
 
+    public Call<Sticker> updateSticker(String token, String id, StickerCreateDTO sticker){
+        disableSSLCertificateChecking();
+        serviceAPI = retrofit.create(ServiceAPI.class);
+
+        return serviceAPI.updateSticker(token, id, sticker);
+    }
+
     public OkHttpClient getUnsafeOkHttpClient() {
         try {
             // Create a trust manager that does not validate certificate chains
