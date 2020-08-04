@@ -108,7 +108,7 @@ namespace PubeoAPI.Controllers {
 
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(initialSticker);
         }
 
         // DELETE: /Stickers/{id}

@@ -45,4 +45,7 @@ public interface ServiceAPI {
 
     @PUT("Stickers/{id}")
     Call<Sticker> updateSticker(@Header("Authorization") String token, @Path("id") String id, @Body StickerCreateDTO sticker);
+
+    @DELETE("Stickers/{id}")
+    Call<Void> deleteSticker(@Header("Authorization") String token, @Path("id") String id);
 }

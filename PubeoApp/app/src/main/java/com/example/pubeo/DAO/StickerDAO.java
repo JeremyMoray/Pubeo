@@ -24,6 +24,8 @@ import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Header;
+import retrofit2.http.Path;
 
 public class StickerDAO {
 
@@ -55,6 +57,13 @@ public class StickerDAO {
         serviceAPI = retrofit.create(ServiceAPI.class);
 
         return serviceAPI.updateSticker(token, id, sticker);
+    }
+
+    public Call<Void> deleteSticker(@Header("Authorization") String token, @Path("id") String id){
+        disableSSLCertificateChecking();
+        serviceAPI = retrofit.create(ServiceAPI.class);
+
+        return serviceAPI.deleteSticker(token, id);
     }
 
     public OkHttpClient getUnsafeOkHttpClient() {

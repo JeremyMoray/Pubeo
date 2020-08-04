@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment {
                         .setMessage(R.string.confirmDeleteSticker)
                         .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                homeViewModel.deleteSticker(adapter.getStickerAt(viewHolder.getAdapterPosition()));
+                                homeViewModel.deleteSticker(token, adapter.getStickerAt(viewHolder.getAdapterPosition()));
                             }
                         })
                         .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {

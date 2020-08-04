@@ -119,9 +119,24 @@ public class HomeViewModel extends ViewModel {
         });
     }
 
-    public void deleteSticker(StickerDetailsDTO sticker){
-        /*stickersListTest.remove(sticker);
-        stickersList.setValue(stickersListTest);*/
+    public void deleteSticker(String token, StickerDetailsDTO sticker){
+
+        Call<Void> call = stickerDAO.deleteSticker(token, sticker.getId());
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()){
+                    List<StickerDetailsDTO> stickerDetails = stickersList.getValue();
+                    stickerDetails.remove(sticker);
+                    stickersList.setValue(stickerDetails);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
     }
 
     public int getIndexById(String id, List<StickerDetailsDTO> stickerDetails){
