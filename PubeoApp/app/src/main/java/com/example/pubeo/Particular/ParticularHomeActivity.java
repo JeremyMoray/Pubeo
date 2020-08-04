@@ -25,7 +25,7 @@ import android.view.Menu;
 public class ParticularHomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
