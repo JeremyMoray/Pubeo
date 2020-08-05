@@ -45,3 +45,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
 
 }
+
+def Base_URL = '"' + WEBServiceBaseURL + '"' ?: '"Define BASE URL"';
+
+android.buildTypes.each { type ->
+    type.buildConfigField 'String', 'Base_URL', WEBServiceBaseURL
+}

@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.example.pubeo.Advertiser.AdvertiserSignInActivity;
 import com.example.pubeo.Advertiser.HomeActivity;
+import com.example.pubeo.BuildConfig;
 import com.example.pubeo.DTO.AdvertiserCreateDTO;
 import com.example.pubeo.DTO.AdvertiserUpdateDTO;
 import com.example.pubeo.R;
@@ -41,7 +42,7 @@ public class AdvertiserDAO {
     private Gson gson = new GsonBuilder().serializeNulls().create();
 
     private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://10.0.2.2:5001/")
+            .baseUrl(BuildConfig.Base_URL)
             .client(getUnsafeOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();

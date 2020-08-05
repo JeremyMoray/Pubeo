@@ -1,5 +1,6 @@
 package com.example.pubeo.DAO;
 
+import com.example.pubeo.BuildConfig;
 import com.example.pubeo.DTO.StickerCreateDTO;
 import com.example.pubeo.DTO.StickerDetailsDTO;
 import com.example.pubeo.Service.ServiceAPI;
@@ -33,7 +34,7 @@ public class StickerDAO {
     private Gson gson = new GsonBuilder().serializeNulls().create();
 
     private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://10.0.2.2:5001/")
+            .baseUrl(BuildConfig.Base_URL)
             .client(getUnsafeOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
