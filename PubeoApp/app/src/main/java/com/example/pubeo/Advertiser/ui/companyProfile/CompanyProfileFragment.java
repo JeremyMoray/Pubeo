@@ -31,6 +31,7 @@ import com.example.pubeo.DTO.AdvertiserUpdateDTO;
 import com.example.pubeo.MainActivity;
 import com.example.pubeo.R;
 import com.example.pubeo.model.Advertiser;
+import com.example.pubeo.tools.CheckNetClass;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -72,94 +73,109 @@ public class CompanyProfileFragment extends Fragment {
         SharedPreferences sharedPref = getActivity().getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         String token = sharedPref.getString("access_token", null);
 
-        AdvertiserDAO advertiserDAO = new AdvertiserDAO();
-        Call<Advertiser> call = advertiserDAO.getMeAdvertiser(token);
-        call.enqueue(new Callback<Advertiser>() {
-            @Override
-            public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
-                advertiser = response.body();
+        if(CheckNetClass.checknetwork(getActivity())) {
+            AdvertiserDAO advertiserDAO = new AdvertiserDAO();
+            Call<Advertiser> call = advertiserDAO.getMeAdvertiser(token);
+            call.enqueue(new Callback<Advertiser>() {
+                @Override
+                public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
+                    advertiser = response.body();
 
-                companyProfileNameField.setText(advertiser.getNomEntreprise());
-                companyProfileVATField.setText(advertiser.getNumeroTVA());
-                companyProfilePhoneField.setText(advertiser.getNumeroTel());
-                companyProfileAddressField.setText(advertiser.getAdresse());
-                mailAdvertiserProfileField.setText(advertiser.getMail());
-                postalCodeAdvertiserProfileField.setText(advertiser.getLocalite().getCodePostal());
+                    companyProfileNameField.setText(advertiser.getNomEntreprise());
+                    companyProfileVATField.setText(advertiser.getNumeroTVA());
+                    companyProfilePhoneField.setText(advertiser.getNumeroTel());
+                    companyProfileAddressField.setText(advertiser.getAdresse());
+                    mailAdvertiserProfileField.setText(advertiser.getMail());
+                    postalCodeAdvertiserProfileField.setText(advertiser.getLocalite().getCodePostal());
 
-                saveProfileAdvertiserButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AdvertiserUpdateDTO newAdvertiser = new AdvertiserUpdateDTO(
-                                companyProfileNameField.getText().toString(),
-                                companyProfileAddressField.getText().toString(),
-                                companyProfilePhoneField.getText().toString(),
-                                mailAdvertiserProfileField.getText().toString(),
-                                companyProfileVATField.getText().toString(),
-                                postalCodeAdvertiserProfileField.getText().toString()
-                        );
+                    saveProfileAdvertiserButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(CheckNetClass.checknetwork(getActivity())) {
+                                AdvertiserUpdateDTO newAdvertiser = new AdvertiserUpdateDTO(
+                                        companyProfileNameField.getText().toString(),
+                                        companyProfileAddressField.getText().toString(),
+                                        companyProfilePhoneField.getText().toString(),
+                                        mailAdvertiserProfileField.getText().toString(),
+                                        companyProfileVATField.getText().toString(),
+                                        postalCodeAdvertiserProfileField.getText().toString()
+                                );
 
-                        Call<Void> call = advertiserDAO.updateAdvertiser(token, newAdvertiser);
-                        call.enqueue(new Callback<Void>() {
-                            @Override
-                            public void onResponse(Call<Void> call, Response<Void> response) {
-                                if(response.isSuccessful())
-                                    Toast.makeText(getActivity(), R.string.confirmUpdate, Toast.LENGTH_SHORT).show();
+                                Call<Void> call = advertiserDAO.updateAdvertiser(token, newAdvertiser);
+                                call.enqueue(new Callback<Void>() {
+                                    @Override
+                                    public void onResponse(Call<Void> call, Response<Void> response) {
+                                        if(response.isSuccessful())
+                                            Toast.makeText(getActivity(), R.string.confirmUpdate, Toast.LENGTH_SHORT).show();
 
-                                if(response.code() == 409)
-                                    Toast.makeText(getActivity(), R.string.emailConflict, Toast.LENGTH_SHORT).show();
+                                        if(response.code() == 409)
+                                            Toast.makeText(getActivity(), R.string.emailConflict, Toast.LENGTH_SHORT).show();
 
-                                if(response.code() == 404)
-                                    Toast.makeText(getActivity(), R.string.postalCodeNotValid, Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onFailure(Call<Void> call, Throwable t) {
-                            }
-                        });
-                    }
-                });
-
-                deleteProfileAdvertiserTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        new AlertDialog.Builder(getContext())
-                                .setMessage(R.string.deleteProfileConfirm)
-                                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        Call<Void> call = advertiserDAO.deleteAdvertiser(token);
-                                        call.enqueue(new Callback<Void>() {
-                                            @Override
-                                            public void onResponse(Call<Void> call, Response<Void> response) {
-                                                if(response.isSuccessful()){
-                                                    Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                    startActivity(intent);
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onFailure(Call<Void> call, Throwable t) {
-
-                                            }
-                                        });
+                                        if(response.code() == 404)
+                                            Toast.makeText(getActivity(), R.string.postalCodeNotValid, Toast.LENGTH_SHORT).show();
                                     }
-                                })
-                                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
 
+                                    @Override
+                                    public void onFailure(Call<Void> call, Throwable t) {
                                     }
-                                })
-                                .create()
-                                .show();
-                    }
-                });
-            }
+                                });
+                            }
+                            else {
+                                Toast.makeText(getActivity(), R.string.lossConnection, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
 
-            @Override
-            public void onFailure(Call<Advertiser> call, Throwable t) {
+                    deleteProfileAdvertiserTextView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            new AlertDialog.Builder(getContext())
+                                    .setMessage(R.string.deleteProfileConfirm)
+                                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            if(CheckNetClass.checknetwork(getActivity())) {
+                                                Call<Void> call = advertiserDAO.deleteAdvertiser(token);
+                                                call.enqueue(new Callback<Void>() {
+                                                    @Override
+                                                    public void onResponse(Call<Void> call, Response<Void> response) {
+                                                        if(response.isSuccessful()){
+                                                            Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                            startActivity(intent);
+                                                        }
+                                                    }
 
-            }
-        });
+                                                    @Override
+                                                    public void onFailure(Call<Void> call, Throwable t) {
+
+                                                    }
+                                                });
+                                            }
+                                            else {
+                                                Toast.makeText(getActivity(), R.string.lossConnection, Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    })
+                                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+                        }
+                    });
+                }
+
+                @Override
+                public void onFailure(Call<Advertiser> call, Throwable t) {
+
+                }
+            });
+        }
+        else {
+            Toast.makeText(getActivity(), R.string.lossConnection, Toast.LENGTH_SHORT).show();
+        }
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         String img_str = sharedPreferences.getString(IMAGEPATH, "");

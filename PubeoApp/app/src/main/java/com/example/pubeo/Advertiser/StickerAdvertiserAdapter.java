@@ -99,7 +99,8 @@ public class StickerAdvertiserAdapter extends RecyclerView.Adapter<StickerAdvert
 
             if (constraint == null || constraint.length() == 0) {
                 filteredList.addAll(stickersListFull);
-            } else {
+            }
+            else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (StickerDetailsDTO item : stickersListFull) {

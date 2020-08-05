@@ -58,6 +58,7 @@
     <string name="usernameNotValid">Assurez-vous que votre nom d\'utilisateur a une longueur entre 3 et 15 et que qu\'ils correspondent aux caractères et symboles a-z, 0-9, _, -</string>
     <string name="phoneNumberNotValid">Entrez un numéro de téléphone valide</string>
     <string name="postalCodeNotValid">Entrez un code postal valide</string>
+    <string name="lossConnection">La connexion a été perdue</string>
 
     <!-- Descriptions images -->
     <string name="profile_pic_desc">Photo de profil</string>

@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.pubeo.R;
+import com.example.pubeo.tools.CheckNetClass;
 import com.example.pubeo.tools.validation.ValidationTextWatcher;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -64,39 +66,44 @@ public class AdvertiserSignUpActivity extends AppCompatActivity {
     }
 
     public void openCompanyInformationsActivity(){
-        boolean isValid = true;
+        if(CheckNetClass.checknetwork(getApplicationContext())) {
+            boolean isValid = true;
 
-        if(mailAdvertiserSignUpField.isErrorEnabled() || passwordAdvertiserSignUpField.isErrorEnabled()){
-            isValid = false;
-        }
-        else{
-            if(mailAdvertiserSignUpField.getEditText().getText().toString().isEmpty()){
+            if(mailAdvertiserSignUpField.isErrorEnabled() || passwordAdvertiserSignUpField.isErrorEnabled()){
                 isValid = false;
-                mailAdvertiserSignUpField.setError(getString(R.string.fieldNotEmpty));
-            }
-
-            if(passwordAdvertiserSignUpField.getEditText().getText().toString().isEmpty()){
-                isValid = false;
-                passwordAdvertiserSignUpField.setError(getString(R.string.fieldNotEmpty));
             }
             else{
-                if(!passwordAdvertiserSignUpField.getEditText().getText().toString().equals(passwordConfirmAdvertiserSignUpField.getEditText().getText().toString())){
+                if(mailAdvertiserSignUpField.getEditText().getText().toString().isEmpty()){
                     isValid = false;
-                    passwordAdvertiserSignUpField.setError(getString(R.string.passwordNotMatching));
-                    passwordConfirmAdvertiserSignUpField.setError(getString(R.string.passwordNotMatching));
+                    mailAdvertiserSignUpField.setError(getString(R.string.fieldNotEmpty));
+                }
+
+                if(passwordAdvertiserSignUpField.getEditText().getText().toString().isEmpty()){
+                    isValid = false;
+                    passwordAdvertiserSignUpField.setError(getString(R.string.fieldNotEmpty));
                 }
                 else{
-                    passwordAdvertiserSignUpField.setErrorEnabled(false);
-                    passwordConfirmAdvertiserSignUpField.setErrorEnabled(false);
+                    if(!passwordAdvertiserSignUpField.getEditText().getText().toString().equals(passwordConfirmAdvertiserSignUpField.getEditText().getText().toString())){
+                        isValid = false;
+                        passwordAdvertiserSignUpField.setError(getString(R.string.passwordNotMatching));
+                        passwordConfirmAdvertiserSignUpField.setError(getString(R.string.passwordNotMatching));
+                    }
+                    else{
+                        passwordAdvertiserSignUpField.setErrorEnabled(false);
+                        passwordConfirmAdvertiserSignUpField.setErrorEnabled(false);
+                    }
                 }
             }
-        }
 
-        if (isValid) {
-            Intent intent = new Intent(this, CompanyInformationsActivity.class);
-            intent.putExtra("mail", mailAdvertiserSignUpField.getEditText().getText().toString());
-            intent.putExtra("password", passwordAdvertiserSignUpField.getEditText().getText().toString());
-            startActivity(intent);
+            if (isValid) {
+                Intent intent = new Intent(this, CompanyInformationsActivity.class);
+                intent.putExtra("mail", mailAdvertiserSignUpField.getEditText().getText().toString());
+                intent.putExtra("password", passwordAdvertiserSignUpField.getEditText().getText().toString());
+                startActivity(intent);
+            }
+        }
+        else {
+            Toast.makeText(this, R.string.lossConnection, Toast.LENGTH_SHORT).show();
         }
     }
 }

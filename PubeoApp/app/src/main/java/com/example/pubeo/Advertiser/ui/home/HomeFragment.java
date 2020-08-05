@@ -30,6 +30,7 @@ import com.example.pubeo.R;
 import com.example.pubeo.model.Advertiser;
 import com.example.pubeo.model.Sticker;
 import com.example.pubeo.Advertiser.StickerAdvertiserAdapter;
+import com.example.pubeo.tools.CheckNetClass;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -70,15 +71,20 @@ public class HomeFragment extends Fragment {
         adapter.setOnItemClickListener(new StickerAdvertiserAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(StickerDetailsDTO sticker) {
-                Intent intent = new Intent(getActivity(), AddEditStickerActivity.class);
-                intent.putExtra("EXTRA_ID", sticker.getId());
-                intent.putExtra("EXTRA_TITLE", sticker.getTitre());
-                intent.putExtra("EXTRA_DESCRIPTION", sticker.getDescription());
-                intent.putExtra("EXTRA_HEIGHT", sticker.getHauteur());
-                intent.putExtra("EXTRA_WIDTH", sticker.getLargeur());
-                intent.putExtra("EXTRA_NUMBER_OF_USE", sticker.getNbUtilisationsRestantes());
+                if(CheckNetClass.checknetwork(getActivity())) {
+                    Intent intent = new Intent(getActivity(), AddEditStickerActivity.class);
+                    intent.putExtra("EXTRA_ID", sticker.getId());
+                    intent.putExtra("EXTRA_TITLE", sticker.getTitre());
+                    intent.putExtra("EXTRA_DESCRIPTION", sticker.getDescription());
+                    intent.putExtra("EXTRA_HEIGHT", sticker.getHauteur());
+                    intent.putExtra("EXTRA_WIDTH", sticker.getLargeur());
+                    intent.putExtra("EXTRA_NUMBER_OF_USE", sticker.getNbUtilisationsRestantes());
 
-                startActivityForResult(intent, EDIT_STICKER_REQUEST);
+                    startActivityForResult(intent, EDIT_STICKER_REQUEST);
+                }
+                else {
+                    Toast.makeText(getActivity(), R.string.lossConnection, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -109,7 +115,12 @@ public class HomeFragment extends Fragment {
         fabAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                openAddStickerActivity();
+                if(CheckNetClass.checknetwork(getActivity())) {
+                    openAddStickerActivity();
+                }
+                else {
+                    Toast.makeText(getActivity(), R.string.lossConnection, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -125,7 +136,13 @@ public class HomeFragment extends Fragment {
                         .setMessage(R.string.confirmDeleteSticker)
                         .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                homeViewModel.deleteSticker(token, adapter.getStickerAt(viewHolder.getAdapterPosition()));
+                                if(CheckNetClass.checknetwork(getActivity())) {
+                                    homeViewModel.deleteSticker(token, adapter.getStickerAt(viewHolder.getAdapterPosition()));
+                                }
+                                else {
+                                    adapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                                    Toast.makeText(getActivity(), R.string.lossConnection, Toast.LENGTH_SHORT).show();
+                                }
                             }
                         })
                         .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {

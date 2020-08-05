@@ -22,6 +22,7 @@ import com.example.pubeo.R;
 import com.example.pubeo.model.Advertiser;
 import com.example.pubeo.model.LoginAdvertiser;
 import com.example.pubeo.model.Token;
+import com.example.pubeo.tools.CheckNetClass;
 import com.example.pubeo.tools.validation.ValidationTextWatcher;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -116,114 +117,119 @@ public class CompanyInformationsActivity extends AppCompatActivity {
     }
 
     public void openHomeActivity(){
-        boolean isValid = true;
+        if(CheckNetClass.checknetwork(getApplicationContext())) {
+            boolean isValid = true;
 
-        if(companyPhoneField.isErrorEnabled()){
-            isValid = false;
-        }
-        else{
-            if(companyNameField.getEditText().getText().toString().isEmpty()){
+            if(companyPhoneField.isErrorEnabled()){
                 isValid = false;
-                companyNameField.setError(getString(R.string.fieldNotEmpty));
             }
             else{
-                companyNameField.setErrorEnabled(false);
+                if(companyNameField.getEditText().getText().toString().isEmpty()){
+                    isValid = false;
+                    companyNameField.setError(getString(R.string.fieldNotEmpty));
+                }
+                else{
+                    companyNameField.setErrorEnabled(false);
+                }
+
+                if(companyVATField.getEditText().getText().toString().isEmpty()){
+                    isValid = false;
+                    companyVATField.setError(getString(R.string.fieldNotEmpty));
+                }
+                else{
+                    companyVATField.setErrorEnabled(false);
+                }
+
+                if(companyPhoneField.getEditText().getText().toString().isEmpty()){
+                    isValid = false;
+                    companyPhoneField.setError(getString(R.string.fieldNotEmpty));
+                }
+                else{
+                    companyPhoneField.setErrorEnabled(false);
+                }
+
+                if(companyAddressField.getEditText().getText().toString().isEmpty()){
+                    isValid = false;
+                    companyAddressField.setError(getString(R.string.fieldNotEmpty));
+                }
+                else{
+                    companyAddressField.setErrorEnabled(false);
+                }
             }
 
-            if(companyVATField.getEditText().getText().toString().isEmpty()){
-                isValid = false;
-                companyVATField.setError(getString(R.string.fieldNotEmpty));
-            }
-            else{
-                companyVATField.setErrorEnabled(false);
-            }
+            if (isValid) {
+                companyLogoId.buildDrawingCache();
+                Bitmap bitmap = companyLogoId.getDrawingCache();
 
-            if(companyPhoneField.getEditText().getText().toString().isEmpty()){
-                isValid = false;
-                companyPhoneField.setError(getString(R.string.fieldNotEmpty));
-            }
-            else{
-                companyPhoneField.setErrorEnabled(false);
-            }
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
+                byte[] image = stream.toByteArray();
+                String img_str = Base64.encodeToString(image, 0);
 
-            if(companyAddressField.getEditText().getText().toString().isEmpty()){
-                isValid = false;
-                companyAddressField.setError(getString(R.string.fieldNotEmpty));
-            }
-            else{
-                companyAddressField.setErrorEnabled(false);
-            }
-        }
+                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if (isValid) {
-            companyLogoId.buildDrawingCache();
-            Bitmap bitmap = companyLogoId.getDrawingCache();
+                editor.putString(IMAGEPATH, img_str);
+                editor.apply();
 
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
-            byte[] image = stream.toByteArray();
-            String img_str = Base64.encodeToString(image, 0);
+                AdvertiserDAO advertiserDAO = new AdvertiserDAO();
+                String postalCode = (companyPostalCodeField.getEditText() == null?null:companyPostalCodeField.getEditText().getText().toString());
 
-            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
+                AdvertiserCreateDTO advertiser = new AdvertiserCreateDTO(
+                        companyNameField.getEditText().getText().toString(),
+                        companyAddressField.getEditText().getText().toString(),
+                        companyPhoneField.getEditText().getText().toString(),
+                        getIntent().getStringExtra("password"),
+                        getIntent().getStringExtra("mail"),
+                        companyVATField.getEditText().getText().toString(),
+                        postalCode
+                );
 
-            editor.putString(IMAGEPATH, img_str);
-            editor.apply();
+                Call<Advertiser> call = advertiserDAO.addAdvertiser(advertiser);
 
-            AdvertiserDAO advertiserDAO = new AdvertiserDAO();
-            String postalCode = (companyPostalCodeField.getEditText() == null?null:companyPostalCodeField.getEditText().getText().toString());
+                call.enqueue(new Callback<Advertiser>() {
+                    @Override
+                    public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
+                        if(response.isSuccessful()){
+                            LoginAdvertiser loginAdvertiser = new LoginAdvertiser(advertiser.getMail(), advertiser.getMotDePasse());
+                            AdvertiserDAO advertiserDAO = new AdvertiserDAO();
 
-            AdvertiserCreateDTO advertiser = new AdvertiserCreateDTO(
-                    companyNameField.getEditText().getText().toString(),
-                    companyAddressField.getEditText().getText().toString(),
-                    companyPhoneField.getEditText().getText().toString(),
-                    getIntent().getStringExtra("password"),
-                    getIntent().getStringExtra("mail"),
-                    companyVATField.getEditText().getText().toString(),
-                    postalCode
-            );
-
-            Call<Advertiser> call = advertiserDAO.addAdvertiser(advertiser);
-
-            call.enqueue(new Callback<Advertiser>() {
-                @Override
-                public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
-                    if(response.isSuccessful()){
-                        LoginAdvertiser loginAdvertiser = new LoginAdvertiser(advertiser.getMail(), advertiser.getMotDePasse());
-                        AdvertiserDAO advertiserDAO = new AdvertiserDAO();
-
-                        Call<Token> tokenCall = advertiserDAO.login(loginAdvertiser);
-                        tokenCall.enqueue(new Callback<Token>() {
-                            @Override
-                            public void onResponse(Call<Token> call, Response<Token> response) {
-                                if(response.isSuccessful()){
-                                    editor.putString("access_token", "Bearer " + response.body().getAccess_token());
-                                    editor.apply();
-                                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity(intent);
+                            Call<Token> tokenCall = advertiserDAO.login(loginAdvertiser);
+                            tokenCall.enqueue(new Callback<Token>() {
+                                @Override
+                                public void onResponse(Call<Token> call, Response<Token> response) {
+                                    if(response.isSuccessful()){
+                                        editor.putString("access_token", "Bearer " + response.body().getAccess_token());
+                                        editor.apply();
+                                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(Call<Token> call, Throwable t) {
+                                @Override
+                                public void onFailure(Call<Token> call, Throwable t) {
 
-                            }
-                        });
+                                }
+                            });
+                        }
+
+                        if(response.code() == 409)
+                            Toast.makeText(getApplicationContext(), R.string.companyNameConflict, Toast.LENGTH_SHORT).show();
+
+                        if(response.code() == 404)
+                            Toast.makeText(getApplicationContext(), R.string.postalCodeNotValid, Toast.LENGTH_SHORT).show();
                     }
 
-                    if(response.code() == 409)
-                        Toast.makeText(getApplicationContext(), R.string.companyNameConflict, Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onFailure(Call<Advertiser> call, Throwable t) {
 
-                    if(response.code() == 404)
-                        Toast.makeText(getApplicationContext(), R.string.postalCodeNotValid, Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onFailure(Call<Advertiser> call, Throwable t) {
-
-                }
-            });
+                    }
+                });
+            }
+        }
+        else {
+            Toast.makeText(this, R.string.lossConnection, Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -21,6 +21,7 @@ import com.example.pubeo.Service.ServiceAPI;
 import com.example.pubeo.model.Advertiser;
 import com.example.pubeo.model.LoginAdvertiser;
 import com.example.pubeo.model.Token;
+import com.example.pubeo.tools.CheckNetClass;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class AdvertiserSignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 openHomeActivity();
+
             }
         });
 
@@ -64,57 +66,59 @@ public class AdvertiserSignInActivity extends AppCompatActivity {
     }
 
     public void openHomeActivity(){
+        if(CheckNetClass.checknetwork(getApplicationContext())) {
+            boolean isValid = true;
 
-        boolean isValid = true;
+            if (mailAdvertiserSignInField.getEditText().getText().toString().isEmpty()) {
+                isValid = false;
+                mailAdvertiserSignInField.setError(getString(R.string.fieldNotEmpty));
+            } else {
+                mailAdvertiserSignInField.setErrorEnabled(false);
+            }
 
-        if(mailAdvertiserSignInField.getEditText().getText().toString().isEmpty()){
-            isValid = false;
-            mailAdvertiserSignInField.setError(getString(R.string.fieldNotEmpty));
-        }
-        else{
-            mailAdvertiserSignInField.setErrorEnabled(false);
-        }
+            if (passwordAdvertiserSignInField.getEditText().getText().toString().isEmpty()) {
+                isValid = false;
+                passwordAdvertiserSignInField.setError(getString(R.string.fieldNotEmpty));
+            } else {
+                passwordAdvertiserSignInField.setErrorEnabled(false);
+            }
 
-        if(passwordAdvertiserSignInField.getEditText().getText().toString().isEmpty()){
-            isValid = false;
-            passwordAdvertiserSignInField.setError(getString(R.string.fieldNotEmpty));
-        }
-        else{
-            passwordAdvertiserSignInField.setErrorEnabled(false);
-        }
+            if (isValid) {
+                LoginAdvertiser loginAdvertiser = new LoginAdvertiser(mailAdvertiserSignInField.getEditText().getText().toString(), passwordAdvertiserSignInField.getEditText().getText().toString());
+                AdvertiserDAO advertiserDAO = new AdvertiserDAO();
 
-        if (isValid) {
-            LoginAdvertiser loginAdvertiser = new LoginAdvertiser(mailAdvertiserSignInField.getEditText().getText().toString(), passwordAdvertiserSignInField.getEditText().getText().toString());
-            AdvertiserDAO advertiserDAO = new AdvertiserDAO();
+                Call<Token> call = advertiserDAO.login(loginAdvertiser);
 
-            Call<Token> call = advertiserDAO.login(loginAdvertiser);
+                call.enqueue(new Callback<Token>() {
+                    @Override
+                    public void onResponse(Call<Token> call, Response<Token> response) {
+                        if (response.isSuccessful()) {
+                            SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putString("access_token", "Bearer " + response.body().getAccess_token());
+                            editor.apply();
 
-            call.enqueue(new Callback<Token>() {
-                @Override
-                public void onResponse(Call<Token> call, Response<Token> response) {
-                    if (response.isSuccessful()){
-                        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPref.edit();
-                        editor.putString("access_token", "Bearer " + response.body().getAccess_token());
-                        editor.apply();
+                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
 
-                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
+                        if (response.code() == 404)
+                            mailAdvertiserSignInField.setError(getString(R.string.mailNotExist));
+
+                        if (response.code() == 401)
+                            passwordAdvertiserSignInField.setError(getString(R.string.passwordIncorrect));
                     }
 
-                    if(response.code() == 404)
-                        mailAdvertiserSignInField.setError(getString(R.string.mailNotExist));
-
-                    if(response.code() == 401)
-                        passwordAdvertiserSignInField.setError(getString(R.string.passwordIncorrect));
-                }
-
-                @Override
-                public void onFailure(Call<Token> call, Throwable t) {
-                    Toast.makeText(AdvertiserSignInActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+                    @Override
+                    public void onFailure(Call<Token> call, Throwable t) {
+                        Toast.makeText(AdvertiserSignInActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
+        else {
+            Toast.makeText(this, R.string.lossConnection, Toast.LENGTH_SHORT).show();
         }
     }
 }

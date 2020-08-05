@@ -7,8 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.pubeo.R;
+import com.example.pubeo.tools.CheckNetClass;
 import com.google.android.material.textfield.TextInputLayout;
 
 import static java.lang.Integer.parseInt;
@@ -42,8 +44,6 @@ public class AddEditStickerActivity extends AppCompatActivity {
             heightStickerInput.getEditText().setText(String.format("%s", intent.getIntExtra("EXTRA_HEIGHT", 1)));
             widthStickerInput.getEditText().setText(String.format("%s", intent.getIntExtra("EXTRA_WIDTH", 1)));
             numberOfUseStickerInput.getEditText().setText(String.format("%s", intent.getIntExtra("EXTRA_NUMBER_OF_USE", 1)));
-
-
         }
         else{
             getSupportActionBar().setTitle(getString(R.string.addSticker));
@@ -55,69 +55,74 @@ public class AddEditStickerActivity extends AppCompatActivity {
         saveButtonAddSticker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                boolean isValid = true;
+                if(CheckNetClass.checknetwork(getApplicationContext())) {
+                    boolean isValid = true;
 
-                String title = titleStickerInput.getEditText().getText().toString();
-                String description = descriptionStickerInput.getEditText().getText().toString();
-                String height = heightStickerInput.getEditText().getText().toString();
-                String width = widthStickerInput.getEditText().getText().toString();
-                String numberOfUse = numberOfUseStickerInput.getEditText().getText().toString();
+                    String title = titleStickerInput.getEditText().getText().toString();
+                    String description = descriptionStickerInput.getEditText().getText().toString();
+                    String height = heightStickerInput.getEditText().getText().toString();
+                    String width = widthStickerInput.getEditText().getText().toString();
+                    String numberOfUse = numberOfUseStickerInput.getEditText().getText().toString();
 
-                if(title.isEmpty()){
-                    isValid = false;
-                    titleStickerInput.setError(getString(R.string.fieldNotEmpty));
-                }
-                else{
-                    titleStickerInput.setErrorEnabled(false);
-                }
-
-                if(description.isEmpty()){
-                    isValid = false;
-                    descriptionStickerInput.setError(getString(R.string.fieldNotEmpty));
-                }
-                else{
-                    descriptionStickerInput.setErrorEnabled(false);
-                }
-
-                if(heightStickerInput.getEditText().getText().toString().isEmpty()){
-                    isValid = false;
-                    heightStickerInput.setError(getString(R.string.fieldNotEmpty));
-                }
-                else{
-                    heightStickerInput.setErrorEnabled(false);
-                }
-
-                if(widthStickerInput.getEditText().getText().toString().isEmpty()){
-                    isValid = false;
-                    widthStickerInput.setError(getString(R.string.fieldNotEmpty));
-                }
-                else{
-                    widthStickerInput.setErrorEnabled(false);
-                }
-
-                if(numberOfUseStickerInput.getEditText().getText().toString().isEmpty()){
-                    isValid = false;
-                    numberOfUseStickerInput.setError(getString(R.string.fieldNotEmpty));
-                }
-                else{
-                    numberOfUseStickerInput.setErrorEnabled(false);
-                }
-
-                if (isValid) {
-                    Intent intent = new Intent();
-                    intent.putExtra("EXTRA_TITLE", title);
-                    intent.putExtra("EXTRA_DESCRIPTION", description);
-                    intent.putExtra("EXTRA_HEIGHT", parseInt(height));
-                    intent.putExtra("EXTRA_WIDTH", parseInt(width));
-                    intent.putExtra("EXTRA_NUMBER_OF_USE", parseInt(numberOfUse));
-
-                    String id = getIntent().getStringExtra("EXTRA_ID");
-                    if(id != null && !id.equals("-1")){
-                        intent.putExtra("EXTRA_ID", id);
+                    if(title.isEmpty()){
+                        isValid = false;
+                        titleStickerInput.setError(getString(R.string.fieldNotEmpty));
+                    }
+                    else{
+                        titleStickerInput.setErrorEnabled(false);
                     }
 
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    if(description.isEmpty()){
+                        isValid = false;
+                        descriptionStickerInput.setError(getString(R.string.fieldNotEmpty));
+                    }
+                    else{
+                        descriptionStickerInput.setErrorEnabled(false);
+                    }
+
+                    if(heightStickerInput.getEditText().getText().toString().isEmpty()){
+                        isValid = false;
+                        heightStickerInput.setError(getString(R.string.fieldNotEmpty));
+                    }
+                    else{
+                        heightStickerInput.setErrorEnabled(false);
+                    }
+
+                    if(widthStickerInput.getEditText().getText().toString().isEmpty()){
+                        isValid = false;
+                        widthStickerInput.setError(getString(R.string.fieldNotEmpty));
+                    }
+                    else{
+                        widthStickerInput.setErrorEnabled(false);
+                    }
+
+                    if(numberOfUseStickerInput.getEditText().getText().toString().isEmpty()){
+                        isValid = false;
+                        numberOfUseStickerInput.setError(getString(R.string.fieldNotEmpty));
+                    }
+                    else{
+                        numberOfUseStickerInput.setErrorEnabled(false);
+                    }
+
+                    if (isValid) {
+                        Intent intent = new Intent();
+                        intent.putExtra("EXTRA_TITLE", title);
+                        intent.putExtra("EXTRA_DESCRIPTION", description);
+                        intent.putExtra("EXTRA_HEIGHT", parseInt(height));
+                        intent.putExtra("EXTRA_WIDTH", parseInt(width));
+                        intent.putExtra("EXTRA_NUMBER_OF_USE", parseInt(numberOfUse));
+
+                        String id = getIntent().getStringExtra("EXTRA_ID");
+                        if(id != null && !id.equals("-1")){
+                            intent.putExtra("EXTRA_ID", id);
+                        }
+
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
+                }
+                else {
+                    Toast.makeText(AddEditStickerActivity.this, R.string.lossConnection, Toast.LENGTH_SHORT).show();
                 }
             }
         });
