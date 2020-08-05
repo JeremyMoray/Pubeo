@@ -107,8 +107,11 @@ namespace PubeoAPI.Controllers {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if(await _context.Professionnels.AnyAsync(x => x.Mail == professionnel.Mail || x.NomEntreprise == professionnel.NomEntreprise))
-                return Conflict();
+            if(await _context.Professionnels.AnyAsync(x => x.Mail == professionnel.Mail))
+                return Conflict("Mail");
+
+            if(await _context.Professionnels.AnyAsync(x => x.NomEntreprise == professionnel.NomEntreprise))
+                return Conflict("NomEntreprise");
 
             if(professionnel.LocaliteCode != null && !await _context.Localites.AnyAsync(x => x.CodePostal.Equals(professionnel.LocaliteCode)))
                 return NotFound();

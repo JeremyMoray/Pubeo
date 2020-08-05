@@ -85,7 +85,19 @@ public class AddEditStickerActivity extends AppCompatActivity {
                         heightStickerInput.setError(getString(R.string.fieldNotEmpty));
                     }
                     else{
-                        heightStickerInput.setErrorEnabled(false);
+                        try{
+                            if(parseInt(heightStickerInput.getEditText().getText().toString()) < 1  || parseInt(heightStickerInput.getEditText().getText().toString()) > 10000){
+                                isValid = false;
+                                heightStickerInput.setError(getString(R.string.heightNotValid));
+                            }
+                            else{
+                                heightStickerInput.setErrorEnabled(false);
+                            }
+                        }
+                        catch(NumberFormatException e){
+                            isValid = false;
+                            heightStickerInput.setError(getString(R.string.heightNotValid));
+                        }
                     }
 
                     if(widthStickerInput.getEditText().getText().toString().isEmpty()){
@@ -93,7 +105,19 @@ public class AddEditStickerActivity extends AppCompatActivity {
                         widthStickerInput.setError(getString(R.string.fieldNotEmpty));
                     }
                     else{
-                        widthStickerInput.setErrorEnabled(false);
+                        try{
+                            if(parseInt(widthStickerInput.getEditText().getText().toString()) < 1  || parseInt(widthStickerInput.getEditText().getText().toString()) > 10000){
+                                isValid = false;
+                                widthStickerInput.setError(getString(R.string.widthNotValid));
+                            }
+                            else{
+                                widthStickerInput.setErrorEnabled(false);
+                            }
+                        }
+                        catch (NumberFormatException e){
+                            isValid = false;
+                            widthStickerInput.setError(getString(R.string.widthNotValid));
+                        }
                     }
 
                     if(numberOfUseStickerInput.getEditText().getText().toString().isEmpty()){
@@ -101,7 +125,19 @@ public class AddEditStickerActivity extends AppCompatActivity {
                         numberOfUseStickerInput.setError(getString(R.string.fieldNotEmpty));
                     }
                     else{
-                        numberOfUseStickerInput.setErrorEnabled(false);
+                        try{
+                            if(parseInt(numberOfUseStickerInput.getEditText().getText().toString()) < 1  || parseInt(numberOfUseStickerInput.getEditText().getText().toString()) > 1000000){
+                                isValid = false;
+                                numberOfUseStickerInput.setError(getString(R.string.nbOfUseNotValid));
+                            }
+                            else{
+                                numberOfUseStickerInput.setErrorEnabled(false);
+                            }
+                        }
+                        catch(NumberFormatException e){
+                            isValid = false;
+                            numberOfUseStickerInput.setError(getString(R.string.nbOfUseNotValid));
+                        }
                     }
 
                     if (isValid) {

@@ -33,6 +33,9 @@ import com.example.pubeo.R;
 import com.example.pubeo.model.Advertiser;
 import com.example.pubeo.tools.CheckNetClass;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -91,6 +94,41 @@ public class CompanyProfileFragment extends Fragment {
                     saveProfileAdvertiserButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            if(companyProfileNameField.getText().toString().isEmpty()){
+                                Toast.makeText(getActivity(), R.string.fieldNotEmpty, Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            if(companyProfileVATField.getText().toString().isEmpty()){
+                                Toast.makeText(getActivity(), R.string.fieldNotEmpty, Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            if(companyProfilePhoneField.getText().toString().isEmpty()){
+                                Toast.makeText(getActivity(), R.string.fieldNotEmpty, Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            if(companyProfileAddressField.getText().toString().isEmpty()){
+                                Toast.makeText(getActivity(), R.string.fieldNotEmpty, Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            if(mailAdvertiserProfileField.getText().toString().isEmpty()){
+                                Toast.makeText(getActivity(), R.string.fieldNotEmpty, Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            Pattern emailPattern = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+                            Matcher emailMatcher = emailPattern.matcher((CharSequence) mailAdvertiserProfileField.getText().toString());
+                            if(!emailMatcher.find()){
+                                Toast.makeText(getActivity(), R.string.fieldNotValid, Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
+                            Pattern phonePattern = Pattern.compile("\\d{10}");
+                            Matcher phoneMatcher = phonePattern.matcher((CharSequence) companyProfilePhoneField.getText().toString());
+                            if(!phoneMatcher.find()){
+                                Toast.makeText(getActivity(), R.string.phoneNumberNotValid, Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+
                             if(CheckNetClass.checknetwork(getActivity())) {
                                 AdvertiserUpdateDTO newAdvertiser = new AdvertiserUpdateDTO(
                                         companyProfileNameField.getText().toString(),
