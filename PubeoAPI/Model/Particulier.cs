@@ -36,6 +36,8 @@ namespace PubeoAPI.model {
         [StringLength(100)]
         [Required(AllowEmptyStrings = false)]
         public String Mail { get; set; }
+        // TODO : re-migrate to add password row
+        public String MotDePasse { get; set; }
         public String LocaliteCode { get; set; }
 
         [ForeignKey("LocaliteCode")]

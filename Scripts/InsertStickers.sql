@@ -1,14 +1,4 @@
---create table [#tempStickers] (
---[Id] [uniqueidentifier],
---[Titre] [nvarchar] (max) NULL,
---[Description] [nvarchar] (300) NULL,
---[Hauteur] [int],
---[Largeur] [int],
---[NbUtilisationsRestantes] [int],
---[ProfessionnelId] [uniqueidentifier]);
-
-
-insert [#tempStickers] ([Id],[Titre],[Description],[Hauteur],[Largeur],[NbUtilisationsRestantes],[ProfessionnelId])
+insert [pubeoAPIv1.0].[dbo].[Stickers] ([Id],[Titre],[Description],[Hauteur],[Largeur],[NbUtilisationsRestantes],[ProfessionnelId])
 select '{4182e8d0-16e8-4c3e-8f5f-151b83b29f46}','Pizza Namur','Circulez durant les heures (16:00 - 20:00) de pointes du Lundi au Vendredi',400,400,40,'{1cfa3a07-8868-4737-bad8-f48e6008011d}' UNION ALL
 select '{5b47dc86-7409-4716-a44b-1ee9ed13b7bd}','24 day Drive','Touchez une prime après avoir circulez 24 jours d''affilés',100,100,40,'{e9684930-755f-4860-a728-604a3985edc4}' UNION ALL
 select '{a6ca9c99-0542-4798-8c26-3ebb6a2097ba}','Namur Drive','Faites circulez le message autour de Bouge, Champion et Salzinnes',300,300,2,'{e9684930-755f-4860-a728-604a3985edc4}' UNION ALL
