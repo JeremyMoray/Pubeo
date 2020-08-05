@@ -214,8 +214,25 @@ public class CompanyInformationsActivity extends AppCompatActivity {
                             });
                         }
 
-                        if(response.code() == 409)
-                            Toast.makeText(getApplicationContext(), R.string.companyNameConflict, Toast.LENGTH_SHORT).show();
+                        String errorMessage = "";
+
+                        if(response.code() == 409){
+                            try{
+                                errorMessage = response.errorBody().string();
+                            }
+                            catch (IOException e) {
+
+                            }
+
+                            if(errorMessage.equals("Mail")){
+                                Log.e("sdqsd", "sdqdsqdsq");
+                                Toast.makeText(getApplicationContext(), R.string.emailConflict, Toast.LENGTH_SHORT).show();
+                            }
+                            if(errorMessage.equals("NomEntreprise")){
+                                Log.e("sdqsd", "sdqdsqdsq");
+                                Toast.makeText(getApplicationContext(), R.string.companyNameConflict, Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
                         if(response.code() == 404)
                             Toast.makeText(getApplicationContext(), R.string.postalCodeNotValid, Toast.LENGTH_SHORT).show();
