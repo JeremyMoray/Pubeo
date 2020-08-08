@@ -55,7 +55,7 @@ public class ParticularSignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(checkEmtpyField()) {
-                    Intent intent = new Intent(ParticularSignInActivity.this, ParticularHomeActivity.class);
+                    Intent intent = new Intent(ParticularSignInActivity.this, CompanyInformationsActivity.class);
                     startActivity(intent);
                 }
             }

@@ -12,69 +12,25 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/logoMenuParticular"
-        android:layout_width="264dp"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:civ_border_width="1dp"
-        app:civ_border_color="@color/white"
-        app:civ_circle_background_color="@color/white"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@mipmap/ic_launcher_round" />
+        app:srcCompat="@mipmap/ic_launcher_round" />
 
     <TextView
-        android:id="@+id/titleMenuParticular"
-        android:layout_width="264dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textSize="20sp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="@string/nav_header_title"
-        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/subTitleMenuParticular"
-        android:layout_width="264dp"
-        android:layout_marginTop="10dp"
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nav_header_particular_subtitle"
-        android:textAlignment="center" />
-
-    <View
-        android:id="@+id/whiteBarMenuParticular"
-        android:background="@color/white"
-        android:layout_marginTop="20dp"
-        android:layout_width="477dp"
-        android:layout_height="2dp" />
-
-    <TextView
-        android:id="@+id/paymentsMenuLabel"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        android:layout_width="264dp"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content"
-        android:text="@string/myRewards"/>
-
-    <TextView
-        android:id="@+id/eurosMenuLabel"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:layout_width="60dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_height="wrap_content"
-        android:text="@string/points"/>
-
-    <TextView
-        android:id="@+id/eurosPerPointsLabel"
-        android:textColor="@color/white"
-        android:textSize="12sp"
-        android:layout_width="264dp"
-        android:layout_marginStart="20dp"
-        android:layout_height="wrap_content"
-        android:text="@string/pointsReward"/>
+        android:text="@string/nav_header_subtitle" />
 
 </LinearLayout>

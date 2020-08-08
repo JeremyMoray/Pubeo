@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PubeoAPI.model {
-    public class Vehicule {
-        public Vehicule(){
-            AppartenanceVehicules = new HashSet<AppartenanceVehicule>();
-        }
+namespace PubeoAPI.model
+{
+    public class Vehicule
+    {
 
-        [Column(Order=1)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
         public String Marque { get; set; }
-
-        [Column(Order=2)]
         public String Modele { get; set; }
-        public virtual ICollection<AppartenanceVehicule> AppartenanceVehicules { get; set; }
+        public Guid ParticulierId { get; set; }
+
+        [ForeignKey("ParticulierId")]
+        public virtual Particulier Particulier { get; set; }
     }
 }

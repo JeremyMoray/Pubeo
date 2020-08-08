@@ -27,10 +27,10 @@ namespace PubeoAPI
             
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Vehicule>().HasKey(av => new { av.Marque, av.Modele });
-        } 
+        // protected override void OnModelCreating(ModelBuilder modelBuilder)
+        // {
+        //     modelBuilder.Entity<Vehicule>().HasKey(av => new { av.Marque, av.Modele });
+        // }
     }
 }
     

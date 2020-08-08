@@ -21,6 +21,9 @@ using PubeoAPI.model;
 using PubeoAPI.Repository;
 using securityJWT.Options;
 using AutoMapper;
+using PubeoAPI.model;
+using PubeoAPI.Repository;
+using securityJWT.Options;
 
 namespace PubeoAPI
 {
@@ -38,6 +41,7 @@ namespace PubeoAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
 
             services.Configure<JwtIssuerOptions>(options => 
@@ -98,7 +102,8 @@ namespace PubeoAPI
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddTransient<ILocalRepository, LocalRepository>();       
+            services.AddTransient<ILocalRepository, LocalRepository>();
+            services.AddTransient<ILocalRepository, LocalRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
