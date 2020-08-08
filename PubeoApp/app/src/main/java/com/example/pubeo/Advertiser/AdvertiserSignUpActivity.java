@@ -29,7 +29,7 @@ public class AdvertiserSignUpActivity extends AppCompatActivity {
     @BindView(R.id.passwordAdvertiserSignUpEditText) TextInputEditText passwordAdvertiserSignUpEditText;
     @BindView(R.id.passwordConfirmAdvertiserSignUpField) TextInputLayout passwordConfirmAdvertiserSignUpField;
     @BindView(R.id.passwordConfirmAdvertiserSignUpEditText) TextInputEditText passwordConfirmAdvertiserSignUpEditText;
-    private ImageView whiteArrowSignUpAdvertiser;
+    @BindView(R.id.whiteArrowSignUpAdvertiser) ImageView whiteArrowSignUpAdvertiser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,6 @@ public class AdvertiserSignUpActivity extends AppCompatActivity {
             }
         });
 
-        whiteArrowSignUpAdvertiser = findViewById(R.id.whiteArrowSignUpAdvertiser);
         whiteArrowSignUpAdvertiser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -59,8 +58,10 @@ public class AdvertiserSignUpActivity extends AppCompatActivity {
 
         mailAdvertiserSignUpEditText
                 .addTextChangedListener(new ValidationTextWatcher(this, mailAdvertiserSignUpField));
+
         passwordAdvertiserSignUpEditText
                 .addTextChangedListener(new ValidationTextWatcher(this, passwordAdvertiserSignUpField));
+
         passwordConfirmAdvertiserSignUpEditText
                 .addTextChangedListener(new ValidationTextWatcher(this, passwordConfirmAdvertiserSignUpField));
     }

@@ -20,21 +20,15 @@ import com.example.pubeo.DAO.AdvertiserDAO;
 import com.example.pubeo.DTO.AdvertiserCreateDTO;
 import com.example.pubeo.R;
 import com.example.pubeo.model.Advertiser;
-import com.example.pubeo.model.LoginAdvertiser;
+import com.example.pubeo.model.Login;
 import com.example.pubeo.model.Token;
 import com.example.pubeo.tools.CheckNetClass;
 import com.example.pubeo.tools.validation.ValidationTextWatcher;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,9 +47,8 @@ public class CompanyInformationsActivity extends AppCompatActivity {
     @BindView(R.id.companyPhoneFieldEditText) TextInputEditText companyPhoneFieldEditText;
     @BindView(R.id.companyAddressField) TextInputLayout companyAddressField;
     @BindView(R.id.companyPostalCodeField) TextInputLayout companyPostalCodeField;
-
-    private ImageView whiteArrowCompanyInformations;
-    private ImageView companyLogoId;
+    @BindView(R.id.whiteArrowCompanyInformations) ImageView whiteArrowCompanyInformations;
+    @BindView(R.id.companyLogoId) ImageView companyLogoId;
 
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String IMAGEPATH = "imagePath";
@@ -76,7 +69,6 @@ public class CompanyInformationsActivity extends AppCompatActivity {
             }
         });
 
-        whiteArrowCompanyInformations = findViewById(R.id.whiteArrowCompanyInformations);
         whiteArrowCompanyInformations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -84,7 +76,6 @@ public class CompanyInformationsActivity extends AppCompatActivity {
             }
         });
 
-        companyLogoId = findViewById(R.id.companyLogoId);
         companyLogoId.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -191,10 +182,9 @@ public class CompanyInformationsActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
                         if(response.isSuccessful()){
-                            LoginAdvertiser loginAdvertiser = new LoginAdvertiser(advertiser.getMail(), advertiser.getMotDePasse());
-                            AdvertiserDAO advertiserDAO = new AdvertiserDAO();
-
-                            Call<Token> tokenCall = advertiserDAO.login(loginAdvertiser);
+                            Login login = new Login(advertiser.getMail(), advertiser.getMotDePasse());
+                            
+                            Call<Token> tokenCall = advertiserDAO.login(login);
                             tokenCall.enqueue(new Callback<Token>() {
                                 @Override
                                 public void onResponse(Call<Token> call, Response<Token> response) {
@@ -225,11 +215,9 @@ public class CompanyInformationsActivity extends AppCompatActivity {
                             }
 
                             if(errorMessage.equals("Mail")){
-                                Log.e("sdqsd", "sdqdsqdsq");
                                 Toast.makeText(getApplicationContext(), R.string.emailConflict, Toast.LENGTH_SHORT).show();
                             }
                             if(errorMessage.equals("NomEntreprise")){
-                                Log.e("sdqsd", "sdqdsqdsq");
                                 Toast.makeText(getApplicationContext(), R.string.companyNameConflict, Toast.LENGTH_SHORT).show();
                             }
                         }

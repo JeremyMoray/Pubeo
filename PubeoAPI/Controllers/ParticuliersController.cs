@@ -102,6 +102,7 @@ namespace PubeoAPI.Controllers {
 
         // POST: /Particuliers
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> PostParticuliers([FromBody] Particulier particulier)
         {
             ScryptEncoder encoder = new ScryptEncoder();

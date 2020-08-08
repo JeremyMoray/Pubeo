@@ -2,10 +2,12 @@ package com.example.pubeo.Service;
 
 import com.example.pubeo.DTO.AdvertiserCreateDTO;
 import com.example.pubeo.DTO.AdvertiserUpdateDTO;
+import com.example.pubeo.DTO.ParticularCreateDTO;
 import com.example.pubeo.DTO.StickerCreateDTO;
 import com.example.pubeo.DTO.StickerDetailsDTO;
 import com.example.pubeo.model.Advertiser;
-import com.example.pubeo.model.LoginAdvertiser;
+import com.example.pubeo.model.Login;
+import com.example.pubeo.model.Particular;
 import com.example.pubeo.model.Sticker;
 import com.example.pubeo.model.Token;
 
@@ -22,8 +24,10 @@ import retrofit2.http.Path;
 
 public interface ServiceAPI {
 
+    //Advertiser
+
     @POST("Jwt/LoginAdvertiser")
-    Call<Token> loginAdvertiser(@Body LoginAdvertiser loginAdvertiser);
+    Call<Token> loginAdvertiser(@Body Login login);
 
     @GET("Professionnels/GetMe")
     Call<Advertiser> getMeAdvertiser(@Header("Authorization") String token);
@@ -48,4 +52,12 @@ public interface ServiceAPI {
 
     @DELETE("Stickers/{id}")
     Call<Void> deleteSticker(@Header("Authorization") String token, @Path("id") String id);
+
+    //Particular
+
+    @POST("Jwt/LoginParticulier")
+    Call<Token> loginParticular(@Body Login login);
+
+    @POST("Particuliers")
+    Call<Particular> addParticular(@Body ParticularCreateDTO particular);
 }

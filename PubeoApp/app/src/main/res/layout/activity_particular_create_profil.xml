@@ -114,18 +114,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Spinner
-                style="@style/Widget.AppCompat.Spinner.Underlined"
-                android:id="@+id/particularCreateProfilGender"
-                android:layout_width="0dp"
-                android:layout_height="64dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/particularCreateProfilFirstName" />
-
             <EditText
                 android:id="@+id/particularCreateProfilBirthDate"
                 android:layout_width="0dp"
@@ -140,7 +128,7 @@
                 android:inputType="datetime"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/particularCreateProfilGender" />
+                app:layout_constraintTop_toBottomOf="@+id/particularCreateProfilLastName" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/particularCreateProfilNumber"

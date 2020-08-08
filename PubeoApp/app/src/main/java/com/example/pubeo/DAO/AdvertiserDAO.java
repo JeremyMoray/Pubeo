@@ -1,19 +1,11 @@
 package com.example.pubeo.DAO;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.widget.Toast;
-
-import com.example.pubeo.Advertiser.AdvertiserSignInActivity;
-import com.example.pubeo.Advertiser.HomeActivity;
 import com.example.pubeo.BuildConfig;
 import com.example.pubeo.DTO.AdvertiserCreateDTO;
 import com.example.pubeo.DTO.AdvertiserUpdateDTO;
-import com.example.pubeo.R;
 import com.example.pubeo.Service.ServiceAPI;
 import com.example.pubeo.model.Advertiser;
-import com.example.pubeo.model.LoginAdvertiser;
+import com.example.pubeo.model.Login;
 import com.example.pubeo.model.Token;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -32,8 +24,6 @@ import javax.net.ssl.X509TrustManager;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -47,11 +37,11 @@ public class AdvertiserDAO {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
 
-    public Call<Token> login(LoginAdvertiser loginAdvertiser) {
+    public Call<Token> login(Login login) {
         disableSSLCertificateChecking();
         serviceAPI = retrofit.create(ServiceAPI.class);
 
-        return serviceAPI.loginAdvertiser(loginAdvertiser);
+        return serviceAPI.loginAdvertiser(login);
     }
 
     public Call<Advertiser> getMeAdvertiser(String token){
@@ -61,12 +51,12 @@ public class AdvertiserDAO {
         return serviceAPI.getMeAdvertiser(token);
     }
 
-    public Call<Advertiser> addAdvertiser(AdvertiserCreateDTO advertiserReceived) {
+    public Call<Advertiser> addAdvertiser(AdvertiserCreateDTO advertiser) {
         disableSSLCertificateChecking();
 
         serviceAPI = retrofit.create(ServiceAPI.class);
 
-        return serviceAPI.addAdvertiser(advertiserReceived);
+        return serviceAPI.addAdvertiser(advertiser);
     }
 
     public Call<Void> updateAdvertiser(String token, AdvertiserUpdateDTO advertiser) {

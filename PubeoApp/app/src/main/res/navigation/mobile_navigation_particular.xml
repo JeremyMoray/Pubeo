@@ -12,21 +12,9 @@
         tools:layout="@layout/fragment_particular_home" />
 
     <fragment
-        android:id="@+id/nav_company_profile"
-        android:name="com.example.pubeo.Advertiser.ui.companyProfile.CompanyProfileFragment"
-        android:label="@string/menu_company_profile"
-        tools:layout="@layout/fragment_company_profile" />
-
-    <fragment
-        android:id="@+id/nav_manage_participants"
-        android:name="com.example.pubeo.Advertiser.ui.manageParticipants.ManageParticipantsFragment"
-        android:label="@string/menu_manage_participants"
-        tools:layout="@layout/fragment_manage_participants" />
-
-    <fragment
-        android:id="@+id/nav_settings"
+        android:id="@+id/nav_particular_settings"
         android:name="com.example.pubeo.Advertiser.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_particular_settings" />
 
 </navigation>

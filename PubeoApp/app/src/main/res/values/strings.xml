@@ -41,13 +41,6 @@
     <string name="emailConflict">L\'adresse mail existe déjà</string>
     <string name="companyNameConflict">Le nom de l\'entreprise existe déjà</string>
 
-    <!-- label spinner -->
-    <string-array name="gender_array">
-        <item>Homme</item>
-        <item>Femme</item>
-        <item>Autre</item>
-    </string-array>
-
     <!-- Messages d'erreurs -->
     <string name="fieldNotEmpty">Le champ ne peut pas être vide.</string>
     <string name="fieldNotValid">Veuillez entrer une adresse mail valide, ex: abc@exemple.com.</string>
