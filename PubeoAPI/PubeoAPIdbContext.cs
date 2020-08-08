@@ -14,7 +14,6 @@ namespace PubeoAPI
              this.Database.EnsureCreated();
         }
 
-        public DbSet<AppartenanceVehicule> AppartenanceVehicules { get; set; }
         public DbSet<Localite> Localites { get; set; }
         public DbSet<Participation> Participations { get; set; }
         public DbSet<Particulier> Particuliers { get; set; }
@@ -27,10 +26,10 @@ namespace PubeoAPI
             
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Vehicule>().HasKey(av => new { av.Marque, av.Modele });
-        } 
+        // protected override void OnModelCreating(ModelBuilder modelBuilder)
+        // {
+        //     modelBuilder.Entity<Vehicule>().HasKey(av => new { av.Marque, av.Modele });
+        // } 
     }
 }
     

@@ -19,30 +19,6 @@ namespace PubeoAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("PubeoAPI.model.AppartenanceVehicule", b =>
-                {
-                    b.Property<Guid>("AppartenanceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Marque")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Modele")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<Guid>("ParticulierId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("AppartenanceId");
-
-                    b.HasIndex("ParticulierId");
-
-                    b.HasIndex("Marque", "Modele");
-
-                    b.ToTable("AppartenanceVehicules");
-                });
-
             modelBuilder.Entity("PubeoAPI.model.Localite", b =>
                 {
                     b.Property<string>("CodePostal")
@@ -101,6 +77,7 @@ namespace PubeoAPI.Migrations
                         .HasMaxLength(100);
 
                     b.Property<string>("MotDePasse")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
@@ -207,28 +184,24 @@ namespace PubeoAPI.Migrations
 
             modelBuilder.Entity("PubeoAPI.model.Vehicule", b =>
                 {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Marque")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Modele")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Marque", "Modele");
+                    b.Property<Guid>("ParticulierId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParticulierId");
 
                     b.ToTable("Vehicules");
-                });
-
-            modelBuilder.Entity("PubeoAPI.model.AppartenanceVehicule", b =>
-                {
-                    b.HasOne("PubeoAPI.model.Particulier", "Particulier")
-                        .WithMany("AppartenanceVehicules")
-                        .HasForeignKey("ParticulierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PubeoAPI.model.Vehicule", "Vehicule")
-                        .WithMany("AppartenanceVehicules")
-                        .HasForeignKey("Marque", "Modele");
                 });
 
             modelBuilder.Entity("PubeoAPI.model.Participation", b =>
@@ -265,6 +238,15 @@ namespace PubeoAPI.Migrations
                     b.HasOne("PubeoAPI.model.Professionnel", "Professionnel")
                         .WithMany("Stickers")
                         .HasForeignKey("ProfessionnelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PubeoAPI.model.Vehicule", b =>
+                {
+                    b.HasOne("PubeoAPI.model.Particulier", "Particulier")
+                        .WithMany("Vehicules")
+                        .HasForeignKey("ParticulierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

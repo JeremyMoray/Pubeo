@@ -144,7 +144,7 @@ namespace PubeoAPI.Controllers {
             return CreatedAtAction("GetProfessionnels", new { id = pro.Id }, pro);
         }
 
-        //DELETE: /Professionnels/{id}
+        // DELETE: /Professionnels/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProfessionnels([FromRoute] Guid id)
         {
