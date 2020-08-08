@@ -10,7 +10,6 @@ import android.widget.Button;
 
 import com.example.pubeo.R;
 import com.example.pubeo.model.Sticker;
-import com.example.pubeo.ui.home.HomeViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class AddStickerActivity extends AppCompatActivity {

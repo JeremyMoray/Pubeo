@@ -103,17 +103,20 @@
     <string name="user_hint">Nom d\'utilisateur</string>
     <string name="ConfirmPasswordHint">Confirmez votre mot de passe</string>
     <string name="createProfil">Créer votre profil</string>
-    <string name="headerProfilPicture">PHOTO DE PROFILE</string>
+    <string name="headerProfilPicture">PHOTO DE PROFIL</string>
     <string name="firstName">Prénom</string>
     <string name="lastName">Nom</string>
     <string name="phoneNumber">Téléphone</string>
     <string name="homeAddress">Adresse Domicile</string>
     <string name="city">Ville</string>
-    <string name="zipCode">Code Postale</string>
+    <string name="zipCode">Code Postal</string>
     <string name="title_activity_particular_home">ParticularHomeActivity</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="CarBrand">Marque</string>
+    <string name="CarModel">Modèle</string>
+    <string name="BirthDate">Date de naissance</string>
 </resources>

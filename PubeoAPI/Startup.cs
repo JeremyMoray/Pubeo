@@ -21,9 +21,6 @@ using PubeoAPI.model;
 using PubeoAPI.Repository;
 using securityJWT.Options;
 using AutoMapper;
-using PubeoAPI.model;
-using PubeoAPI.Repository;
-using securityJWT.Options;
 
 namespace PubeoAPI
 {
@@ -102,7 +99,6 @@ namespace PubeoAPI
                 .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddTransient<ILocalRepository, LocalRepository>();
             services.AddTransient<ILocalRepository, LocalRepository>();
         }
 

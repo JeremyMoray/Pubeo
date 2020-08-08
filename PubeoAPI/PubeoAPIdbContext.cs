@@ -14,7 +14,6 @@ namespace PubeoAPI
              this.Database.EnsureCreated();
         }
 
-        public DbSet<AppartenanceVehicule> AppartenanceVehicules { get; set; }
         public DbSet<Localite> Localites { get; set; }
         public DbSet<Participation> Participations { get; set; }
         public DbSet<Particulier> Particuliers { get; set; }

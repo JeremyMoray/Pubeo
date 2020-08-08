@@ -136,7 +136,6 @@
                 android:ems="10"
                 android:clickable="true"
                 android:focusable="false"
-                android:editable="false"
                 android:hint="@string/BirthDate"
                 android:inputType="datetime"
                 app:layout_constraintEnd_toEndOf="parent"
