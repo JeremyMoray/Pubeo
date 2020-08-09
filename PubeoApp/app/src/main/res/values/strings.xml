@@ -37,9 +37,11 @@
     <string name="impossibleConnection">Connexion impossible</string>
     <string name="deleteProfile">Supprimer mon profil</string>
     <string name="deleteProfileConfirm">Voulez-vous vraiment supprimer votre profil ?</string>
-    <string name="confirmUpdate">Données enregistrées</string>
+    <string name="dataSaved">Données enregistrées</string>
     <string name="emailConflict">L\'adresse mail existe déjà</string>
     <string name="companyNameConflict">Le nom de l\'entreprise existe déjà</string>
+    <string name="infoSticker">Infos du sticker</string>
+    <string name="choose">Choisir</string>
 
     <!-- Messages d'erreurs -->
     <string name="fieldNotEmpty">Le champ ne peut pas être vide.</string>

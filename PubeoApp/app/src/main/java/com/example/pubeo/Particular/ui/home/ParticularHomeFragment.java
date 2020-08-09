@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pubeo.Advertiser.AddEditStickerActivity;
 import com.example.pubeo.DTO.StickerDetailsDTO;
 import com.example.pubeo.DTO.StickerSimpleDTO;
+import com.example.pubeo.Particular.ParticularStickerInformationsActivity;
 import com.example.pubeo.Particular.StickerParticularAdapter;
 import com.example.pubeo.R;
 import com.example.pubeo.model.Sticker;
@@ -54,7 +55,15 @@ public class ParticularHomeFragment extends Fragment {
             @Override
             public void onItemClick(StickerSimpleDTO sticker) {
                 if(CheckNetClass.checknetwork(getActivity())) {
+                    Intent intent = new Intent(getActivity(), ParticularStickerInformationsActivity.class);
+                    intent.putExtra("EXTRA_ID", sticker.getId());
+                    intent.putExtra("EXTRA_TITLE", sticker.getTitre());
+                    intent.putExtra("EXTRA_DESCRIPTION", sticker.getDescription());
+                    intent.putExtra("EXTRA_HEIGHT", sticker.getHauteur());
+                    intent.putExtra("EXTRA_WIDTH", sticker.getLargeur());
+                    intent.putExtra("EXTRA_NUMBER_OF_USE", sticker.getNbUtilisationsRestantes());
 
+                    startActivity(intent);
                 }
                 else {
                     Toast.makeText(getActivity(), R.string.lossConnection, Toast.LENGTH_SHORT).show();

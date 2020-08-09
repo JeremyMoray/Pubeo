@@ -1,10 +1,12 @@
 package com.example.pubeo.DAO;
 
 import com.example.pubeo.BuildConfig;
+import com.example.pubeo.DTO.ParticipationCreateDTO;
 import com.example.pubeo.DTO.StickerCreateDTO;
 import com.example.pubeo.DTO.StickerDetailsDTO;
 import com.example.pubeo.DTO.StickerSimpleDTO;
 import com.example.pubeo.Service.ServiceAPI;
+import com.example.pubeo.model.Participation;
 import com.example.pubeo.model.Sticker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,6 +28,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
 
@@ -68,11 +71,18 @@ public class StickerDAO {
         return serviceAPI.updateSticker(token, id, sticker);
     }
 
-    public Call<Void> deleteSticker(@Header("Authorization") String token, @Path("id") String id){
+    public Call<Void> deleteSticker(String token, String id){
         disableSSLCertificateChecking();
         serviceAPI = retrofit.create(ServiceAPI.class);
 
         return serviceAPI.deleteSticker(token, id);
+    }
+
+    public Call<Void> addParticipation(String token, ParticipationCreateDTO participation){
+        disableSSLCertificateChecking();
+        serviceAPI = retrofit.create(ServiceAPI.class);
+
+        return serviceAPI.addParticipation(token, participation);
     }
 
     public OkHttpClient getUnsafeOkHttpClient() {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,9 +20,12 @@ namespace PubeoAPI.Controllers {
     {
         private readonly PubeoAPIdbContext _context;
 
-        public ParticuliersController(PubeoAPIdbContext context)
+        private readonly IMapper mapper;
+
+        public ParticuliersController(PubeoAPIdbContext context, IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
         }
 
         // GET : /Particuliers
@@ -45,6 +49,22 @@ namespace PubeoAPI.Controllers {
                 });
             }
             return particuliers;
+        }
+
+        // GET: /Particuliers/GetMe
+        [HttpGet("GetMe")]
+        public async Task<IActionResult> GetMe()
+        {
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+            var particulier = await _context.Particuliers
+                                    .Include(x => x.Localite)
+                                    .Include(x => x.Vehicules)
+                                    .SingleOrDefaultAsync(x => x.Mail == email);
+
+            if(particulier == null) 
+                return NotFound();
+
+            return Ok(mapper.Map<ParticuliersDTO> (particulier));
         }
 
         // GET : /Particuliers/{id}

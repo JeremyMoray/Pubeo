@@ -51,7 +51,6 @@ public class AddEditStickerActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         saveButtonAddSticker = findViewById(R.id.saveButtonAddSticker);
-        saveButtonAddSticker.getText();
         saveButtonAddSticker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){

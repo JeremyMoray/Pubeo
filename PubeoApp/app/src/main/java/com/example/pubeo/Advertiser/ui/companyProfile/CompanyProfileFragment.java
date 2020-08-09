@@ -1,6 +1,5 @@
 package com.example.pubeo.Advertiser.ui.companyProfile;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +15,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
-import com.example.pubeo.Advertiser.HomeActivity;
 import com.example.pubeo.DAO.AdvertiserDAO;
 import com.example.pubeo.DTO.AdvertiserUpdateDTO;
 import com.example.pubeo.MainActivity;
@@ -144,7 +139,7 @@ public class CompanyProfileFragment extends Fragment {
                                     @Override
                                     public void onResponse(Call<Void> call, Response<Void> response) {
                                         if(response.isSuccessful())
-                                            Toast.makeText(getActivity(), R.string.confirmUpdate, Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getActivity(), R.string.dataSaved, Toast.LENGTH_SHORT).show();
 
                                         if(response.code() == 409)
                                             Toast.makeText(getActivity(), R.string.emailConflict, Toast.LENGTH_SHORT).show();

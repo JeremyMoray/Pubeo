@@ -35,7 +35,7 @@ import retrofit2.http.Path;
 public class ParticularDAO {
 
     private ServiceAPI serviceAPI;
-    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").serializeNulls().create();
+    private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").serializeNulls().create();
 
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BuildConfig.Base_URL)

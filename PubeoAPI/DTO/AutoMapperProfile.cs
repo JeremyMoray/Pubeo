@@ -20,6 +20,8 @@ namespace PubeoAPI.DTO {
             CreateMap<ParticulierSimpleDTO, Particulier>();
             CreateMap<ParticipationSimpleDTO, Participation>();
             CreateMap<Participation, ParticipationSimpleDTO>();
+            CreateMap<ParticuliersDTO, Particulier>();
+            CreateMap<Particulier, ParticuliersDTO>();
         }
     }
 }

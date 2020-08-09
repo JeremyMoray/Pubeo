@@ -2,12 +2,14 @@ package com.example.pubeo.Service;
 
 import com.example.pubeo.DTO.AdvertiserCreateDTO;
 import com.example.pubeo.DTO.AdvertiserUpdateDTO;
+import com.example.pubeo.DTO.ParticipationCreateDTO;
 import com.example.pubeo.DTO.ParticularCreateDTO;
 import com.example.pubeo.DTO.StickerCreateDTO;
 import com.example.pubeo.DTO.StickerDetailsDTO;
 import com.example.pubeo.DTO.StickerSimpleDTO;
 import com.example.pubeo.model.Advertiser;
 import com.example.pubeo.model.Login;
+import com.example.pubeo.model.Participation;
 import com.example.pubeo.model.Particular;
 import com.example.pubeo.model.Sticker;
 import com.example.pubeo.model.Token;
@@ -73,4 +75,6 @@ public interface ServiceAPI {
     @GET("Participation/GetAllStickersByParticulierId/{particulierId}")
     Call<List<StickerSimpleDTO>> getAllStickersByParticulierId(@Header("Authorization") String token, @Path("particulierId") String particulierId);
 
+    @POST("Participation")
+    Call<Void> addParticipation(@Header("Authorization")String token, @Body ParticipationCreateDTO participation);
 }

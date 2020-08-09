@@ -164,6 +164,7 @@ public class HomeFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         SharedPreferences sharedPref = getActivity().getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         String token = sharedPref.getString("access_token", null);
+
         if (requestCode == ADD_STICKER_REQUEST && resultCode == RESULT_OK) {
                 String titre = data.getStringExtra("EXTRA_TITLE");
                 String description = data.getStringExtra("EXTRA_DESCRIPTION");
