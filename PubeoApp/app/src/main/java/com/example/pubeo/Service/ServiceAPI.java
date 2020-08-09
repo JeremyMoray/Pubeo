@@ -5,6 +5,7 @@ import com.example.pubeo.DTO.AdvertiserUpdateDTO;
 import com.example.pubeo.DTO.ParticularCreateDTO;
 import com.example.pubeo.DTO.StickerCreateDTO;
 import com.example.pubeo.DTO.StickerDetailsDTO;
+import com.example.pubeo.DTO.StickerSimpleDTO;
 import com.example.pubeo.model.Advertiser;
 import com.example.pubeo.model.Login;
 import com.example.pubeo.model.Particular;
@@ -58,6 +59,18 @@ public interface ServiceAPI {
     @POST("Jwt/LoginParticulier")
     Call<Token> loginParticular(@Body Login login);
 
+    @GET("Particuliers/GetMe")
+    Call<Particular> getMeParticular(@Header("Authorization") String token);
+
+    @GET("Stickers")
+    Call<List<StickerSimpleDTO>> getAll(@Header("Authorization") String token);
+
     @POST("Particuliers")
     Call<Particular> addParticular(@Body ParticularCreateDTO particular);
+
+    //Participations
+
+    @GET("Participation/GetAllStickersByParticulierId/{particulierId}")
+    Call<List<StickerSimpleDTO>> getAllStickersByParticulierId(@Header("Authorization") String token, @Path("particulierId") String particulierId);
+
 }

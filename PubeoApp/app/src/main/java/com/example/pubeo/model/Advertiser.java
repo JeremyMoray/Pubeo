@@ -13,10 +13,10 @@ public class Advertiser implements Serializable {
     private String mail;
     private String numeroTVA;
     private String localiteCode;
-    private Localite localite;
+    private Locality localite;
     private List<Sticker> stickers;
 
-    public Advertiser(String id, String nomEntreprise, String adresse, String numeroTel, String motDePasse, String mail, String numeroTVA, String localiteCode, Localite localite, List<Sticker> stickers) {
+    public Advertiser(String id, String nomEntreprise, String adresse, String numeroTel, String motDePasse, String mail, String numeroTVA, String localiteCode, Locality localite, List<Sticker> stickers) {
         this.id = id;
         this.nomEntreprise = nomEntreprise;
         this.adresse = adresse;
@@ -61,7 +61,7 @@ public class Advertiser implements Serializable {
         return localiteCode;
     }
 
-    public Localite getLocalite(){
+    public Locality getLocalite(){
         return localite;
     }
 

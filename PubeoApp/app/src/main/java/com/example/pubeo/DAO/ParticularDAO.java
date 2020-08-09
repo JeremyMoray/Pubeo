@@ -3,6 +3,7 @@ package com.example.pubeo.DAO;
 import com.example.pubeo.BuildConfig;
 import com.example.pubeo.DTO.AdvertiserCreateDTO;
 import com.example.pubeo.DTO.ParticularCreateDTO;
+import com.example.pubeo.DTO.StickerSimpleDTO;
 import com.example.pubeo.Service.ServiceAPI;
 import com.example.pubeo.model.Advertiser;
 import com.example.pubeo.model.Login;
@@ -14,6 +15,7 @@ import com.google.gson.GsonBuilder;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -27,11 +29,19 @@ import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Header;
+import retrofit2.http.Path;
 
 public class ParticularDAO {
 
     private ServiceAPI serviceAPI;
     private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").serializeNulls().create();
+
+    private Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(BuildConfig.Base_URL)
+            .client(getUnsafeOkHttpClient())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build();
 
     public Call<Token> login(Login login){
         disableSSLCertificateChecking();
@@ -40,11 +50,12 @@ public class ParticularDAO {
         return serviceAPI.loginParticular(login);
     }
 
-    private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(BuildConfig.Base_URL)
-            .client(getUnsafeOkHttpClient())
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build();
+    public Call<Particular> getMeParticular(String token){
+        disableSSLCertificateChecking();
+        serviceAPI = retrofit.create(ServiceAPI.class);
+
+        return serviceAPI.getMeParticular(token);
+    }
 
     public Call<Particular> addParticular(ParticularCreateDTO particular) {
         disableSSLCertificateChecking();
@@ -52,6 +63,14 @@ public class ParticularDAO {
         serviceAPI = retrofit.create(ServiceAPI.class);
 
         return serviceAPI.addParticular(particular);
+    }
+
+    public Call<List<StickerSimpleDTO>> getAllStickersByParticulierId(String token, String particulierId){
+        disableSSLCertificateChecking();
+
+        serviceAPI = retrofit.create(ServiceAPI.class);
+
+        return serviceAPI.getAllStickersByParticulierId(token, particulierId);
     }
 
     public OkHttpClient getUnsafeOkHttpClient() {

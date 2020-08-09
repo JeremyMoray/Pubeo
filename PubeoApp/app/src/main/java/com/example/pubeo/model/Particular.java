@@ -1,6 +1,7 @@
 package com.example.pubeo.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Particular {
 
@@ -14,8 +15,11 @@ public class Particular {
     private String mail;
     private String motDePasse;
     private String localiteCode;
+    private Locality localite;
+    private List<Participation> participations;
+    private List<Vehicule> vehicules;
 
-    public Particular(String id, String prenom, String nom, String adresse, String pseudo, Date dateNaissance, String numeroTel, String mail, String motDePasse, String localiteCode) {
+    public Particular(String id, String prenom, String nom, String adresse, String pseudo, Date dateNaissance, String numeroTel, String mail, String motDePasse, String localiteCode, Locality localite, List<Participation> participations, List<Vehicule> vehicules) {
         this.id = id;
         this.prenom = prenom;
         this.nom = nom;
@@ -26,6 +30,9 @@ public class Particular {
         this.mail = mail;
         this.motDePasse = motDePasse;
         this.localiteCode = localiteCode;
+        this.localite = localite;
+        this.participations = participations;
+        this.vehicules = vehicules;
     }
 
     public String getId() {
@@ -66,5 +73,17 @@ public class Particular {
 
     public String getLocaliteCode() {
         return localiteCode;
+    }
+
+    public Locality getLocalite() {
+        return localite;
+    }
+
+    public List<Participation> getParticipations() {
+        return participations;
+    }
+
+    public List<Vehicule> getVehicules() {
+        return vehicules;
     }
 }

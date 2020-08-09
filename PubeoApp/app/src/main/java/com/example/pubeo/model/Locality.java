@@ -1,11 +1,11 @@
 package com.example.pubeo.model;
 
-public class Localite {
+public class Locality {
 
     private String codePostal;
     private String ville;
 
-    public Localite(String codePostal, String ville) {
+    public Locality(String codePostal, String ville) {
         this.codePostal = codePostal;
         this.ville = ville;
     }

@@ -59,12 +59,10 @@ public class HomeFragment extends Fragment {
         homeViewModel.initStickers(token);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        SearchView searchView;
-
         RecyclerView recyclerView = root.findViewById(R.id.recyclerAdvertiserStickers);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        searchView = root.findViewById(R.id.searchBarAdvertiser);
+        SearchView searchView = root.findViewById(R.id.searchBarAdvertiser);
 
         StickerAdvertiserAdapter adapter = new StickerAdvertiserAdapter();
 

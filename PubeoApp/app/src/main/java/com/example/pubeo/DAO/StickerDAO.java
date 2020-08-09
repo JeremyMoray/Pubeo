@@ -3,6 +3,7 @@ package com.example.pubeo.DAO;
 import com.example.pubeo.BuildConfig;
 import com.example.pubeo.DTO.StickerCreateDTO;
 import com.example.pubeo.DTO.StickerDetailsDTO;
+import com.example.pubeo.DTO.StickerSimpleDTO;
 import com.example.pubeo.Service.ServiceAPI;
 import com.example.pubeo.model.Sticker;
 import com.google.gson.Gson;
@@ -44,6 +45,13 @@ public class StickerDAO {
         serviceAPI = retrofit.create(ServiceAPI.class);
 
         return serviceAPI.GetAllByProfessionnelId(token, professionnelId);
+    }
+
+    public Call<List<StickerSimpleDTO>> getAll(String token){
+        disableSSLCertificateChecking();
+        serviceAPI = retrofit.create(ServiceAPI.class);
+
+        return serviceAPI.getAll(token);
     }
 
     public Call<Sticker> addSticker(String token, StickerCreateDTO sticker){
