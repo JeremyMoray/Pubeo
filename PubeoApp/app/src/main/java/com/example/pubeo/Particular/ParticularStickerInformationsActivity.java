@@ -80,6 +80,10 @@ public class ParticularStickerInformationsActivity extends AppCompatActivity {
                                             Toast.makeText(getApplicationContext(), R.string.dataSaved, Toast.LENGTH_SHORT).show();
                                             finish();
                                         }
+
+                                        if(response.code() == 409){
+                                            Toast.makeText(getApplicationContext(), R.string.youAlreadyParticipate, Toast.LENGTH_SHORT).show();
+                                        }
                                     }
 
                                     @Override

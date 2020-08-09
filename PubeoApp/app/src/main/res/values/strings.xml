@@ -45,6 +45,7 @@
     <string name="choose">Choisir</string>
     <string name="deleteConfirmed">L\'élément a bien été supprimé</string>
     <string name="delete">Supprimer</string>
+    <string name="youAlreadyParticipate">Vous participez déjà à cette annonce</string>
 
     <!-- Messages d'erreurs -->
     <string name="fieldNotEmpty">Le champ ne peut pas être vide.</string>
