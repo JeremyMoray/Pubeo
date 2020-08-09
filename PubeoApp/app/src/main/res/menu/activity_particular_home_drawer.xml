@@ -8,18 +8,14 @@
             android:id="@+id/nav_particular_home"
             android:icon="@drawable/ic_home_grey_700_24dp"
             android:title="@string/menu_home"/>
-        <item
-            android:id="@+id/nav_company_profile"
-            android:icon="@drawable/ic_person_outline_grey_700_24dp"
-            android:title="@string/menu_company_profile" />
 
         <item
-            android:id="@+id/nav_manage_participants"
-            android:icon="@drawable/ic_people_grey_700_24dp"
-            android:title="@string/menu_manage_participants" />
+            android:id="@+id/nav_particular_stickers"
+            android:icon="@drawable/ic_build_grey_700_24dp"
+            android:title="@string/menu_stickers" />
 
         <item
-            android:id="@+id/nav_settings"
+            android:id="@+id/nav_particular_settings"
             android:icon="@drawable/ic_build_grey_700_24dp"
             android:title="@string/menu_settings" />
     </group>

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,116 +20,101 @@ namespace PubeoAPI.Controllers {
     public class ProfessionnelsController : ControllerBase
     {
         private readonly PubeoAPIdbContext _context;
+        private readonly IMapper mapper;
 
-        public ProfessionnelsController(PubeoAPIdbContext context)
+        public ProfessionnelsController(PubeoAPIdbContext context, IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
         }
 
         // GET : /Professionnels
         [HttpGet]
-        public IEnumerable<ProfessionnelsDTO> GetProfessionnels()
+        public async Task<IActionResult> GetAll()
         {
-            var professionnels = new HashSet<ProfessionnelsDTO>();
-            foreach (var professionnel in _context.Professionnels)
-            {
-                professionnels.Add(new ProfessionnelsDTO
-                {
-                    Id = professionnel.Id,
-                    NomEntreprise = professionnel.NomEntreprise,
-                    Adresse = professionnel.Adresse,
-                    NumeroTel = professionnel.NumeroTel,
-                    Mail = professionnel.Mail,
-                    NumeroTVA = professionnel.NumeroTVA,
-                    Stickers = GetStickersDTOs(professionnel)
-                });
-            }
-            return professionnels;
+            var professionnelsDetails = await _context.Professionnels
+                                            .Include(x => x.Localite)
+                                            .Include(x => x.Stickers)
+                                            .ToListAsync();
+            var professionnels = mapper.Map<List<ProfessionnelsSimpleDTO>> (professionnelsDetails);
+            return Ok(professionnels);
         }
 
-        // GET : /Professionels/AllProfessionnels
-        [Route("AllProfessionnels")]
-        public IEnumerable<Professionnel> GetAllProfessionnels()
+        // GET: /Professionnels/GetMe
+        [HttpGet("GetMe")]
+        public async Task<IActionResult> GetMe()
         {
-            var professionnels = _context.Professionnels
-                                        .Include(x => x.Stickers)
-                                        .Include(x => x.Localite).ToList();
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+            var professionnel = await _context.Professionnels
+                                    .Include(x => x.Localite)
+                                    .Include(x => x.Stickers)
+                                    .SingleOrDefaultAsync(x => x.Mail == email);
 
-            return professionnels;
+            if(professionnel == null) 
+                return NotFound();
+
+            return Ok(mapper.Map<ProfessionnelsDTO> (professionnel));
         }
 
-        // GET : /Professionnels/{companyname}
-        [HttpGet("{nomentreprise}")]
-        public async Task<IActionResult> GetProfessionnelByCompanyName([FromRoute] string nomentreprise)
+        // GET: /Professionnels/{id}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProfessionnel([FromRoute] Guid id)
+        {
+            if(!ModelState.IsValid) 
+                return BadRequest(ModelState);
+
+            var professionnel = await _context.Professionnels
+                                    .Include(x => x.Localite)
+                                    .Include(x => x.Stickers)
+                                    .SingleOrDefaultAsync(x => x.Id == id);
+
+            if(professionnel == null) 
+                return NotFound();
+
+            return Ok(mapper.Map<ProfessionnelsDTO> (professionnel));
+        }
+
+        // GET : /Professionnels/GetByNomEntreprise/{companyname}
+        [HttpGet("GetByNomEntreprise/{nomentreprise}")]
+        public async Task<IActionResult> GetByNomEntreprise([FromRoute] string nomentreprise)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
-            var professionnel = await _context.Professionnels.SingleOrDefaultAsync(m => m.NomEntreprise.Equals(nomentreprise));
+            var professionnel = await _context.Professionnels
+                                        .Include(x => x.Localite)
+                                        .Include(x => x.Stickers)
+                                        .SingleOrDefaultAsync(m => m.NomEntreprise.Equals(nomentreprise));
 
             if (professionnel == null){
                 return NotFound();
             }
             else 
             {
-                var user = new ProfessionnelsDTO{
-                    NomEntreprise = nomentreprise,
-                    Id = professionnel.Id
-                };
-                if (professionnel.Adresse != null) user.Adresse = professionnel.Adresse;
-                if (professionnel.NumeroTel != null) user.NumeroTel = professionnel.NumeroTel;
-                if (professionnel.Mail != null) user.Mail = professionnel.Mail;
-                if (professionnel.NumeroTVA != null) user.NumeroTVA = professionnel.NumeroTVA;
+                var user = mapper.Map<ProfessionnelsDTO> (professionnel);
 
-                user.Stickers = GetStickersDTOs(professionnel);
-
-                return Ok(professionnel);
+                return Ok(user);
             }
         }
 
-        // PUT: /professionnels/{nomentreprise}
-        [HttpPut("{nomentreprise}")]
-        public async Task<IActionResult> PutProfessionnels([FromRoute] string nomentreprise, [FromBody] Professionnel professionnel)
-        {
-            if(!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            if(professionnel == null && nomentreprise != professionnel.NomEntreprise)
-            {
-                return BadRequest();
-            }
-
-            var user = await _context.Professionnels.SingleOrDefaultAsync(p => p.NomEntreprise.Equals(nomentreprise));
-            user = Modification(user, professionnel);
-            _context.Entry(user).State = EntityState.Modified;
-            try{
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if(!ProfessionnelExists(nomentreprise))
-                    return NotFound();
-                else {
-                    throw;
-                }
-
-            }
-            return NoContent();
-        }
-
-        //POST: /Professionnels
+        // POST: /Professionnels
         [HttpPost]
-        public async Task<IActionResult> PostProfessionnels([FromBody] Professionnel professionnel)
+        [AllowAnonymous]
+        public async Task<IActionResult> Create([FromBody] Professionnel professionnel)
         {
             ScryptEncoder encoder = new ScryptEncoder();
 
             if(!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
+
+            if(await _context.Professionnels.AnyAsync(x => x.Mail == professionnel.Mail))
+                return Conflict("Mail");
+
+            if(await _context.Professionnels.AnyAsync(x => x.NomEntreprise == professionnel.NomEntreprise))
+                return Conflict("NomEntreprise");
+
+            if(professionnel.LocaliteCode != null && !await _context.Localites.AnyAsync(x => x.CodePostal.Equals(professionnel.LocaliteCode)))
+                return NotFound();
 
             var pro = new Professionnel{
                 NomEntreprise = professionnel.NomEntreprise,
@@ -141,32 +128,97 @@ namespace PubeoAPI.Controllers {
             await _context.Professionnels.AddAsync(pro);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProfessionnels", new { id = pro.Id }, pro);
+            return CreatedAtAction("GetProfessionnel", new { id = pro.Id }, pro);
         }
 
-        //DELETE: /Professionnels/{id}
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProfessionnels([FromRoute] Guid id)
+        // PUT: /Professionnels/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] Professionnel professionnel)
         {
             if(!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
+
+            if(!ProfessionnelExists(id))
+                    return NotFound();
+            
+            if(await _context.Professionnels.AnyAsync(x => (x.Mail == professionnel.Mail || x.NomEntreprise == professionnel.NomEntreprise) && x.Id != id))
+                return Conflict();
+
+            if(professionnel.LocaliteCode != null && !await _context.Localites.AnyAsync(x => x.CodePostal.Equals(professionnel.LocaliteCode)))
+                return NotFound();
+
+            var user = await _context.Professionnels.SingleOrDefaultAsync(p => p.Id.Equals(id));
+
+            user = Modification(user, professionnel);
+            _context.Entry(user).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // PUT: /Professionnels/UpdateMyAccount
+        [HttpPut("UpdateMyAccount")]
+        public async Task<IActionResult> UpdateMyAccount([FromBody] Professionnel professionnel)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+
+            var user = await _context.Professionnels.SingleOrDefaultAsync(p => p.Mail.Equals(email));
+
+            if(user == null)
+                    return NotFound();
+            
+            if(await _context.Professionnels.AnyAsync(x => (x.Mail == professionnel.Mail || x.NomEntreprise == professionnel.NomEntreprise) && x.Id != user.Id))
+                return Conflict();
+
+            if(professionnel.LocaliteCode != null && !await _context.Localites.AnyAsync(x => x.CodePostal.Equals(professionnel.LocaliteCode)))
+                return NotFound();
+
+            user = Modification(user, professionnel);
+            _context.Entry(user).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        // DELETE: /Professionnels/{id}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             var user = await _context.Professionnels.SingleOrDefaultAsync(p => p.Id.Equals(id));
             if (user == null)
-            {
                 return NotFound();
-            }
 
             _context.Professionnels.Remove(user);
             await _context.SaveChangesAsync();
-            return Ok(user);
+            return Ok();
         }
 
-        private bool ProfessionnelExists(string nomentreprise)
+        // DELETE: /Professionnels/DeleteMyAccount
+        [HttpDelete("DeleteMyAccount")]
+        public async Task<IActionResult> DeleteMyAccount()
         {
-            return _context.Professionnels.Any(p => p.NomEntreprise.Equals(nomentreprise));
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+
+            var user = await _context.Professionnels.SingleOrDefaultAsync(p => p.Mail.Equals(email));
+            if (user == null)
+                return NotFound();
+
+            _context.Professionnels.Remove(user);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        private bool ProfessionnelExists(Guid id)
+        {
+            return _context.Professionnels.Any(p => p.Id.Equals(id));
         }
 
         private Professionnel Modification(Professionnel initialPro, Professionnel targetPro){
@@ -178,33 +230,8 @@ namespace PubeoAPI.Controllers {
             if(targetPro.NumeroTel != null) retour.NumeroTel = targetPro.NumeroTel;
             if(targetPro.Mail != null) retour.Mail = targetPro.Mail;
             if(targetPro.NumeroTVA != null) retour.NumeroTVA = targetPro.NumeroTVA;
-            foreach(var sticker in targetPro.Stickers){
-                retour.Stickers.Add(sticker);
-            }
+            if(targetPro.LocaliteCode != null) retour.LocaliteCode = targetPro.LocaliteCode;
             return retour;
-        }
-
-        private ICollection<StickersDTO> GetStickersDTOs(Professionnel professionnel)
-        {
-            var stickers = new HashSet<StickersDTO>();
-            foreach (var sticker in _context.Stickers)
-            {
-                if (sticker.Id != null && sticker.ProfessionnelId.Equals(professionnel.Id))
-                {
-                    var stickerDTO = new StickersDTO()
-                    {
-                        Id = sticker.Id,
-                        Titre = sticker.Titre,
-                        Description = sticker.Description,
-                        NbUtilisationsRestantes = sticker.NbUtilisationsRestantes,
-                        Hauteur = sticker.Hauteur,
-                        Largeur = sticker.Largeur,
-                        NomEntreprise = professionnel.NomEntreprise,
-                    };
-                    stickers.Add(stickerDTO);
-                }
-            }
-            return stickers;
         }
     }
 

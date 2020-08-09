@@ -17,21 +17,25 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.pubeo.DAO.AdvertiserDAO;
+import com.example.pubeo.DTO.AdvertiserCreateDTO;
 import com.example.pubeo.R;
 import com.example.pubeo.model.Advertiser;
-import com.example.pubeo.model.Sticker;
+import com.example.pubeo.model.Login;
+import com.example.pubeo.model.Token;
+import com.example.pubeo.tools.CheckNetClass;
 import com.example.pubeo.tools.validation.ValidationTextWatcher;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-import static android.provider.Telephony.Mms.Part.TEXT;
 import static com.example.pubeo.tools.constants.constantTags.*;
 
 public class CompanyInformationsActivity extends AppCompatActivity {
@@ -42,14 +46,9 @@ public class CompanyInformationsActivity extends AppCompatActivity {
     @BindView(R.id.companyPhoneField) TextInputLayout companyPhoneField;
     @BindView(R.id.companyPhoneFieldEditText) TextInputEditText companyPhoneFieldEditText;
     @BindView(R.id.companyAddressField) TextInputLayout companyAddressField;
-
-    private ImageView whiteArrowCompanyInformations;
-    private ImageView companyLogoId;
-    private Uri imageUrl;
-
-    private String mail;
-    private String password;
-    private Advertiser advertiser;
+    @BindView(R.id.companyPostalCodeField) TextInputLayout companyPostalCodeField;
+    @BindView(R.id.whiteArrowCompanyInformations) ImageView whiteArrowCompanyInformations;
+    @BindView(R.id.companyLogoId) ImageView companyLogoId;
 
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String IMAGEPATH = "imagePath";
@@ -61,9 +60,6 @@ public class CompanyInformationsActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        mail = getIntent().getStringExtra("mail");
-        password = getIntent().getStringExtra("password");
-
         companyPhoneField.setTag(PHONENUMBER_TAG);
 
         continueInformationsAdvertiserButton.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +69,6 @@ public class CompanyInformationsActivity extends AppCompatActivity {
             }
         });
 
-        whiteArrowCompanyInformations = findViewById(R.id.whiteArrowCompanyInformations);
         whiteArrowCompanyInformations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -81,7 +76,6 @@ public class CompanyInformationsActivity extends AppCompatActivity {
             }
         });
 
-        companyLogoId = findViewById(R.id.companyLogoId);
         companyLogoId.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -102,9 +96,9 @@ public class CompanyInformationsActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 1 && resultCode == RESULT_OK){
-            imageUrl = data.getData();
+            Uri imageUrl = data.getData();
             try{
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),imageUrl);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUrl);
                 companyLogoId.setImageBitmap(bitmap);
             }
             catch(IOException e){
@@ -114,82 +108,133 @@ public class CompanyInformationsActivity extends AppCompatActivity {
     }
 
     public void openHomeActivity(){
-        boolean isValid = true;
+        if(CheckNetClass.checknetwork(getApplicationContext())) {
+            boolean isValid = true;
 
-        if(companyPhoneField.isErrorEnabled()){
-            isValid = false;
-        }
-        else{
-            if(companyNameField.getEditText().getText().toString().isEmpty()){
+            if(companyPhoneField.isErrorEnabled()){
                 isValid = false;
-                companyNameField.setError(getString(R.string.fieldNotEmpty));
             }
             else{
-                companyNameField.setErrorEnabled(false);
+                if(companyNameField.getEditText().getText().toString().isEmpty()){
+                    isValid = false;
+                    companyNameField.setError(getString(R.string.fieldNotEmpty));
+                }
+                else{
+                    companyNameField.setErrorEnabled(false);
+                }
+
+                if(companyVATField.getEditText().getText().toString().isEmpty()){
+                    isValid = false;
+                    companyVATField.setError(getString(R.string.fieldNotEmpty));
+                }
+                else{
+                    companyVATField.setErrorEnabled(false);
+                }
+
+                if(companyPhoneField.getEditText().getText().toString().isEmpty()){
+                    isValid = false;
+                    companyPhoneField.setError(getString(R.string.fieldNotEmpty));
+                }
+                else{
+                    companyPhoneField.setErrorEnabled(false);
+                }
+
+                if(companyAddressField.getEditText().getText().toString().isEmpty()){
+                    isValid = false;
+                    companyAddressField.setError(getString(R.string.fieldNotEmpty));
+                }
+                else{
+                    companyAddressField.setErrorEnabled(false);
+                }
             }
 
-            if(companyVATField.getEditText().getText().toString().isEmpty()){
-                isValid = false;
-                companyVATField.setError(getString(R.string.fieldNotEmpty));
-            }
-            else{
-                companyVATField.setErrorEnabled(false);
-            }
+            if (isValid) {
+                companyLogoId.buildDrawingCache();
+                Bitmap bitmap = companyLogoId.getDrawingCache();
 
-            if(companyPhoneField.getEditText().getText().toString().isEmpty()){
-                isValid = false;
-                companyPhoneField.setError(getString(R.string.fieldNotEmpty));
-            }
-            else{
-                companyPhoneField.setErrorEnabled(false);
-            }
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
+                byte[] image = stream.toByteArray();
+                String img_str = Base64.encodeToString(image, 0);
 
-            if(companyAddressField.getEditText().getText().toString().isEmpty()){
-                isValid = false;
-                companyAddressField.setError(getString(R.string.fieldNotEmpty));
-            }
-            else{
-                companyAddressField.setErrorEnabled(false);
-            }
-        }
+                SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        if (isValid) {
-            companyLogoId.buildDrawingCache();
-            Bitmap bitmap = companyLogoId.getDrawingCache();
+                editor.putString(IMAGEPATH, img_str);
+                editor.apply();
 
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream);
-            byte[] image = stream.toByteArray();
-            String img_str = Base64.encodeToString(image, 0);
+                AdvertiserDAO advertiserDAO = new AdvertiserDAO();
+                String postalCode = (companyPostalCodeField.getEditText() == null?null:companyPostalCodeField.getEditText().getText().toString());
 
-            SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-
-            editor.putString(IMAGEPATH, img_str);
-
-            editor.apply();
-
-            AdvertiserDAO advertiserDAO = new AdvertiserDAO();
-            try{
-                 advertiser = new Advertiser(
-                        null,
+                AdvertiserCreateDTO advertiser = new AdvertiserCreateDTO(
                         companyNameField.getEditText().getText().toString(),
                         companyAddressField.getEditText().getText().toString(),
                         companyPhoneField.getEditText().getText().toString(),
-                        mail,
+                        getIntent().getStringExtra("password"),
+                        getIntent().getStringExtra("mail"),
                         companyVATField.getEditText().getText().toString(),
-                        new ArrayList<>()
+                        postalCode
                 );
-                advertiserDAO.addAdvertiser(advertiser);
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
 
-            Intent intent = new Intent(this, HomeActivity.class);
-            intent.putExtra("Advertiser", advertiser);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+                Call<Advertiser> call = advertiserDAO.addAdvertiser(advertiser);
+
+                call.enqueue(new Callback<Advertiser>() {
+                    @Override
+                    public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
+                        if(response.isSuccessful()){
+                            Login login = new Login(advertiser.getMail(), advertiser.getMotDePasse());
+                            
+                            Call<Token> tokenCall = advertiserDAO.login(login);
+                            tokenCall.enqueue(new Callback<Token>() {
+                                @Override
+                                public void onResponse(Call<Token> call, Response<Token> response) {
+                                    if(response.isSuccessful()){
+                                        editor.putString("access_token", "Bearer " + response.body().getAccess_token());
+                                        editor.apply();
+                                        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Token> call, Throwable t) {
+
+                                }
+                            });
+                        }
+
+                        String errorMessage = "";
+
+                        if(response.code() == 409){
+                            try{
+                                errorMessage = response.errorBody().string();
+                            }
+                            catch (IOException e) {
+
+                            }
+
+                            if(errorMessage.equals("Mail")){
+                                Toast.makeText(getApplicationContext(), R.string.emailConflict, Toast.LENGTH_SHORT).show();
+                            }
+                            if(errorMessage.equals("NomEntreprise")){
+                                Toast.makeText(getApplicationContext(), R.string.companyNameConflict, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        if(response.code() == 404)
+                            Toast.makeText(getApplicationContext(), R.string.postalCodeNotValid, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Advertiser> call, Throwable t) {
+
+                    }
+                });
+            }
+        }
+        else {
+            Toast.makeText(this, R.string.lossConnection, Toast.LENGTH_SHORT).show();
         }
     }
 }

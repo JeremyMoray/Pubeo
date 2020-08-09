@@ -7,11 +7,13 @@ namespace PubeoAPI.model {
         
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Required]
         public Guid ParticipationId { get; set; }
         public Guid ParticulierId { get; set; }
 
         [ForeignKey("ParticulierId")]
         public virtual Particulier Particulier { get; set; }
+        [Required]
         public Guid StickerId { get; set; }
 
         [ForeignKey("StickerId")]

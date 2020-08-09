@@ -1,9 +1,9 @@
 package com.example.pubeo.Advertiser;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.navigation.NavController;
@@ -21,10 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ImageView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -49,8 +47,7 @@ public class HomeActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_company_profile, R.id.nav_manage_participants, R.id.nav_settings)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_company_profile, R.id.nav_manage_participants, R.id.nav_settings)
                 .setDrawerLayout(drawer)
                 .build();
 
@@ -82,5 +79,12 @@ public class HomeActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

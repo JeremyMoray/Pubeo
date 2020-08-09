@@ -1,27 +1,18 @@
 package com.example.pubeo.DAO;
 
-import android.content.Intent;
-import android.util.Log;
-
-import com.example.pubeo.MainActivity;
+import com.example.pubeo.BuildConfig;
+import com.example.pubeo.DTO.AdvertiserCreateDTO;
+import com.example.pubeo.DTO.AdvertiserUpdateDTO;
 import com.example.pubeo.Service.ServiceAPI;
 import com.example.pubeo.model.Advertiser;
-import com.example.pubeo.model.Sticker;
+import com.example.pubeo.model.Login;
+import com.example.pubeo.model.Token;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
-import java.util.ArrayList;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -33,8 +24,6 @@ import javax.net.ssl.X509TrustManager;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -43,128 +32,47 @@ public class AdvertiserDAO {
     private Gson gson = new GsonBuilder().serializeNulls().create();
 
     private Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://10.0.2.2:5001/")
+            .baseUrl(BuildConfig.Base_URL)
             .client(getUnsafeOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
 
-    public ArrayList<Advertiser> getAllAdvertisers() throws Exception {
+    public Call<Token> login(Login login) {
         disableSSLCertificateChecking();
-        URL url = new URL("https://10.0.2.2:5001/Professionnels");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        BufferedReader buffer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        StringBuilder builder = new StringBuilder();
-        String stringJSON = "",line;
-        while((line = buffer.readLine()) != null){
-            builder.append(line);
-        }
-        buffer.close();
-        stringJSON = builder.toString();
-        return jsonToAdvertisers(stringJSON);
+        serviceAPI = retrofit.create(ServiceAPI.class);
+
+        return serviceAPI.loginAdvertiser(login);
     }
 
-    public void addAdvertiser(Advertiser advertiserReceived) throws Exception{
+    public Call<Advertiser> getMeAdvertiser(String token){
+        disableSSLCertificateChecking();
+        serviceAPI = retrofit.create(ServiceAPI.class);
+
+        return serviceAPI.getMeAdvertiser(token);
+    }
+
+    public Call<Advertiser> addAdvertiser(AdvertiserCreateDTO advertiser) {
         disableSSLCertificateChecking();
 
         serviceAPI = retrofit.create(ServiceAPI.class);
 
-        Call<Advertiser> call = serviceAPI.addAdvertiser(advertiserReceived);
-        call.enqueue(new Callback<Advertiser>() {
-            @Override
-            public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Advertiser> call, Throwable t) {
-            }
-        });
+        return serviceAPI.addAdvertiser(advertiser);
     }
 
-    public void updateAdvertiser(Advertiser advertiserReceived) throws Exception{
+    public Call<Void> updateAdvertiser(String token, AdvertiserUpdateDTO advertiser) {
         disableSSLCertificateChecking();
 
         serviceAPI = retrofit.create(ServiceAPI.class);
 
-        Advertiser advertiser = new Advertiser(advertiserReceived.getId(), advertiserReceived.getNomEntreprise(), advertiserReceived.getAdresse(), advertiserReceived.getNumeroTel(), advertiserReceived.getMail(), advertiserReceived.getNumeroTVA(), advertiserReceived.getStickers());
-        Call<Advertiser> call = serviceAPI.putAdvertiser(advertiserReceived.getId(), advertiser);
-        call.enqueue(new Callback<Advertiser>() {
-            @Override
-            public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Advertiser> call, Throwable t) {
-            }
-        });
+        return serviceAPI.updateAdvertiser(token, advertiser);
     }
 
-    public boolean deleteAdvertiser(String id) throws Exception{
+    public Call<Void> deleteAdvertiser(String token) {
         disableSSLCertificateChecking();
 
         serviceAPI = retrofit.create(ServiceAPI.class);
 
-        Call<Advertiser> call = serviceAPI.deleteAdvertiser(id);
-        call.enqueue(new Callback<Advertiser>() {
-            @Override
-            public void onResponse(Call<Advertiser> call, Response<Advertiser> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Advertiser> call, Throwable t) {
-            }
-        });
-
-        return true;
-    }
-
-    private ArrayList<Advertiser>jsonToAdvertisers(String stringJSON) throws Exception{
-        ArrayList<Advertiser> advertisers = new ArrayList<>();
-        Advertiser advertiser;
-        JSONArray jsonArray = new JSONArray(stringJSON);
-        for(int i = 0; i < jsonArray.length(); i++){
-            JSONObject jsonAdvertiser = jsonArray.getJSONObject(i);
-
-            JSONArray ja = jsonAdvertiser.getJSONArray("stickers");
-            int len = ja.length();
-
-            ArrayList<Sticker> stickers = new ArrayList<>();
-
-            for(int j=0; j<len; j++) {
-                JSONObject jsonStickers = ja.getJSONObject(j);
-                stickers.add(
-                        new Sticker(
-                            jsonStickers.getString("id"),
-                            jsonStickers.getString("titre"),
-                            jsonStickers.getString("description"),
-                            jsonStickers.getInt("hauteur"),
-                            jsonStickers.getInt("largeur"),
-                            jsonStickers.getInt("nbUtilisationsRestantes")
-                        )
-                );
-            }
-
-            advertiser = new Advertiser(
-                    jsonAdvertiser.getString("id"),
-                    jsonAdvertiser.getString("nomEntreprise"),
-                    jsonAdvertiser.getString("adresse"),
-                    jsonAdvertiser.getString("numeroTel"),
-                    jsonAdvertiser.getString("mail"),
-                    jsonAdvertiser.getString("numeroTVA"),
-                    stickers
-            );
-            advertisers.add(advertiser);
-        }
-
-        return advertisers;
+        return serviceAPI.deleteAdvertiser(token);
     }
 
     public OkHttpClient getUnsafeOkHttpClient() {

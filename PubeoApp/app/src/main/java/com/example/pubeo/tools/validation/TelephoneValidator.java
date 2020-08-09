@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class TelephoneValidator extends ContextWrapper {
 
     private String telephoneNotValid;
-    private final Pattern validTelephoneNumberPattern = Pattern.compile("^\\+[0-9]?()[0-9](\\s|\\S)(\\d[0-9]{9})$");
+    private final Pattern validTelephoneNumberPattern = Pattern.compile("\\d{10}");
 
     public TelephoneValidator(Context context){
         super(context);
@@ -26,7 +26,9 @@ public class TelephoneValidator extends ContextWrapper {
 
     public final void phoneNumberValidation(TextInputLayout input) {
         String targetField = input.getEditText().getText().toString();
-        if(!isValid(targetField)) input.setError(telephoneNotValid);
-        else input.setErrorEnabled(false);
+        if(!isValid(targetField))
+            input.setError(telephoneNotValid);
+        else
+            input.setErrorEnabled(false);
     }
 }

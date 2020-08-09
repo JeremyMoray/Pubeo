@@ -23,7 +23,6 @@ namespace PubeoAPI.model {
         public String Adresse { get; set; }
         [Required(AllowEmptyStrings = false)]
         public String NumeroTel { get; set; }
-        [Required(AllowEmptyStrings = false)]
         public String MotDePasse { get; set; }
 
         [StringLength(100)]

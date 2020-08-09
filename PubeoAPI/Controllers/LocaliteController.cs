@@ -29,6 +29,7 @@ namespace PubeoAPI.Controllers {
 
         }
 
+        // GET : /Localite/AllLocalites
         [Route("AllLocalites")]
         public IEnumerable<Localite> GetAllLocalites(){
             
@@ -38,9 +39,40 @@ namespace PubeoAPI.Controllers {
             return localites;
         }
 
+        // GET : /Localite
         [HttpGet]
         public IEnumerable<Localite> GetLocalites(){
             return _context.Localites;
+        }
+
+        // GET : /Localite/{codePostal}
+        [HttpGet("{cp}")]
+        public async Task<IActionResult> GetByPostalCode([FromRoute] string cp)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var localite = await _context.Localites.Include(x => x.Professionnels)
+                                                   .Include(x => x.Particuliers)
+                                                   .SingleOrDefaultAsync(l => l.CodePostal.Equals(cp));
+
+            if (localite == null){
+                return NotFound();
+            }
+            else
+            {
+                var loc = new Localite{
+                    CodePostal = cp,
+                    Ville = localite.Ville,
+                    Particuliers = localite.Particuliers,
+                    Professionnels = localite.Professionnels
+                };
+                // TODO : include the elements of the particuliers and the professionels
+                return Ok(localite);
+            }
+
         }
 
         [HttpPost]

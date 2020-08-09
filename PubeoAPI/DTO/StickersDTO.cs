@@ -10,6 +10,6 @@ namespace PubeoAPI.DTO {
         public int Hauteur { get; set; }
         public int Largeur { get; set; }
         public int NbUtilisationsRestantes { get; set; }
-        public String NomEntreprise { get; set; }
+        public Guid ProfessionnelId { get; set; }
     }
 }

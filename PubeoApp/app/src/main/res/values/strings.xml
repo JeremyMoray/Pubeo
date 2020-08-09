@@ -8,6 +8,7 @@
     <string name="you_are">Vous êtes un&#8230;</string>
     <string name="password_forgotten">Mot de passe oublié ?</string>
     <string name="emailHint">Email</string>
+    <string name="postalCodeHint">Code postal</string>
     <string name="passwordHint">Mot de passe</string>
     <string name="confirmPasswordHint">Confirmer le mot de passe</string>
     <string name="loginTextAdvertiser">SE CONNECTER - ANNONCEUR</string>
@@ -32,16 +33,19 @@
     <string name="no">Non</string>
     <string name="choosePicture">Choisissez une image</string>
     <string name="mailNotExist">L\'adresse mail n\'existe pas</string>
+    <string name="passwordIncorrect">Le mot de passe est incorrect</string>
     <string name="impossibleConnection">Connexion impossible</string>
     <string name="deleteProfile">Supprimer mon profil</string>
     <string name="deleteProfileConfirm">Voulez-vous vraiment supprimer votre profil ?</string>
-
-    <!-- label spinner -->
-    <string-array name="gender_array">
-        <item>Homme</item>
-        <item>Femme</item>
-        <item>Autre</item>
-    </string-array>
+    <string name="dataSaved">Données enregistrées</string>
+    <string name="emailConflict">L\'adresse mail existe déjà</string>
+    <string name="companyNameConflict">Le nom de l\'entreprise existe déjà</string>
+    <string name="usernameConflict">Le pseudo existe déjà</string>
+    <string name="infoSticker">Infos du sticker</string>
+    <string name="choose">Choisir</string>
+    <string name="deleteConfirmed">L\'élément a bien été supprimé</string>
+    <string name="delete">Supprimer</string>
+    <string name="youAlreadyParticipate">Vous participez déjà à cette annonce</string>
 
     <!-- Messages d'erreurs -->
     <string name="fieldNotEmpty">Le champ ne peut pas être vide.</string>
@@ -52,6 +56,11 @@
     <string name="passwordWithOneNumber">Le mot de passe doit contenir au moins 1 chiffre.</string>
     <string name="usernameNotValid">Assurez-vous que votre nom d\'utilisateur a une longueur entre 3 et 15 et que qu\'ils correspondent aux caractères et symboles a-z, 0-9, _, -</string>
     <string name="phoneNumberNotValid">Entrez un numéro de téléphone valide</string>
+    <string name="postalCodeNotValid">Entrez un code postal valide</string>
+    <string name="lossConnection">La connexion a été perdue</string>
+    <string name="heightNotValid">Entrez un nombre entre 1 et 10.000</string>
+    <string name="widthNotValid">Entrez un nombre entre 1 et 10.000</string>
+    <string name="nbOfUseNotValid">Entrez un nombre entre 1 et 1.000.000</string>
 
     <!-- Descriptions images -->
     <string name="profile_pic_desc">Photo de profil</string>
@@ -65,6 +74,9 @@
     <!-- Données écrasée par API -->
     <string name="title">Titre</string>
     <string name="description">Description</string>
+    <string name="height">Hauteur</string>
+    <string name="width">Largeur</string>
+    <string name="numberOfUse">Nombre d\'utilisations</string>
     <string name="reward">récompense : 25 points par session</string>
     <string name="participants">participants restants :</string>
     <string name="points">1.2</string>
@@ -82,6 +94,7 @@
     <string name="menu_company_profile">Profil</string>
     <string name="menu_manage_participants">Gérer mes participants</string>
     <string name="menu_settings">Paramètres</string>
+    <string name="menu_stickers">Mes stickers</string>
     <string name="i_forgot">Mot de Passe oublié?</string>
     <string name="header_log_in_particular">SE CONNECTER - PARTICULIER</string>
     <string name="email_hint">Email</string>
@@ -90,17 +103,20 @@
     <string name="user_hint">Nom d\'utilisateur</string>
     <string name="ConfirmPasswordHint">Confirmez votre mot de passe</string>
     <string name="createProfil">Créer votre profil</string>
-    <string name="headerProfilPicture">PHOTO DE PROFILE</string>
+    <string name="headerProfilPicture">PHOTO DE PROFIL</string>
     <string name="firstName">Prénom</string>
     <string name="lastName">Nom</string>
     <string name="phoneNumber">Téléphone</string>
     <string name="homeAddress">Adresse Domicile</string>
     <string name="city">Ville</string>
-    <string name="zipCode">Code Postale</string>
+    <string name="zipCode">Code Postal</string>
     <string name="title_activity_particular_home">ParticularHomeActivity</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="CarBrand">Marque</string>
+    <string name="CarModel">Modèle</string>
+    <string name="BirthDate">Date de naissance</string>
 </resources>

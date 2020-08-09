@@ -47,12 +47,12 @@
         android:id="@+id/companyLogoId"
         android:layout_width="130dp"
         android:layout_height="130dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="140dp"
-        app:civ_border_width="1dp"
-        app:civ_border_color="@color/black"
         android:contentDescription="@string/profile_pic_desc"
         android:src="@drawable/ic_shop_svgrepo_com"
+        app:civ_border_color="@color/black"
+        app:civ_border_width="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/blackBandAdvertiserCompanyInfos" />
 
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="131dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:text="@string/brandLogo"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +71,7 @@
         android:id="@+id/scrollViewSignUpCompanyProfile"
         android:layout_width="0dp"
         android:layout_height="280dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoTextId">
@@ -97,9 +97,9 @@
                     android:id="@+id/companyNameFieldEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:ems="10"
                     android:hint="@string/companyName"
                     android:inputType="text"
-                    android:ems="10"
                     android:textSize="20sp"
                     tools:layout_editor_absoluteX="18dp"
                     tools:layout_editor_absoluteY="617dp" />
@@ -113,17 +113,15 @@
                 android:layout_marginTop="18dp"
                 android:layout_marginEnd="27dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/companyNameField"
-                tools:layout_editor_absoluteX="7dp"
-                tools:layout_editor_absoluteY="620dp">
+                app:layout_constraintTop_toBottomOf="@+id/companyNameField">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/companyVATFieldEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:ems="10"
                     android:hint="@string/VATNumber"
                     android:inputType="number"
-                    android:ems="10"
                     android:textSize="20sp"
                     tools:layout_editor_absoluteX="18dp"
                     tools:layout_editor_absoluteY="617dp" />
@@ -137,17 +135,15 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="27dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/companyVATField"
-                tools:layout_editor_absoluteX="7dp"
-                tools:layout_editor_absoluteY="620dp">
+                app:layout_constraintTop_toBottomOf="@+id/companyVATField">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/companyPhoneFieldEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:ems="10"
                     android:hint="@string/phone"
                     android:inputType="phone"
-                    android:ems="10"
                     android:textSize="20sp"
                     tools:layout_editor_absoluteX="18dp"
                     tools:layout_editor_absoluteY="617dp" />
@@ -169,9 +165,31 @@
                     android:id="@+id/companyAddressFieldEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:ems="10"
                     android:hint="@string/companyAddress"
                     android:inputType="text"
+                    android:textSize="20sp"
+                    tools:layout_editor_absoluteX="18dp"
+                    tools:layout_editor_absoluteY="617dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/companyPostalCodeField"
+                android:layout_width="342dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="27dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/companyAddressField">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/companyPostalCodeFieldEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="@string/postalCodeHint"
+                    android:inputType="number"
                     android:textSize="20sp"
                     tools:layout_editor_absoluteX="18dp"
                     tools:layout_editor_absoluteY="617dp" />
@@ -181,34 +199,34 @@
             <ImageView
                 android:id="@+id/VATLogoId"
                 android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="40dp"
+                android:layout_height="0dp"
                 android:layout_marginEnd="20dp"
                 android:contentDescription="@string/VAT_desc"
+                app:layout_constraintBottom_toBottomOf="@+id/companyVATField"
                 app:layout_constraintEnd_toStartOf="@+id/companyVATField"
-                app:layout_constraintTop_toBottomOf="@+id/companyNameField"
+                app:layout_constraintTop_toTopOf="@+id/companyVATField"
                 app:srcCompat="@drawable/ic_work_grey_700_24dp" />
 
             <ImageView
                 android:id="@+id/phoneLogoId"
                 android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="34dp"
+                android:layout_height="0dp"
                 android:layout_marginEnd="20dp"
                 android:contentDescription="@string/phone_desc"
+                app:layout_constraintBottom_toBottomOf="@+id/companyPhoneField"
                 app:layout_constraintEnd_toStartOf="@+id/companyPhoneField"
-                app:layout_constraintTop_toBottomOf="@+id/VATLogoId"
+                app:layout_constraintTop_toTopOf="@+id/companyPhoneField"
                 app:srcCompat="@drawable/ic_phone_grey_700_24dp" />
 
             <ImageView
                 android:id="@+id/businessLogoId"
                 android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="35dp"
+                android:layout_height="0dp"
                 android:layout_marginEnd="20dp"
                 android:contentDescription="@string/business_desc"
+                app:layout_constraintBottom_toBottomOf="@+id/companyAddressField"
                 app:layout_constraintEnd_toStartOf="@+id/companyAddressField"
-                app:layout_constraintTop_toBottomOf="@+id/phoneLogoId"
+                app:layout_constraintTop_toTopOf="@+id/companyAddressField"
                 app:srcCompat="@drawable/ic_business_grey_700_24dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -217,7 +235,7 @@
     <Button
         android:id="@+id/continueInformationsAdvertiserButton"
         android:layout_width="252dp"
-        android:layout_height="66dp"
+        android:layout_height="0dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="80dp"
         android:background="@drawable/login_button_shape"
