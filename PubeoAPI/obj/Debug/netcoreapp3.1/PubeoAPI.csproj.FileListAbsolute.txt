@@ -140,3 +140,10 @@ C:\Users\Jeremy\StudioProjects\Pubeo\PubeoAPI\obj\Debug\netcoreapp3.1\PubeoAPI.p
 C:\Users\Jeremy\StudioProjects\Pubeo\PubeoAPI\obj\Debug\netcoreapp3.1\PubeoAPI.genruntimeconfig.cache
 C:\Users\Jeremy\StudioProjects\Pubeo\PubeoAPI\bin\Debug\netcoreapp3.1\AutoMapper.dll
 C:\Users\Jeremy\StudioProjects\Pubeo\PubeoAPI\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\obj\Debug\netcoreapp3.1\PubeoAPI.MvcApplicationPartsAssemblyInfo.cs
