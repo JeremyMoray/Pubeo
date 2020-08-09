@@ -23,7 +23,7 @@ public class ParticularSettingsFragment extends Fragment {
         particularSettingsViewModel =
                 ViewModelProviders.of(this).get(ParticularSettingsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_particular_settings, container, false);
-        final Button buttonFinish = root.findViewById(R.id.disconnectButtonAdvertiser);
+        final Button buttonFinish = root.findViewById(R.id.disconnectButtonParticular);
 
         buttonFinish.setOnClickListener(new View.OnClickListener() {
                 @Override

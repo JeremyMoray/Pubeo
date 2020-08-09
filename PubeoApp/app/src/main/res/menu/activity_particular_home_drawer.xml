@@ -10,6 +10,11 @@
             android:title="@string/menu_home"/>
 
         <item
+            android:id="@+id/nav_particular_stickers"
+            android:icon="@drawable/ic_build_grey_700_24dp"
+            android:title="@string/menu_stickers" />
+
+        <item
             android:id="@+id/nav_particular_settings"
             android:icon="@drawable/ic_build_grey_700_24dp"
             android:title="@string/menu_settings" />

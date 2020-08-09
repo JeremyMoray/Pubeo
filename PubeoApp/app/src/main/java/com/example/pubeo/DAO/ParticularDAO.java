@@ -73,6 +73,14 @@ public class ParticularDAO {
         return serviceAPI.getAllStickersByParticulierId(token, particulierId);
     }
 
+    public Call<Void> deleteParticipation(String token, String stickerId){
+        disableSSLCertificateChecking();
+
+        serviceAPI = retrofit.create(ServiceAPI.class);
+
+        return serviceAPI.deleteParticipation(token, stickerId);
+    }
+
     public OkHttpClient getUnsafeOkHttpClient() {
         try {
             // Create a trust manager that does not validate certificate chains

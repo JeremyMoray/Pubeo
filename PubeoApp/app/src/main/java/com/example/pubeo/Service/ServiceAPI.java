@@ -77,4 +77,7 @@ public interface ServiceAPI {
 
     @POST("Participation")
     Call<Void> addParticipation(@Header("Authorization")String token, @Body ParticipationCreateDTO participation);
+
+    @DELETE("Participation/DeleteMySticker/{stickerId}")
+    Call<Void> deleteParticipation(@Header("Authorization") String token, @Path("stickerId") String stickerId);
 }

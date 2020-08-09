@@ -12,8 +12,14 @@
         tools:layout="@layout/fragment_particular_home" />
 
     <fragment
+        android:id="@+id/nav_particular_stickers"
+        android:name="com.example.pubeo.Particular.ui.stickers.ParticularStickersFragment"
+        android:label="@string/menu_stickers"
+        tools:layout="@layout/fragment_particular_stickers" />
+
+    <fragment
         android:id="@+id/nav_particular_settings"
-        android:name="com.example.pubeo.Advertiser.ui.settings.SettingsFragment"
+        android:name="com.example.pubeo.Particular.ui.settings.ParticularSettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_particular_settings" />
 

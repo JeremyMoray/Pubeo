@@ -42,6 +42,8 @@
     <string name="companyNameConflict">Le nom de l\'entreprise existe déjà</string>
     <string name="infoSticker">Infos du sticker</string>
     <string name="choose">Choisir</string>
+    <string name="deleteConfirmed">L\'élément a bien été supprimé</string>
+    <string name="delete">Supprimer</string>
 
     <!-- Messages d'erreurs -->
     <string name="fieldNotEmpty">Le champ ne peut pas être vide.</string>
@@ -90,6 +92,7 @@
     <string name="menu_company_profile">Profil</string>
     <string name="menu_manage_participants">Gérer mes participants</string>
     <string name="menu_settings">Paramètres</string>
+    <string name="menu_stickers">Mes stickers</string>
     <string name="i_forgot">Mot de Passe oublié?</string>
     <string name="header_log_in_particular">SE CONNECTER - PARTICULIER</string>
     <string name="email_hint">Email</string>

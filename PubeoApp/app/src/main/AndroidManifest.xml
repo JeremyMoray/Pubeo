@@ -58,6 +58,11 @@
             android:parentActivityName=".Particular.ParticularHomeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeWhiteAndBlack" />
+        <activity
+            android:name=".Particular.ParticularMyStickerInformationsActivity"
+            android:parentActivityName=".Particular.ParticularHomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeWhiteAndBlack" />
         <meta-data
             android:name="CLOUDINARY_URL"
             android:value="cloudinary://@pubeo"/>
