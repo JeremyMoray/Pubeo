@@ -40,6 +40,7 @@
     <string name="dataSaved">Données enregistrées</string>
     <string name="emailConflict">L\'adresse mail existe déjà</string>
     <string name="companyNameConflict">Le nom de l\'entreprise existe déjà</string>
+    <string name="usernameConflict">Le pseudo existe déjà</string>
     <string name="infoSticker">Infos du sticker</string>
     <string name="choose">Choisir</string>
     <string name="deleteConfirmed">L\'élément a bien été supprimé</string>

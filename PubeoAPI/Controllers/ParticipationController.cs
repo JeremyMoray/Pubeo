@@ -107,5 +107,25 @@ namespace PubeoAPI.Controllers {
             await _context.SaveChangesAsync();
             return Ok();
         }
+
+        // DELETE: /Participation/DeleteMySticker/{stickerId}
+        [HttpDelete("DeleteMySticker/{stickerId}")]
+        public async Task<IActionResult> DeleteMySticker([FromRoute] Guid stickerId)
+        {
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+            var particulier = await _context.Particuliers.SingleOrDefaultAsync(x => x.Mail.Equals(email));
+            
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var participation = await _context.Participations.SingleOrDefaultAsync(x => x.StickerId.Equals(stickerId) && x.ParticulierId.Equals(particulier.Id));
+            
+            if (participation == null)
+                return NotFound();
+
+            _context.Participations.Remove(participation);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }

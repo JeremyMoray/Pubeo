@@ -132,6 +132,15 @@ namespace PubeoAPI.Controllers {
                 return BadRequest(ModelState);
             }
 
+            if(await _context.Particuliers.AnyAsync(x => x.Mail == particulier.Mail))
+                return Conflict("Mail");
+
+            if(await _context.Particuliers.AnyAsync(x => x.Pseudo == particulier.Pseudo))
+                return Conflict("Pseudo");
+
+            if(particulier.LocaliteCode != null && !await _context.Localites.AnyAsync(x => x.CodePostal.Equals(particulier.LocaliteCode)))
+                return NotFound();
+
             var part = new Particulier{
                 Nom = particulier.Nom,
                 Prenom = particulier.Prenom,

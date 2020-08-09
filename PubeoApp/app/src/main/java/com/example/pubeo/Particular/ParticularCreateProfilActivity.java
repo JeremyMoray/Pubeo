@@ -27,6 +27,7 @@ import com.example.pubeo.tools.CheckNetClass;
 import com.example.pubeo.tools.validation.ValidationTextWatcher;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -207,6 +208,27 @@ public class ParticularCreateProfilActivity extends AppCompatActivity {
                                 }
                             });
                         }
+
+                        String errorMessage = "";
+
+                        if(response.code() == 409){
+                            try{
+                                errorMessage = response.errorBody().string();
+                            }
+                            catch (IOException e) {
+
+                            }
+
+                            if(errorMessage.equals("Mail")){
+                                Toast.makeText(getApplicationContext(), R.string.emailConflict, Toast.LENGTH_SHORT).show();
+                            }
+                            if(errorMessage.equals("Pseudo")){
+                                Toast.makeText(getApplicationContext(), R.string.usernameConflict, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        if(response.code() == 404)
+                            Toast.makeText(getApplicationContext(), R.string.postalCodeNotValid, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
