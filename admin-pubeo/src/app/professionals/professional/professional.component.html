@@ -1,32 +1,40 @@
 <div class="div-add-form">
-    <form #form="ngForm" (submit)="onSubmit(form)">
-        <input type="hidden" name="id" #id="ngModel" [(ngModel)]="pubeoService.professionelForm.id">
-        <input type="hidden" name="stickers" #stickers="ngModel" [(ngModel)]="pubeoService.professionelForm.stickers">
+    <form #form="ngForm">
         <div class="row">
             <div class="form-group col-md-6">
                 <label>Nom de l'entreprise</label>
-                <input name="nomEntreprise" #nomEntreprise="ngModel" [(ngModel)]="pubeoService.professionelForm.nomEntreprise" class="form-control">
+                <input name="Name" #Name="ngModel" [(ngModel)]="professionalsService.professionalForm.Name" class="form-control">
             </div>
             <div class="form-group col-md-6">
                 <label>Mot de passe</label>
-                <input name="MotDePasse" #MotDePasse="ngModel" [(ngModel)]="pubeoService.professionelForm.MotDePasse" class="form-control">
+                <input name="Password" #Password="ngModel" [(ngModel)]="professionalsService.professionalForm.Password" class="form-control">
             </div>
         </div>
         <div class="form-group">
             <label>Email</label>
-            <input name="mail" #mail="ngModel" [(ngModel)]="pubeoService.professionelForm.mail" class="form-control">
+            <input name="Email" #Email="ngModel" [(ngModel)]="professionalsService.professionalForm.Email" class="form-control">
         </div>
         <div class="form-group">
             <label>Numéro de téléphone</label>
-            <input name="numeroTel" #numeroTel="ngModel" [(ngModel)]="pubeoService.professionelForm.numeroTel" class="form-control">
+            <input name="PhoneNumber" #PhoneNumber="ngModel" [(ngModel)]="professionalsService.professionalForm.PhoneNumber" class="form-control">
         </div>
         <div class="form-group">
             <label>Adresse</label>
-            <input name="adresse" #adresse="ngModel" [(ngModel)]="pubeoService.professionelForm.adresse" class="form-control">
+            <input name="Address" #Address="ngModel" [(ngModel)]="professionalsService.professionalForm.Address" class="form-control">
         </div>
         <div class="form-group">
             <label>Numéro de TVA</label>
-            <input name="numeroTVA" #numeroTVA="ngModel" [(ngModel)]="pubeoService.professionelForm.numeroTVA" class="form-control">
+            <input name="VATNumber" #PhoneNumber="ngModel" [(ngModel)]="professionalsService.professionalForm.VATNumber" class="form-control">
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label>Ville</label>
+                <input name="City" #City="ngModel" [(ngModel)]="professionalsService.professionalForm.City" class="form-control">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Code postal</label>
+                <input name="Zipcode" #Zipcode="ngModel" [(ngModel)]="professionalsService.professionalForm.Zipcode" class="form-control">
+            </div>
         </div>
         <div class="form-group text-center mt-4">
             <button type="submit" class="btn btn-lg">Envoyer</button>

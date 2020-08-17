@@ -24,20 +24,24 @@ export class ParticularsService {
       StickerList: 
         [
           {
-            id: 1,
-            titre: "Burger king", 
-            description: "good food",
-            hauteur: 24, 
-            largeur: 24, 
-            nbUtilisationsRestantes: 5
+            Id: 1,
+            QRcode: "qrcodeur", 
+            Title: "Burger king", 
+            Description: "good food", 
+            Remuneration: 5, 
+            Height: 24, 
+            Width: 24, 
+            RemainingUses: 5
           },
           {
-            id: 2,
-            titre: "Mac donalds",
-            description: "bad food",
-            hauteur: 32, 
-            largeur: 32, 
-            nbUtilisationsRestantes: 4
+            Id: 2,
+            QRcode: "qrcodeur", 
+            Title: "Mac donalds", 
+            Description: "bad food", 
+            Remuneration: 25, 
+            Height: 32, 
+            Width: 32, 
+            RemainingUses: 4
           }
         ]
     },
@@ -56,20 +60,24 @@ export class ParticularsService {
       StickerList: 
         [
           {
-            id: 1,
-            titre: "Burger king", 
-            description: "good food",
-            hauteur: 24, 
-            largeur: 24, 
-            nbUtilisationsRestantes: 5
+            Id: 1,
+            QRcode: "qrcodeur", 
+            Title: "Burger king", 
+            Description: "good food", 
+            Remuneration: 5, 
+            Height: 24, 
+            Width: 24, 
+            RemainingUses: 5
           },
           {
-            id: 2,
-            titre: "Mac donalds", 
-            description: "bad food",
-            hauteur: 32, 
-            largeur: 32, 
-            nbUtilisationsRestantes: 4
+            Id: 2,
+            QRcode: "qrcodeur", 
+            Title: "Mac donalds", 
+            Description: "bad food", 
+            Remuneration: 25, 
+            Height: 32, 
+            Width: 32, 
+            RemainingUses: 4
           }
         ]
     },
@@ -88,20 +96,24 @@ export class ParticularsService {
       StickerList: 
         [
           {
-            id: 1,
-            titre: "Burger king", 
-            description: "good food",
-            hauteur: 24, 
-            largeur: 24, 
-            nbUtilisationsRestantes: 5
+            Id: 1,
+            QRcode: "qrcodeur", 
+            Title: "Burger king", 
+            Description: "good food", 
+            Remuneration: 5, 
+            Height: 24, 
+            Width: 24, 
+            RemainingUses: 5
           },
           {
-            id: 2,
-            titre: "Mac donalds", 
-            description: "bad food",
-            hauteur: 32, 
-            largeur: 32, 
-            nbUtilisationsRestantes: 4
+            Id: 2,
+            QRcode: "qrcodeur", 
+            Title: "Mac donalds", 
+            Description: "bad food", 
+            Remuneration: 25, 
+            Height: 32, 
+            Width: 32, 
+            RemainingUses: 4
           }
         ]
     },

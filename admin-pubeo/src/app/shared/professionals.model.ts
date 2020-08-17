@@ -1,12 +1,14 @@
 import { Sticker } from './sticker.model';
 
 export class Professionals {
-    id: string;
-    mail: string;
-    nomEntreprise: string;
-    MotDePasse: string;
-    numeroTel: string;
-    adresse: string;
-    numeroTVA: string;
-    stickers: Sticker[];
+    Id: number;
+    Email: string;
+    Name: string;
+    Password: string;
+    PhoneNumber: string;
+    Address: string;
+    VATNumber: string;
+    City: string;
+    Zipcode: number;
+    StickerList: Sticker[];
 }

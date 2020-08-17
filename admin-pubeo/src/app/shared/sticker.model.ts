@@ -1,8 +1,10 @@
 export class Sticker {
-    id: number;
-    titre: string;
-    description: string;
-    hauteur: number;
-    largeur: number;
-    nbUtilisationsRestantes: number;
+    Id: number;
+    QRcode: string;
+    Title: string;
+    Description: string;
+    Remuneration: number;
+    Height: number;
+    Width: number;
+    RemainingUses: number;
 }

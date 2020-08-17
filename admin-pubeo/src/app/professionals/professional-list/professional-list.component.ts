@@ -10,18 +10,11 @@ import { PubeoService } from 'src/app/shared/pubeo.service';
 export class ProfessionalListComponent implements OnInit {
 
   list: Professionals[];
-  constructor(private pubeoService: PubeoService) { }
+  constructor(private particularsService: PubeoService) { }
 
   ngOnInit() {
-    return this.pubeoService.getAllProfessionals().subscribe(data => this.list = data);
-  }
-
-  onDelete(id: string) {
-    if (confirm('Etes-vous sûr de vouloir supprimer cette ligne ?')) {
-      this.pubeoService.deleteProfessional(id).subscribe(res => {
-        window.location.reload();
-      });
-    }
+    this.list = this.particularsService.getAllProfessionals();
+    
   }
 
 }

@@ -31,8 +31,6 @@ import { ParticularDetailsComponent } from './particulars/particular-details/par
 import { ProfessionalComponent } from './professionals/professional/professional.component';
 import { ProfessionalListComponent } from './professionals/professional-list/professional-list.component';
 import { ProfessionalDetailsComponent } from './professionals/professional-details/professional-details.component';
-import { HttpClientModule } from '@angular/common/http';
-import { PubeoService } from './shared/pubeo.service';
 
 const appRoutes: Routes = [
   {
@@ -61,7 +59,7 @@ const appRoutes: Routes = [
     data: {title: 'Professionnels'}
   },
   {
-    path: 'professionels/details/:nomEntreprise',
+    path: 'professionels/details/:Id',
     component: ProfessionalDetailsComponent,
     data: {title: 'Details professionels'}
   },
@@ -96,7 +94,6 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     MatButtonModule, 
     MatCardModule, 
     MatDialogModule, 
@@ -113,7 +110,7 @@ const appRoutes: Routes = [
     ),
     BrowserAnimationsModule,
   ],
-  providers: [PubeoService],
+  providers: [ParticularsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

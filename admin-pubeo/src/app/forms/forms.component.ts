@@ -10,10 +10,10 @@ import { Sticker } from '../shared/sticker.model';
 export class FormsComponent implements OnInit {
 
   list: Sticker[];
-  constructor(private pubeoService: PubeoService) { }
+  constructor(private particularsService: PubeoService) { }
 
   ngOnInit() {
-    return this.pubeoService.getAllStickers().subscribe(data => this.list = data);
+    this.list = this.particularsService.getAllStickers();
   }
 
 }

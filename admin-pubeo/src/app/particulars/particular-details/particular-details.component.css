@@ -1,0 +1,16 @@
+.form-group>label{
+    font-weight: lighter;
+}
+
+form{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.card-container{
+    margin-top: 50px;
+}
+
+.staticCardText{
+    color: lightgray;
+}
