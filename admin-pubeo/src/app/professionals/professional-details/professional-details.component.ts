@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Professionals } from 'src/app/shared/professionals.model';
+import { Professionals } from 'src/app/shared/models/professionals.model';
 import { ActivatedRoute } from '@angular/router';
-import { PubeoService } from 'src/app/shared/pubeo.service';
+import { PubeoService } from 'src/app/shared/services/pubeo.service';
 
 @Component({
   selector: 'app-professional-details',

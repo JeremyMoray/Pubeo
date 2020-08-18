@@ -1,4 +1,4 @@
-import { BrowserModule, Title } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,11 +26,11 @@ import { ProfessionalsComponent } from './professionals/professionals.component'
 import { FormsComponent } from './forms/forms.component';
 import { ParticularComponent } from './particulars/particular/particular.component';
 import { ParticularListComponent } from './particulars/particular-list/particular-list.component';
-import { ParticularsService } from './shared/particulars.service';
 import { ParticularDetailsComponent } from './particulars/particular-details/particular-details.component';
 import { ProfessionalComponent } from './professionals/professional/professional.component';
 import { ProfessionalListComponent } from './professionals/professional-list/professional-list.component';
 import { ProfessionalDetailsComponent } from './professionals/professional-details/professional-details.component';
+import { PubeoService } from './shared/services/pubeo.service';
 
 const appRoutes: Routes = [
   {
@@ -110,7 +110,7 @@ const appRoutes: Routes = [
     ),
     BrowserAnimationsModule,
   ],
-  providers: [ParticularsService],
+  providers: [PubeoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

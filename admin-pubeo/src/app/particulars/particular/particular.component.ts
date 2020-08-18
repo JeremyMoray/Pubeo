@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ParticularsService } from 'src/app/shared/particulars.service';
+import { PubeoService } from 'src/app/shared/services/pubeo.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -9,7 +9,7 @@ import { NgForm } from '@angular/forms';
 })
 export class ParticularComponent implements OnInit {
 
-  constructor(private particularsService : ParticularsService) { }
+  constructor(private pubeoService : PubeoService) { }
 
   ngOnInit() {
   }

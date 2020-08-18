@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ParticularsService } from 'src/app/shared/particulars.service';
-import { Particulars } from 'src/app/shared/particulars.model';
+import { PubeoService } from 'src/app/shared/services/pubeo.service';
+import { Particulars } from 'src/app/shared/models/particulars.model';
 
 @Component({
   selector: 'app-particular-list',
@@ -10,10 +10,10 @@ import { Particulars } from 'src/app/shared/particulars.model';
 export class ParticularListComponent implements OnInit {
 
   list: Particulars[];
-  constructor(private particularsService: ParticularsService) { }
+  constructor(private pubeoService: PubeoService) { }
 
   ngOnInit() {
-    this.list = this.particularsService.getAllParticulars();
+    this.list = this.pubeoService.getAllParticulars();
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ParticularsService } from 'src/app/shared/particulars.service';
-import { Particulars } from 'src/app/shared/particulars.model';
+import { PubeoService } from 'src/app/shared/services/pubeo.service';
+import { Particulars } from 'src/app/shared/models/particulars.model';
 
 @Component({
   selector: 'app-particular-details',
@@ -12,11 +12,11 @@ export class ParticularDetailsComponent implements OnInit {
 
   Id;
   particular: Particulars;
-  constructor(private route:ActivatedRoute, private particularsService: ParticularsService) { }
+  constructor(private route:ActivatedRoute, private pubeoService: PubeoService) { }
 
   ngOnInit() {
     this.Id= this.route.snapshot.paramMap.get('Id');
-    this.particular = this.particularsService.getParticularById(this.Id);
+    this.particular = this.pubeoService.getParticularById(this.Id);
   }
 
 }
