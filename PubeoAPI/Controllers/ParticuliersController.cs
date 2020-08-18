@@ -76,7 +76,9 @@ namespace PubeoAPI.Controllers {
                 return BadRequest(ModelState);
             }
 
-            var _particulier = await _context.Particuliers.SingleOrDefaultAsync(p => p.Id.Equals(id));
+            var _particulier = await _context.Particuliers
+                                        .Include(p => p.Localite)
+                                        .SingleOrDefaultAsync(p => p.Id.Equals(id));
 
             if(_particulier == null) {
                 return NotFound();

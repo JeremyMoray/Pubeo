@@ -1,10 +1,11 @@
+import { Professionals } from './professionals.model';
+
 export class Sticker {
-    Id: number;
-    QRcode: string;
-    Title: string;
-    Description: string;
-    Remuneration: number;
-    Height: number;
-    Width: number;
-    RemainingUses: number;
+    id: string;
+    titre: string;
+    description: string;
+    hauteur: number;
+    largeur: number;
+    nbUtilisationsRestantes: number;
+    professionnel: Professionals;
 }

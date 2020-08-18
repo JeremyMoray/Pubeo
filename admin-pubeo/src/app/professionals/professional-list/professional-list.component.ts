@@ -9,12 +9,12 @@ import { PubeoService } from 'src/app/shared/services/pubeo.service';
 })
 export class ProfessionalListComponent implements OnInit {
 
-  list: Professionals[];
+  professionnals: Professionals[];
   constructor(private particularsService: PubeoService) { }
 
   ngOnInit() {
-    this.list = this.particularsService.getAllProfessionals();
-    
+    this.particularsService.getAllProfessionals()
+        .subscribe(data => this.professionnals = data);
   }
 
 }

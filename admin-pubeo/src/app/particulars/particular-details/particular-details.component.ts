@@ -16,7 +16,8 @@ export class ParticularDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.Id= this.route.snapshot.paramMap.get('Id');
-    this.particular = this.pubeoService.getParticularById(this.Id);
+    this.pubeoService.getParticularById(this.Id)
+        .subscribe(data => this.particular = data);
   }
 
 }

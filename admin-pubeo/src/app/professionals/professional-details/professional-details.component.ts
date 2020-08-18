@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Professionals } from 'src/app/shared/models/professionals.model';
 import { ActivatedRoute } from '@angular/router';
 import { PubeoService } from 'src/app/shared/services/pubeo.service';
+import { Sticker } from 'src/app/shared/models/sticker.model';
 
 @Component({
   selector: 'app-professional-details',
@@ -12,11 +13,15 @@ export class ProfessionalDetailsComponent implements OnInit {
 
   Id;
   professional: Professionals;
-  constructor(private route:ActivatedRoute, private pubeoService: PubeoService) { }
+  stickers: Sticker[];
+  constructor(private route: ActivatedRoute, private pubeoService: PubeoService) { }
 
   ngOnInit() {
     this.Id= this.route.snapshot.paramMap.get('Id');
-    this.professional = this.pubeoService.getProfessionalById(this.Id);
+    this.pubeoService.getProfessionalById(this.Id)
+        .subscribe(data => this.professional = data);
+    this.pubeoService.getAllStickersByProfessionalId(this.Id)
+        .subscribe(data => this.stickers = data);
   }
 
 }

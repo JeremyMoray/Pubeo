@@ -9,11 +9,12 @@ import { Particulars } from 'src/app/shared/models/particulars.model';
 })
 export class ParticularListComponent implements OnInit {
 
-  list: Particulars[];
+  particulars: Particulars[];
   constructor(private pubeoService: PubeoService) { }
 
   ngOnInit() {
-    this.list = this.pubeoService.getAllParticulars();
+    this.pubeoService.getAllParticulars()
+        .subscribe(data => this.particulars = data);
   }
 
 }

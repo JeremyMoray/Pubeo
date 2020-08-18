@@ -31,6 +31,8 @@ import { ProfessionalComponent } from './professionals/professional/professional
 import { ProfessionalListComponent } from './professionals/professional-list/professional-list.component';
 import { ProfessionalDetailsComponent } from './professionals/professional-details/professional-details.component';
 import { PubeoService } from './shared/services/pubeo.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CustomHttpInterceptor } from './custom-http-interceptor';
 
 const appRoutes: Routes = [
   {
@@ -109,8 +111,16 @@ const appRoutes: Routes = [
       appRoutes,
     ),
     BrowserAnimationsModule,
+    HttpClientModule
   ],
-  providers: [PubeoService],
+  providers: [
+    PubeoService, 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CustomHttpInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

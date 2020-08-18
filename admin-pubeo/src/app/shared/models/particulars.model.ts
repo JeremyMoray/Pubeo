@@ -1,16 +1,14 @@
 import { Sticker } from './sticker.model';
+import { Localite } from './localite.model';
 
 export class Particulars {
-    Id: number;
-    Email: string;
-    Username: string;
-    Password: string;
-    Firstname: string;
-    Lastname: string;
-    PhoneNumber: string;
-    Birthdate: Date;
-    Address: string;
-    City: string;
-    Zipcode: number;
-    StickerList: Sticker[];
+    id: string;
+    nom: string;
+    prenom: string;
+    adresse: string;
+    pseudo: string;
+    dateNaissance: Date;
+    numeroTel: string;
+    mail: string;
+    localite: Localite;
 }

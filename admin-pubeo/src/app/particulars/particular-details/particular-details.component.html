@@ -1,6 +1,6 @@
 <app-top-toolbar></app-top-toolbar>
 <div class="container">
-    <h1 class="text-center mt-3">{{particular.Firstname}} {{particular.Lastname}}</h1>
+    <h1 class="text-center mt-3">{{particular.prenom}} {{particular.nom}}</h1>
 
     <hr>
 
@@ -11,46 +11,46 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label>Prénom</label>
-                            <input name="Firstname" class="form-control" value="{{particular.Firstname}}">
+                            <input name="Firstname" class="form-control" value="{{particular.prenom}}">
                         </div>
                         <div class="form-group col-md-6">
                             <label>Nom</label>
-                            <input name="Lastname" class="form-control" value="{{particular.Lastname}}">
+                            <input name="Lastname" class="form-control" value="{{particular.nom}}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Nom d'utilisateur</label>
-                        <input name="Username" class="form-control" value="{{particular.Username}}">
+                        <input name="Username" class="form-control" value="{{particular.pseudo}}">
                     </div>
                     <div class="form-group">
                         <label>Mot de passe</label>
-                        <input name="Password" class="form-control" value="{{particular.Password}}">
+                        <input name="Password" class="form-control" value="password" type="password">
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input name="Email" class="form-control" value="{{particular.Email}}">
+                        <input name="Email" class="form-control" value="{{particular.mail}}">
                     </div>
                     <div class="form-group">
                         <label>Numéro de téléphone</label>
-                        <input name="PhoneNumber" class="form-control" value="{{particular.PhoneNumber}}">
+                        <input name="PhoneNumber" class="form-control" value="{{particular.numeroTel}}">
                     </div>
                     <div class="form-group">
                         <label>Date de naissance</label>
                         <input type="date" name="Birthdate" class="form-control"
-                            value="{{particular.Birthdate | date:'yyyy-MM-dd'}}">
+                            value="{{particular.dateNaissance | date:'yyyy-MM-dd'}}">
                     </div>
                     <div class="form-group">
                         <label>Adresse</label>
-                        <input name="Address" class="form-control" value="{{particular.Address}}">
+                        <input name="Address" class="form-control" value="{{particular.adresse}}">
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label>Ville</label>
-                            <input name="City" class="form-control" value="{{particular.City}}">
+                            <input name="City" class="form-control" value="{{particular.localite.ville}}">
                         </div>
                         <div class="form-group col-md-6">
                             <label>Code postal</label>
-                            <input name="Zipcode" class="form-control" value="{{particular.Zipcode}}">
+                            <input name="Zipcode" class="form-control" value="{{particular.localite.codePostal}}">
                         </div>
                     </div>
                     <div class="form-group text-center mt-4">

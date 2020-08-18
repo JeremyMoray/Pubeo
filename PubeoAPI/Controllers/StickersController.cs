@@ -28,8 +28,11 @@ namespace PubeoAPI.Controllers {
         // GET: /Stickers
         [HttpGet]
         public async Task<IActionResult> GetAll(){
-            var stickersDetails = await _context.Stickers.ToListAsync();
-            return Ok(mapper.Map<List<StickersDTO>> (stickersDetails));
+            var stickersDetails = await _context.Stickers
+                                            .Include(x => x.Professionnel)
+                                                .ThenInclude(x => x.Localite)
+                                            .ToListAsync();
+            return Ok(mapper.Map<List<StickersDetailsDTO>> (stickersDetails));
         }
 
         // GET: /Stickers/{id}

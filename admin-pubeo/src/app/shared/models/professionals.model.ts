@@ -1,14 +1,13 @@
 import { Sticker } from './sticker.model';
+import { Localite } from './localite.model';
 
 export class Professionals {
-    Id: number;
-    Email: string;
-    Name: string;
-    Password: string;
-    PhoneNumber: string;
-    Address: string;
-    VATNumber: string;
-    City: string;
-    Zipcode: number;
-    StickerList: Sticker[];
+    id: string;
+    nomEntreprise: string;
+    adresse: string;
+    numeroTel: string;
+    mail: string;
+    numeroTVA: string;
+    localite: Localite;
+    stickers: Sticker[];
 }

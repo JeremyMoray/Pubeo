@@ -9,11 +9,12 @@ import { Sticker } from '../shared/models/sticker.model';
 })
 export class FormsComponent implements OnInit {
 
-  list: Sticker[];
-  constructor(private particularsService: PubeoService) { }
+  stickers: Sticker[];
+  constructor(private pubeoService: PubeoService) { }
 
   ngOnInit() {
-    this.list = this.particularsService.getAllStickers();
+    this.pubeoService.getAllStickers()
+        .subscribe(data => this.stickers = data);
   }
 
 }

@@ -1,12 +1,12 @@
 <table class="table table-hover">
-    <tr *ngFor="let part of list">
-        <td>{{part.Id}}</td>
-        <td>{{part.Firstname}}</td>
-        <td>{{part.Lastname}}</td>
-        <td>{{part.Email}}</td>
-        <td>{{part.PhoneNumber}}</td>
+    <tr *ngFor="let part of particulars; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{part.prenom}}</td>
+        <td>{{part.nom}}</td>
+        <td>{{part.mail}}</td>
+        <td>{{part.numeroTel}}</td>
         <td>
-            <button routerLink="/particuliers/details/{{part.Id}}" class="btn btn-sm btn-primary d-flex justify-content-center align-content-between">
+            <button routerLink="/particuliers/details/{{part.id}}" class="btn btn-sm btn-primary d-flex justify-content-center align-content-between">
                 <i class="material-icons">create</i>
                 <span class="textInButton">Details</span>
             </button>

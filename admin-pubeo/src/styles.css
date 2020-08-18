@@ -6,3 +6,8 @@ button[type="submit"]{
     background-color: #6A1B9A;
     color: #ffffff;
 }
+
+button[type="submit"]:hover{
+    background-color: #3b0f57;
+    color: #ffffff;
+}
