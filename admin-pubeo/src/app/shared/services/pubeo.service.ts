@@ -45,6 +45,10 @@ export class PubeoService {
     return this.http.get<Professionals>(this.baseUrl + "/Professionnels/" + Id);
   }
 
+  getCountProfessional(): Observable<number>{
+    return this.http.get<number>(this.baseUrl + "/Professionnels/GetCount");
+  }
+
   getAllStickers() : Observable<Sticker[]>{
     return this.http.get<Sticker[]>(this.baseUrl + "/Stickers");
   }
@@ -55,6 +59,10 @@ export class PubeoService {
 
   getAllStickersByParticularId(Id) : Observable<Sticker[]>{
     return this.http.get<Sticker[]>(this.baseUrl + "/Participation/GetAllStickersByParticulierId/" + Id);
+  }
+
+  getCountStickers(): Observable<number>{
+    return this.http.get<number>(this.baseUrl + "/Stickers/GetCount");
   }
 
   addParticular(particular: any): Observable<Particulars> {
@@ -83,5 +91,9 @@ export class PubeoService {
 
   getParticularById(Id) : Observable<Particulars>{
     return this.http.get<Particulars>(this.baseUrl + "/Particuliers/" + Id);
+  }
+
+  getCountParticular(): Observable<number>{
+    return this.http.get<number>(this.baseUrl + "/Particuliers/GetCount");
   }
 }

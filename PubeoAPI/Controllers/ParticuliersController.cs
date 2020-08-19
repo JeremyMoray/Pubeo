@@ -28,6 +28,12 @@ namespace PubeoAPI.Controllers {
             this.mapper = mapper;
         }
 
+        [HttpGet("GetCount")]
+        public async Task<IActionResult> getCount()
+        {
+            return Ok(await _context.Particuliers.CountAsync());
+        }
+
         // GET : /Particuliers
         [HttpGet]
         public IEnumerable<ParticuliersDTO> GetParticuliers()

@@ -9,16 +9,32 @@
         <div class="col-4">
             <img class="imgPubeo rounded" src="../assets/images/pubeoadvertising.jpg">
         </div>
-        <div class="col-8 text-left p-3">
-            <p>
-                Nombre d'inscriptions :
-            </p>
-            <p>
-                Nombre de requêtes traitées
-            </p>
-            <p>
-                Nombre d'erreurs levées :
-            </p>
+        <div class="col-8 text-left">
+            <mat-card style="height: 100%">
+                
+                <mat-card-title><mat-icon>bar_chart</mat-icon> Statistiques</mat-card-title>
+
+                <hr>
+
+                <p>
+                    Nombre de particuliers : {{particularCount}}
+                </p>
+                <p>
+                    Nombre de professionnels : {{professionalCount}}
+                </p>
+                <p>
+                    Nombre d'utilisateurs total : {{particularCount + professionalCount}}
+                </p>
+                <p>
+                    Nombre de stickers total : {{stickersCount}}
+                </p>
+                <p>
+                    Nombre de requêtes depuis cette session : {{requestNumber}}
+                </p>
+                <p>
+                    Nombre d'erreurs de requêtes depuis cette session : {{requestErrorNumber}}
+                </p>
+            </mat-card>
         </div>
     </div>
 </div>

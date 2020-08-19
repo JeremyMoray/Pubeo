@@ -25,6 +25,12 @@ namespace PubeoAPI.Controllers {
             this.mapper = mapper;
         }
 
+        [HttpGet("GetCount")]
+        public async Task<IActionResult> getCount()
+        {
+            return Ok(await _context.Stickers.CountAsync());
+        }
+
         // GET: /Stickers
         [HttpGet]
         public async Task<IActionResult> GetAll(){

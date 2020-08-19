@@ -36,7 +36,6 @@ import { ProfessionalDetailsComponent } from './professionals/professional-detai
 import { PubeoService } from './shared/services/pubeo.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CustomHttpInterceptor } from './custom-http-interceptor';
-import { from } from 'rxjs';
 
 const appRoutes: Routes = [
   {

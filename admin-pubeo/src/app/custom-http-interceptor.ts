@@ -6,7 +6,14 @@ import { catchError } from 'rxjs/operators';
 @Injectable()
 export class CustomHttpInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const hardcodedToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqZWFuLmlsb3RAZ21haWwuY29tIiwianRpIjoiMDA4MGNkNDctYjlhMC00ZTBjLWFlOTMtMDExYjBlMGJjNjNmIiwiaWF0IjoxNTk3ODYzOTgxLCJuYmYiOjE1OTc4NjM5ODAsImV4cCI6MTU5Nzg3MTE4MCwiaXNzIjoiUHViZW9BUElUb2tlblNlcnZlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCJ9.Nlkf25gZ_bYqfP6PZOqjmo6pz5KVrsfKyh3IsaB9Jx4"
+        let requestNumber = localStorage.getItem('requestNumber');
+
+        if(requestNumber == null)
+            localStorage.setItem('requestNumber', '1');
+        else
+        localStorage.setItem('requestNumber', (parseInt(localStorage.getItem('requestNumber')) + 1).toString());
+
+        const hardcodedToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqZWFuLmlsb3RAZ21haWwuY29tIiwianRpIjoiMTgwMjhmNzQtMTE2Ny00N2FiLTgyZTItNTUzZjhhMmFhYTYyIiwiaWF0IjoxNTk3ODcxMjk1LCJuYmYiOjE1OTc4NzEyOTUsImV4cCI6MTU5Nzg3ODQ5NSwiaXNzIjoiUHViZW9BUElUb2tlblNlcnZlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCJ9.f5CRaTmifV9czPVfkT6vL1TCJU0YvSFcFIhtd4XPtc0"
         const reqWithAuth = req.clone({
             setHeaders: {
                 Authorization: `Bearer ${hardcodedToken}`
@@ -16,6 +23,13 @@ export class CustomHttpInterceptor implements HttpInterceptor {
         return next.handle(reqWithAuth)
             .pipe(
                 catchError((error: HttpErrorResponse) => {
+                    let requestErrorNumber = localStorage.getItem('requestErrorNumber');
+
+                    if(requestErrorNumber == null)
+                        localStorage.setItem('requestErrorNumber', '1');
+                    else
+                    localStorage.setItem('requestErrorNumber', (parseInt(localStorage.getItem('requestErrorNumber')) + 1).toString());
+                    
                     return throwError(error)
                 })
             );
