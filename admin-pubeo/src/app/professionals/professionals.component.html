@@ -6,6 +6,6 @@
 
     <button *ngIf="toggleForm" (click)="showForm()" type="submit" class="btn btn-lg btn-block mt-4 mb-4" matBadge="+" matBadgePosition="before" matBadgeColor="primary">Ajouter un professionel</button>
     <button *ngIf="!toggleForm"(click)="showForm()" type="submit" class="btn btn-lg btn-block mt-4 mb-4" matBadge="-" matBadgePosition="before" matBadgeColor="primary">Ajouter un professionel</button>
-    <app-professional *ngIf="!toggleForm"></app-professional>
+    <app-professional (toggleFormOutput)="eventCloseComponent($event)" *ngIf="!toggleForm"></app-professional>
     <app-professional-list></app-professional-list>
 </div>

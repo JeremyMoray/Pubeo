@@ -1,5 +1,5 @@
 <app-top-toolbar></app-top-toolbar>
-<div class="container">
+<div class="container" *ngIf="errorStatus==null">
     <h1 class="text-center mt-3">{{professional.nomEntreprise}}</h1>
 
     <hr>
@@ -62,4 +62,8 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="container mt-5 text-center text-danger" *ngIf="errorStatus==404">
+    <mat-card>Utilisateur introuvable</mat-card>
 </div>

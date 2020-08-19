@@ -17,4 +17,8 @@ export class ProfessionalsComponent implements OnInit {
   showForm(){
     this.toggleForm = !this.toggleForm;
   }
+
+  eventCloseComponent($event){
+    this.toggleForm = $event;
+  }
 }

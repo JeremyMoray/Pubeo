@@ -14,7 +14,8 @@ export class ProfessionalListComponent implements OnInit {
 
   ngOnInit() {
     this.particularsService.getAllProfessionals()
-        .subscribe(data => this.professionnals = data);
+        .subscribe(data => this.professionnals = data,
+                  errorStatus => alert("Problème serveur - code : " + errorStatus));
   }
 
 }

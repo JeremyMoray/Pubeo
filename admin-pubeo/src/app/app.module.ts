@@ -18,6 +18,7 @@ import {
   MatBadgeModule
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { TopToolbarComponent } from './top-toolbar/top-toolbar.component';
@@ -107,6 +108,7 @@ const appRoutes: Routes = [
     MatProgressSpinnerModule,
     MatBadgeModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(
       appRoutes,
     ),

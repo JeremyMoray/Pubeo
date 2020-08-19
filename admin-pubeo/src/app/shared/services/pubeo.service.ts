@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Professionals } from '../models/professionals.model';
 import { Particulars } from '../models/particulars.model';
 import { Sticker } from '../models/sticker.model';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { throwError as observableThrowError, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,14 @@ export class PubeoService {
 
   getAllProfessionals() : Observable<Professionals[]>{
     return this.http.get<Professionals[]>(this.baseUrl + "/Professionnels");
+  }
+
+  addProfessional(professional: any): Observable<void> {
+    return this.http.post<void>(this.baseUrl + "/Professionnels", professional, {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+        })
+    });
   }
 
   getProfessionalById(Id) : Observable<Professionals>{
