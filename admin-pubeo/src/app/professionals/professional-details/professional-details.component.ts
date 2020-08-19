@@ -18,12 +18,13 @@ export class ProfessionalDetailsComponent implements OnInit {
   professionalForm: FormGroup;
   professionalAdaptiveForm: any;
   errorStatus: number;
-
+  loading: boolean;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private pubeoService: PubeoService) { }
 
   ngOnInit() {
     this.Id= this.route.snapshot.paramMap.get('Id');
+    this.loading = true;
 
     this.pubeoService.getProfessionalById(this.Id)
         .subscribe(data => this.setFormDefault(data),
@@ -84,6 +85,7 @@ export class ProfessionalDetailsComponent implements OnInit {
         ]
       ]
     })
+    this.loading = false;
   }
 
   get nomEntreprise() {
@@ -119,7 +121,7 @@ export class ProfessionalDetailsComponent implements OnInit {
     if(!this.professionalForm.value.motDePasse){
       delete this.professionalAdaptiveForm['motDePasse'];
     }
-    this.pubeoService.updateProfessional(this.Id, this.professionalAdaptiveForm).subscribe(null, error => this.alertError(error), () => alert("Modification réussie"));
+    this.pubeoService.updateProfessional(this.Id, this.professionalAdaptiveForm).subscribe(null, error => this.alertError(error), () => alert("Modifications enregistrées"));
   }
 
   alertError(error: any){

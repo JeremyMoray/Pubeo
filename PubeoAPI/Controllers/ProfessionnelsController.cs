@@ -141,8 +141,11 @@ namespace PubeoAPI.Controllers {
             if(!ProfessionnelExists(id))
                     return NotFound();
             
-            if(await _context.Professionnels.AnyAsync(x => (x.Mail == professionnel.Mail || x.NomEntreprise == professionnel.NomEntreprise) && x.Id != id))
-                return Conflict();
+            if(await _context.Professionnels.AnyAsync(x => x.Mail == professionnel.Mail && x.Id != id))
+                return Conflict("Mail");
+
+            if(await _context.Professionnels.AnyAsync(x => x.NomEntreprise == professionnel.NomEntreprise && x.Id != id))
+                return Conflict("NomEntreprise");
 
             if(professionnel.LocaliteCode != null && !await _context.Localites.AnyAsync(x => x.CodePostal.Equals(professionnel.LocaliteCode)))
                 return NotFound();
@@ -170,9 +173,12 @@ namespace PubeoAPI.Controllers {
 
             if(user == null)
                     return NotFound();
-            
-            if(await _context.Professionnels.AnyAsync(x => (x.Mail == professionnel.Mail || x.NomEntreprise == professionnel.NomEntreprise) && x.Id != user.Id))
-                return Conflict();
+
+            if(await _context.Professionnels.AnyAsync(x => x.Mail == professionnel.Mail && x.Id != user.Id))
+                return Conflict("Mail");
+
+            if(await _context.Professionnels.AnyAsync(x => x.NomEntreprise == professionnel.NomEntreprise && x.Id != user.Id))
+                return Conflict("NomEntreprise");
 
             if(professionnel.LocaliteCode != null && !await _context.Localites.AnyAsync(x => x.CodePostal.Equals(professionnel.LocaliteCode)))
                 return NotFound();
