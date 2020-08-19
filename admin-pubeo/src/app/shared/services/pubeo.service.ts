@@ -29,6 +29,14 @@ export class PubeoService {
     });
   }
 
+  updateProfessional(Id, professional: any): Observable<void> {
+    return this.http.put<void>(this.baseUrl + "/Professionnels/" + Id, professional, {
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+      })
+  });
+  }
+
   deleteProfessional(Id): Observable<void>{
     return this.http.delete<void>(this.baseUrl + "/Professionnels/" + Id);
   }
