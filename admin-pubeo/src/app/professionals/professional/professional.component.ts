@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms'
 import { PubeoService } from 'src/app/shared/services/pubeo.service';
+import { Professionals } from 'src/app/shared/models/professionals.model';
 
 @Component({
   selector: 'app-professional',
@@ -9,8 +10,9 @@ import { PubeoService } from 'src/app/shared/services/pubeo.service';
 })
 export class ProfessionalComponent implements OnInit {
 
+  newPro: Professionals;
   professionalForm: FormGroup;
-  @Output() toggleFormOutput: EventEmitter<any> = new EventEmitter<any>();
+  @Output() addProOutput: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private fb: FormBuilder, private pubeoService:PubeoService) { }
 
@@ -95,12 +97,11 @@ export class ProfessionalComponent implements OnInit {
   }
 
   sendForm(){
-    this.pubeoService.addProfessional(this.professionalForm.value).subscribe(data => this.proceedSubmit(data), error => this.alertError(error));
+    this.pubeoService.addProfessional(this.professionalForm.value).subscribe(data => this.newPro = data, error => this.alertError(error), () => this.proceedSubmit());
   }
 
-  proceedSubmit(data: any){
-    if(data != null)
-      this.toggleFormOutput.emit(true);
+  proceedSubmit(){
+      this.addProOutput.emit(this.newPro);
   }
 
   alertError(error: any){

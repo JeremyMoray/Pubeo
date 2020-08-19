@@ -21,12 +21,16 @@ export class PubeoService {
     return this.http.get<Professionals[]>(this.baseUrl + "/Professionnels");
   }
 
-  addProfessional(professional: any): Observable<void> {
-    return this.http.post<void>(this.baseUrl + "/Professionnels", professional, {
+  addProfessional(professional: any): Observable<Professionals> {
+    return this.http.post<Professionals>(this.baseUrl + "/Professionnels", professional, {
         headers: new HttpHeaders({
             'Content-Type': 'application/json'
         })
     });
+  }
+
+  deleteProfessional(Id): Observable<void>{
+    return this.http.delete<void>(this.baseUrl + "/Professionnels/" + Id);
   }
 
   getProfessionalById(Id) : Observable<Professionals>{

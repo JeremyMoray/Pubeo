@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfessionalsComponent implements OnInit {
 
+  public newProEvent: Event;
   toggleForm: boolean;
   constructor() { }
 
@@ -18,7 +19,8 @@ export class ProfessionalsComponent implements OnInit {
     this.toggleForm = !this.toggleForm;
   }
 
-  eventCloseComponent($event){
-    this.toggleForm = $event;
+  eventCloseComponent(event: Event){
+    this.toggleForm = true;
+    this.newProEvent = event;
   }
 }
