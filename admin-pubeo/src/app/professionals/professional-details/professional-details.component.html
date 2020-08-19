@@ -1,5 +1,5 @@
 <app-top-toolbar></app-top-toolbar>
-<div class="container" *ngIf="errorStatus==null && loading == false;">
+<div class="container" *ngIf="errorStatus==null && loading == false">
     <h1 class="text-center mt-3">{{professional.nomEntreprise}}</h1>
 
     <hr>
@@ -94,49 +94,6 @@
                         <button [disabled]="professionalForm.invalid" type="submit" class="btn btn-lg">Modifier</button>
                     </div>
                 </form>
-                <!--
-                <form #form="ngForm">
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label>Nom de l'entreprise</label>
-                            <input name="Name" class="form-control" value="{{professional.nomEntreprise}}">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Mot de passe</label>
-                            <input name="Password" class="form-control" type="password">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input name="Email" class="form-control" value="{{professional.mail}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Numéro de téléphone</label>
-                        <input name="PhoneNumber" class="form-control" value="{{professional.numeroTel}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Adresse</label>
-                        <input name="Address" class="form-control" value="{{professional.adresse}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Numéro de TVA</label>
-                        <input name="VATNumber" class="form-control" value="{{professional.numeroTVA}}">
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label>Ville</label>
-                            <input name="City" class="form-control" value="{{professional.localite.ville}}">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Code postal</label>
-                            <input name="Zipcode" class="form-control" value="{{professional.localite.codePostal}}">
-                        </div>
-                    </div>
-                    <div class="form-group text-center mt-4">
-                        <button type="submit" class="btn btn-lg">Modifier</button>
-                    </div>
-                </form>
-                -->
             </div>
         </div>
         <div class="col-md-6">

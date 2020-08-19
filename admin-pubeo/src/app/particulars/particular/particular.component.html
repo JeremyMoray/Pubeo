@@ -1,51 +1,108 @@
 <div class="div-add-form">
-    <form #form="ngForm">
-        <div class="row">
-            <div class="form-group col-md-6">
-                <label>Prénom</label>
-                <input name="Firstname" #Firstname="ngModel" [(ngModel)]="particularsService.particularForm.Firstname" class="form-control">
-            </div>
-            <div class="form-group col-md-6">
-                <label>Nom</label>
-                <input name="Lastname" #Lastname="ngModel" [(ngModel)]="particularsService.particularForm.Lastname" class="form-control">
-        </div>
-        </div>
-        <div class="form-group">
-            <label>Nom d'utilisateur</label>
-            <input name="Username" #Username="ngModel" [(ngModel)]="particularsService.particularForm.Username" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Mot de passe</label>
-            <input name="Password" #Password="ngModel" [(ngModel)]="particularsService.particularForm.Password" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Email</label>
-            <input name="Email" #Email="ngModel" [(ngModel)]="particularsService.particularForm.Email" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Numéro de téléphone</label>
-            <input name="PhoneNumber" #PhoneNumber="ngModel" [(ngModel)]="particularsService.particularForm.PhoneNumber" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Date de naissance</label>
-            <input name="Birthdate" #Birthdate="ngModel" [(ngModel)]="particularsService.particularForm.Birthdate" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Adresse</label>
-            <input name="Address" #Address="ngModel" [(ngModel)]="particularsService.particularForm.Address" class="form-control">
-        </div>
-        <div class="row">
-            <div class="form-group col-md-6">
-                <label>Ville</label>
-                <input name="City" #City="ngModel" [(ngModel)]="particularsService.particularForm.City" class="form-control">
-            </div>
-            <div class="form-group col-md-6">
-                <label>Code postal</label>
-                <input name="Zipcode" #Zipcode="ngModel" [(ngModel)]="particularsService.particularForm.Zipcode" class="form-control">
-            </div>
-        </div>
-        <div class="form-group text-center mt-4">
-            <button type="submit" class="btn btn-lg">Envoyer</button>
+    <form [formGroup]="particularForm" (ngSubmit)="sendForm()">
+        <mat-form-field>
+            <input matInput placeholder="Prenom" formControlName="prenom">
+            <mat-error *ngIf="prenom.errors?.required && prenom.touched">
+                Le champs ne peut pas être vide
+            </mat-error>
+            <mat-error *ngIf="prenom.errors?.maxlength && prenom.touched">
+                Le champs est trop long
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Nom" formControlName="nom">
+            <mat-error *ngIf="nom.errors?.required && nom.touched">
+                Le champs ne peut pas être vide
+            </mat-error>
+            <mat-error *ngIf="nom.errors?.maxlength && nom.touched">
+                Le champs est trop long
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Pseudo" formControlName="pseudo">
+            <mat-error *ngIf="pseudo.errors?.required && pseudo.touched">
+                Le champs ne peut pas être vide
+            </mat-error>
+            <mat-error *ngIf="pseudo.errors?.maxlength && pseudo.touched">
+                Le champs est trop long
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Mot de passe" formControlName="motDePasse" type="password">
+            <mat-error *ngIf="motDePasse.errors?.required && motDePasse.touched">
+                Le champs ne peut pas être vide
+            </mat-error>
+            <mat-error *ngIf="motDePasse.errors?.minlength && motDePasse.touched">
+                Le champs est trop court
+            </mat-error>
+            <mat-error *ngIf="motDePasse.errors?.maxlength && motDePasse.touched">
+                Le champs est trop long
+            </mat-error>
+            <mat-error *ngIf="motDePasse.errors?.pattern && motDePasse.touched">
+                Le mot de passe doit contenir au moins 1 chiffre
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput [matDatepicker]="dateNaissancePicker" placeholder="Date de naissance" formControlName="dateNaissance">
+            <mat-datepicker-toggle matSuffix [for]="dateNaissancePicker"></mat-datepicker-toggle>
+            <mat-datepicker #dateNaissancePicker></mat-datepicker>
+            <mat-error *ngIf="dateNaissance.errors?.required && dateNaissance.touched">
+                Le champs ne peut pas être vide et la date doit être dans un format correct
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Numéro de téléphone" formControlName="numeroTel">
+            <mat-error *ngIf="numeroTel.errors?.required && numeroTel.touched">
+                Le champs ne peut pas être vide
+            </mat-error>
+            <mat-error *ngIf="numeroTel.errors?.pattern && numeroTel.touched">
+                Le format est incorrect
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Email" formControlName="mail">
+            <mat-error *ngIf="mail.errors?.required && mail.touched">
+                Le champs ne peut pas être vide
+            </mat-error>
+            <mat-error *ngIf="mail.errors?.email && mail.touched">
+                Le format est incorrect
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Adresse" formControlName="adresse">
+            <mat-error *ngIf="adresse.errors?.required && adresse.touched">
+                Le champs ne peut pas être vide
+            </mat-error>
+            <mat-error *ngIf="adresse.errors?.maxlength && adresse.touched">
+                Le champs est trop long
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Code postal" formControlName="localiteCode">
+            <mat-error *ngIf="localiteCode.errors?.required && localiteCode.touched">
+                Le champs ne peut pas être vide
+            </mat-error>
+            <mat-error *ngIf="localiteCode.errors?.minlength && localiteCode.touched">
+                Le champs est trop court
+            </mat-error>
+            <mat-error *ngIf="localiteCode.errors?.maxlength && localiteCode.touched">
+                Le champs est trop long
+            </mat-error>
+            <mat-error *ngIf="localiteCode.errors?.pattern && localiteCode.touched">
+                Le format est incorrect
+            </mat-error>
+        </mat-form-field>
+
+        <div class="text-center mt-4">
+            <button [disabled]="particularForm.invalid" type="submit" class="btn btn-lg">Envoyer</button>
         </div>
     </form>
 </div>

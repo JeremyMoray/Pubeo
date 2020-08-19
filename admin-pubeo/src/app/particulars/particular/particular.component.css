@@ -10,3 +10,8 @@ form{
     width: 50%;
     margin: auto;
 }
+
+mat-form-field {
+    margin-top: 10px;
+    width: 100%;
+}

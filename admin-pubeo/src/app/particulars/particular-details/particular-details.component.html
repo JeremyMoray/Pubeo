@@ -1,5 +1,5 @@
 <app-top-toolbar></app-top-toolbar>
-<div class="container">
+<div class="container" *ngIf="errorStatus==null && loading == false">
     <h1 class="text-center mt-3">{{particular.prenom}} {{particular.nom}}</h1>
 
     <hr>
@@ -7,69 +7,128 @@
     <div class="row">
         <div class="col-md-6">
             <div class="div-update-form">
-                <form #form="ngForm">
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label>Prénom</label>
-                            <input name="Firstname" class="form-control" value="{{particular.prenom}}">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Nom</label>
-                            <input name="Lastname" class="form-control" value="{{particular.nom}}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Nom d'utilisateur</label>
-                        <input name="Username" class="form-control" value="{{particular.pseudo}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Mot de passe</label>
-                        <input name="Password" class="form-control" value="password" type="password">
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input name="Email" class="form-control" value="{{particular.mail}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Numéro de téléphone</label>
-                        <input name="PhoneNumber" class="form-control" value="{{particular.numeroTel}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Date de naissance</label>
-                        <input type="date" name="Birthdate" class="form-control"
-                            value="{{particular.dateNaissance | date:'yyyy-MM-dd'}}">
-                    </div>
-                    <div class="form-group">
-                        <label>Adresse</label>
-                        <input name="Address" class="form-control" value="{{particular.adresse}}">
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label>Ville</label>
-                            <input name="City" class="form-control" value="{{particular.localite.ville}}">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Code postal</label>
-                            <input name="Zipcode" class="form-control" value="{{particular.localite.codePostal}}">
-                        </div>
-                    </div>
-                    <div class="form-group text-center mt-4">
-                        <button type="submit" class="btn btn-lg">Modifier</button>
+                <form [formGroup]="particularForm" (ngSubmit)="sendForm()">
+                    <mat-form-field>
+                        <input matInput placeholder="Prenom" formControlName="prenom">
+                        <mat-error *ngIf="prenom.errors?.required">
+                            Le champs ne peut pas être vide
+                        </mat-error>
+                        <mat-error *ngIf="prenom.errors?.maxlength">
+                            Le champs est trop long
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <input matInput placeholder="Nom" formControlName="nom">
+                        <mat-error *ngIf="nom.errors?.required">
+                            Le champs ne peut pas être vide
+                        </mat-error>
+                        <mat-error *ngIf="nom.errors?.maxlength">
+                            Le champs est trop long
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <input matInput placeholder="Pseudo" formControlName="pseudo">
+                        <mat-error *ngIf="pseudo.errors?.required">
+                            Le champs ne peut pas être vide
+                        </mat-error>
+                        <mat-error *ngIf="pseudo.errors?.maxlength">
+                            Le champs est trop long
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <input matInput placeholder="Mot de passe" formControlName="motDePasse" type="password">
+                        <mat-error *ngIf="motDePasse.errors?.required">
+                            Le champs ne peut pas être vide
+                        </mat-error>
+                        <mat-error *ngIf="motDePasse.errors?.minlength">
+                            Le champs est trop court
+                        </mat-error>
+                        <mat-error *ngIf="motDePasse.errors?.maxlength">
+                            Le champs est trop long
+                        </mat-error>
+                        <mat-error *ngIf="motDePasse.errors?.pattern">
+                            Le mot de passe doit contenir au moins 1 chiffre
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="dateNaissancePicker" placeholder="Date de naissance" formControlName="dateNaissance">
+                        <mat-datepicker-toggle matSuffix [for]="dateNaissancePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #dateNaissancePicker></mat-datepicker>
+                        <mat-error *ngIf="dateNaissance.errors?.required">
+                            Le champs ne peut pas être vide et la date doit être dans un format correct
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <input matInput placeholder="Numéro de téléphone" formControlName="numeroTel">
+                        <mat-error *ngIf="numeroTel.errors?.required">
+                            Le champs ne peut pas être vide
+                        </mat-error>
+                        <mat-error *ngIf="numeroTel.errors?.pattern">
+                            Le format est incorrect
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <input matInput placeholder="Email" formControlName="mail">
+                        <mat-error *ngIf="mail.errors?.required">
+                            Le champs ne peut pas être vide
+                        </mat-error>
+                        <mat-error *ngIf="mail.errors?.email">
+                            Le format est incorrect
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <input matInput placeholder="Adresse" formControlName="adresse">
+                        <mat-error *ngIf="adresse.errors?.required">
+                            Le champs ne peut pas être vide
+                        </mat-error>
+                        <mat-error *ngIf="adresse.errors?.maxlength">
+                            Le champs est trop long
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <input matInput placeholder="Code postal" formControlName="localiteCode">
+                        <mat-error *ngIf="localiteCode.errors?.required">
+                            Le champs ne peut pas être vide
+                        </mat-error>
+                        <mat-error *ngIf="localiteCode.errors?.minlength">
+                            Le champs est trop court
+                        </mat-error>
+                        <mat-error *ngIf="localiteCode.errors?.maxlength">
+                            Le champs est trop long
+                        </mat-error>
+                        <mat-error *ngIf="localiteCode.errors?.pattern">
+                            Le format est incorrect
+                        </mat-error>
+                    </mat-form-field>
+
+                    <div class="text-center mt-4">
+                        <button [disabled]="particularForm.invalid" type="submit" class="btn btn-lg">Modifier</button>
                     </div>
                 </form>
             </div>
         </div>
         <div class="col-md-6">
-            <div *ngFor="let annonce of particular.StickerList" class="card-container">
+            <div *ngFor="let annonce of stickers" class="card-container">
                 <div class="card text-white bg-dark mb-3 ml-3 mr-3">
-                    <h5 class="card-header">{{annonce.Title}}</h5>
+                    <h5 class="card-header">{{annonce.titre}}</h5>
                     <div class="card-body">
-                        <p class="card-text"><span class="staticCardText">Description : </span>{{annonce.Description}}</p>
-                        <p class="card-text"><span class="staticCardText">Rémunération : </span>{{annonce.Remuneration}} €</p>
-                        <p class="card-text"><span class="staticCardText">Utilisations restantes : </span>{{annonce.RemainingUses}}</p>
+                        <p class="card-text"><span class="staticCardText">Description : </span>{{annonce.description}}</p>
+                        <p class="card-text"><span class="staticCardText">Utilisations restantes : </span>{{annonce.nbUtilisationsRestantes}}</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<div class="container mt-5 text-center text-danger" *ngIf="errorStatus==404">
+    <mat-card>Utilisateur introuvable</mat-card>
 </div>

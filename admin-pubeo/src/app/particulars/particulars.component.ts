@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ParticularsComponent implements OnInit {
 
+  public newPartEvent: Event;
   toggleForm: boolean;
   constructor() { }
 
@@ -16,5 +17,10 @@ export class ParticularsComponent implements OnInit {
 
   showForm(){
     this.toggleForm = !this.toggleForm;
+  }
+
+  eventCloseComponent(event: Event){
+    this.toggleForm = true;
+    this.newPartEvent = event;
   }
 }

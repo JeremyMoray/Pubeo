@@ -16,7 +16,7 @@ export class ProfessionalListComponent implements OnInit {
   ngOnInit() {
     this.pubeoService.getAllProfessionals()
         .subscribe(data => this.professionnals = data,
-                  errorStatus => alert("Problème serveur - code : " + errorStatus));
+                  () => alert("Erreur de connexion au serveur"));
   }
 
   deleteProfessional(Id: string){
@@ -31,7 +31,7 @@ export class ProfessionalListComponent implements OnInit {
       if (this.professionnals[i].id === Id) {
           this.professionnals.splice(i,1);
       }
-  }
+    }
   }
 
   alertError(error: any){

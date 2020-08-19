@@ -3,11 +3,11 @@ import { PubeoService } from '../shared/services/pubeo.service';
 import { Sticker } from '../shared/models/sticker.model';
 
 @Component({
-  selector: 'app-forms',
-  templateUrl: './forms.component.html',
-  styleUrls: ['./forms.component.css']
+  selector: 'app-stickers',
+  templateUrl: './stickers.component.html',
+  styleUrls: ['./stickers.component.css']
 })
-export class FormsComponent implements OnInit {
+export class StickersComponent implements OnInit {
 
   stickers: Sticker[];
   constructor(private pubeoService: PubeoService) { }

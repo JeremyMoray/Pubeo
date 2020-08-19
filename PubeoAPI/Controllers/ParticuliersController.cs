@@ -102,16 +102,25 @@ namespace PubeoAPI.Controllers {
         public async Task<IActionResult> UpdateParticuliers([FromRoute] Guid id, [FromBody] Particulier particulier)
         {
             if(!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
-            if(particulier == null && id != particulier.Id)
-            {
-                return BadRequest();
-            }
+            
+            if(!_context.Particuliers.Any(p => p.Id.Equals(id)))
+                return NotFound();
 
-            var user = await _context.Particuliers.SingleOrDefaultAsync(p => p.Id.Equals(particulier));
+            if(await _context.Particuliers.AnyAsync(x => x.Mail == particulier.Mail && x.Id != id))
+                return Conflict("Mail");
+
+            if(await _context.Particuliers.AnyAsync(x => x.Pseudo == particulier.Pseudo && x.Id != id))
+                return Conflict("Pseudo");
+
+            if(particulier.LocaliteCode != null && !await _context.Localites.AnyAsync(x => x.CodePostal.Equals(particulier.LocaliteCode)))
+                return NotFound();
+
+            var user = await _context.Particuliers.SingleOrDefaultAsync(p => p.Id.Equals(id));
+            
+            user = Modification(user, particulier);
             _context.Entry(user).State = EntityState.Modified;
+
             try {
                 await _context.SaveChangesAsync();
             }
@@ -178,6 +187,21 @@ namespace PubeoAPI.Controllers {
             _context.Particuliers.Remove(user);
             await _context.SaveChangesAsync();
             return Ok(user);
+        }
+
+        private Particulier Modification(Particulier initialPart, Particulier targetPart){
+            ScryptEncoder encoder = new ScryptEncoder();
+            var retour = initialPart;
+            if(targetPart.Prenom != null) retour.Prenom = targetPart.Prenom;
+            if(targetPart.Nom != null) retour.Nom = targetPart.Nom;
+            if(targetPart.Adresse != null) retour.Adresse = targetPart.Adresse;
+            if(targetPart.Pseudo != null) retour.Pseudo = targetPart.Pseudo;
+            if(targetPart.DateNaissance != null) retour.DateNaissance = targetPart.DateNaissance;
+            if(targetPart.MotDePasse != null) retour.MotDePasse = encoder.Encode(targetPart.MotDePasse);
+            if(targetPart.NumeroTel != null) retour.NumeroTel = targetPart.NumeroTel;
+            if(targetPart.Mail != null) retour.Mail = targetPart.Mail;
+            if(targetPart.LocaliteCode != null) retour.LocaliteCode = targetPart.LocaliteCode;
+            return retour;
         }
     }
 }

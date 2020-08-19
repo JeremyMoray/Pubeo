@@ -15,7 +15,9 @@ import {
   MatMenuModule,
   MatIconModule, 
   MatProgressSpinnerModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -24,7 +26,7 @@ import { HomeComponent } from './home/home.component';
 import { TopToolbarComponent } from './top-toolbar/top-toolbar.component';
 import { ParticularsComponent } from './particulars/particulars.component';
 import { ProfessionalsComponent } from './professionals/professionals.component';
-import { FormsComponent } from './forms/forms.component';
+import { StickersComponent } from './stickers/stickers.component';
 import { ParticularComponent } from './particulars/particular/particular.component';
 import { ParticularListComponent } from './particulars/particular-list/particular-list.component';
 import { ParticularDetailsComponent } from './particulars/particular-details/particular-details.component';
@@ -34,6 +36,7 @@ import { ProfessionalDetailsComponent } from './professionals/professional-detai
 import { PubeoService } from './shared/services/pubeo.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CustomHttpInterceptor } from './custom-http-interceptor';
+import { from } from 'rxjs';
 
 const appRoutes: Routes = [
   {
@@ -67,9 +70,9 @@ const appRoutes: Routes = [
     data: {title: 'Details professionels'}
   },
   {
-    path: 'formulaires',
-    component: FormsComponent,
-    data: {title: 'Formulaires'}
+    path: 'stickers',
+    component: StickersComponent,
+    data: {title: 'Stickers'}
   },
   {
     path: '',
@@ -86,7 +89,7 @@ const appRoutes: Routes = [
     TopToolbarComponent,
     ParticularsComponent,
     ProfessionalsComponent,
-    FormsComponent,
+    StickersComponent,
     ParticularComponent,
     ParticularListComponent,
     ParticularDetailsComponent,
@@ -107,6 +110,8 @@ const appRoutes: Routes = [
     MatIconModule, 
     MatProgressSpinnerModule,
     MatBadgeModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(

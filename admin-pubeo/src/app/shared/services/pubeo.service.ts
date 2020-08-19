@@ -53,6 +53,30 @@ export class PubeoService {
     return this.http.get<Sticker[]>(this.baseUrl + "/Stickers/GetAllByProfessionnelId/" + Id);
   }
 
+  getAllStickersByParticularId(Id) : Observable<Sticker[]>{
+    return this.http.get<Sticker[]>(this.baseUrl + "/Participation/GetAllStickersByParticulierId/" + Id);
+  }
+
+  addParticular(particular: any): Observable<Particulars> {
+    return this.http.post<Particulars>(this.baseUrl + "/Particuliers", particular, {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+        })
+    });
+  }
+
+  updateParticular(Id, particular: any): Observable<void> {
+    return this.http.put<void>(this.baseUrl + "/Particuliers/" + Id, particular, {
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+      })
+  });
+  }
+
+  deleteParticular(Id): Observable<void>{
+    return this.http.delete<void>(this.baseUrl + "/Particuliers/" + Id);
+  }
+
   getAllParticulars() : Observable<Particulars[]>{
     return this.http.get<Particulars[]>(this.baseUrl + "/Particuliers");
   }
