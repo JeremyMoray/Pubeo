@@ -1,8 +1,11 @@
+import { Professionals } from './professionals.model';
+
 export class Sticker {
-    id: number;
+    id: string;
     titre: string;
     description: string;
     hauteur: number;
     largeur: number;
     nbUtilisationsRestantes: number;
+    professionnel: Professionals;
 }

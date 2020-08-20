@@ -13,24 +13,16 @@ namespace PubeoAPI.Controllers {
     [Route("[controller]")]
     public class LocaliteController : ControllerBase {
 
-        private readonly ILocalRepository _localRepository;
         private readonly PubeoAPIdbContext _context;
         
         public LocaliteController(PubeoAPIdbContext context, ILocalRepository localRepo)
         {
             _context = context;
-            _localRepository = localRepo;
-        }
-
-        [Route("LocaliteOnline")]
-        public IEnumerable<LocaliteDTO> GetLocaliteOnline()
-        {
-            return _localRepository.GetLocalFromExternalSource();
-
         }
 
         // GET : /Localite/AllLocalites
         [Route("AllLocalites")]
+        [HttpGet]
         public IEnumerable<Localite> GetAllLocalites(){
             
             var localites = _context.Localites

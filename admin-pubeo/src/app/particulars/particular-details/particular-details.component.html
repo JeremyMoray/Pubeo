@@ -1,0 +1,134 @@
+<app-top-toolbar></app-top-toolbar>
+<div class="container" *ngIf="errorStatus==null && loading == false">
+    <h1 class="text-center mt-3">{{particular.prenom}} {{particular.nom}}</h1>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="div-update-form">
+                <form [formGroup]="particularForm" (ngSubmit)="sendForm()">
+                    <mat-form-field>
+                        <input matInput placeholder="Prenom" formControlName="prenom">
+                        <mat-error *ngIf="prenom.errors?.required">
+                            Le champs ne peut pas être vide
+                        </mat-error>
+                        <mat-error *ngIf="prenom.errors?.maxlength">
+                            Le champs est trop long
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <input matInput placeholder="Nom" formControlName="nom">
+                        <mat-error *ngIf="nom.errors?.required">
+                            Le champs ne peut pas être vide
+                        </mat-error>
+                        <mat-error *ngIf="nom.errors?.maxlength">
+                            Le champs est trop long
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <input matInput placeholder="Pseudo" formControlName="pseudo">
+                        <mat-error *ngIf="pseudo.errors?.required">
+                            Le champs ne peut pas être vide
+                        </mat-error>
+                        <mat-error *ngIf="pseudo.errors?.maxlength">
+                            Le champs est trop long
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <input matInput placeholder="Mot de passe" formControlName="motDePasse" type="password">
+                        <mat-error *ngIf="motDePasse.errors?.required">
+                            Le champs ne peut pas être vide
+                        </mat-error>
+                        <mat-error *ngIf="motDePasse.errors?.minlength">
+                            Le champs est trop court
+                        </mat-error>
+                        <mat-error *ngIf="motDePasse.errors?.maxlength">
+                            Le champs est trop long
+                        </mat-error>
+                        <mat-error *ngIf="motDePasse.errors?.pattern">
+                            Le mot de passe doit contenir au moins 1 chiffre
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="dateNaissancePicker" placeholder="Date de naissance" formControlName="dateNaissance">
+                        <mat-datepicker-toggle matSuffix [for]="dateNaissancePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #dateNaissancePicker></mat-datepicker>
+                        <mat-error *ngIf="dateNaissance.errors?.required">
+                            Le champs ne peut pas être vide et la date doit être dans un format correct
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <input matInput placeholder="Numéro de téléphone" formControlName="numeroTel">
+                        <mat-error *ngIf="numeroTel.errors?.required">
+                            Le champs ne peut pas être vide
+                        </mat-error>
+                        <mat-error *ngIf="numeroTel.errors?.pattern">
+                            Le format est incorrect
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <input matInput placeholder="Email" formControlName="mail">
+                        <mat-error *ngIf="mail.errors?.required">
+                            Le champs ne peut pas être vide
+                        </mat-error>
+                        <mat-error *ngIf="mail.errors?.email">
+                            Le format est incorrect
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <input matInput placeholder="Adresse" formControlName="adresse">
+                        <mat-error *ngIf="adresse.errors?.required">
+                            Le champs ne peut pas être vide
+                        </mat-error>
+                        <mat-error *ngIf="adresse.errors?.maxlength">
+                            Le champs est trop long
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                        <input matInput placeholder="Code postal" formControlName="localiteCode">
+                        <mat-error *ngIf="localiteCode.errors?.required">
+                            Le champs ne peut pas être vide
+                        </mat-error>
+                        <mat-error *ngIf="localiteCode.errors?.minlength">
+                            Le champs est trop court
+                        </mat-error>
+                        <mat-error *ngIf="localiteCode.errors?.maxlength">
+                            Le champs est trop long
+                        </mat-error>
+                        <mat-error *ngIf="localiteCode.errors?.pattern">
+                            Le format est incorrect
+                        </mat-error>
+                    </mat-form-field>
+
+                    <div class="text-center mt-4">
+                        <button [disabled]="particularForm.invalid" type="submit" class="btn btn-lg">Modifier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div *ngFor="let annonce of stickers" class="card-container">
+                <div class="card text-white bg-dark mb-3 ml-3 mr-3">
+                    <h5 class="card-header">{{annonce.titre}}</h5>
+                    <div class="card-body">
+                        <p class="card-text"><span class="staticCardText">Description : </span>{{annonce.description}}</p>
+                        <p class="card-text"><span class="staticCardText">Utilisations restantes : </span>{{annonce.nbUtilisationsRestantes}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5 text-center" *ngIf="errorStatus==404">
+    <mat-card>Utilisateur introuvable</mat-card>
+</div>

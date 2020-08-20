@@ -1,35 +1,92 @@
 <div class="div-add-form">
-    <form #form="ngForm" (submit)="onSubmit(form)">
-        <input type="hidden" name="id" #id="ngModel" [(ngModel)]="pubeoService.professionelForm.id">
-        <input type="hidden" name="stickers" #stickers="ngModel" [(ngModel)]="pubeoService.professionelForm.stickers">
-        <div class="row">
-            <div class="form-group col-md-6">
-                <label>Nom de l'entreprise</label>
-                <input name="nomEntreprise" #nomEntreprise="ngModel" [(ngModel)]="pubeoService.professionelForm.nomEntreprise" class="form-control">
-            </div>
-            <div class="form-group col-md-6">
-                <label>Mot de passe</label>
-                <input name="MotDePasse" #MotDePasse="ngModel" [(ngModel)]="pubeoService.professionelForm.MotDePasse" class="form-control">
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Email</label>
-            <input name="mail" #mail="ngModel" [(ngModel)]="pubeoService.professionelForm.mail" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Numéro de téléphone</label>
-            <input name="numeroTel" #numeroTel="ngModel" [(ngModel)]="pubeoService.professionelForm.numeroTel" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Adresse</label>
-            <input name="adresse" #adresse="ngModel" [(ngModel)]="pubeoService.professionelForm.adresse" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Numéro de TVA</label>
-            <input name="numeroTVA" #numeroTVA="ngModel" [(ngModel)]="pubeoService.professionelForm.numeroTVA" class="form-control">
-        </div>
-        <div class="form-group text-center mt-4">
-            <button type="submit" class="btn btn-lg">Envoyer</button>
+    <form [formGroup]="professionalForm" (ngSubmit)="sendForm()">
+        <mat-form-field>
+            <input matInput placeholder="Nom de l'entrerpise" formControlName="nomEntreprise">
+            <mat-error *ngIf="nomEntreprise.errors?.required && nomEntreprise.touched">
+                Le champs ne peut pas être vide
+            </mat-error>
+            <mat-error *ngIf="nomEntreprise.errors?.minlength && nomEntreprise.touched">
+                Le champs est trop court
+            </mat-error>
+            <mat-error *ngIf="nomEntreprise.errors?.maxlength && nomEntreprise.touched">
+                Le champs est trop long
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Email" formControlName="mail">
+            <mat-error *ngIf="email.errors?.required && email.touched">
+                Le champs ne peut pas être vide
+            </mat-error>
+            <mat-error *ngIf="email.errors?.email && email.touched">
+                Le format est incorrect
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Mot de passe" formControlName="motDePasse" type="password">
+            <mat-error *ngIf="motDePasse.errors?.required && motDePasse.touched">
+                Le champs ne peut pas être vide
+            </mat-error>
+            <mat-error *ngIf="motDePasse.errors?.minlength && motDePasse.touched">
+                Le champs est trop court
+            </mat-error>
+            <mat-error *ngIf="motDePasse.errors?.maxlength && motDePasse.touched">
+                Le champs est trop long
+            </mat-error>
+            <mat-error *ngIf="motDePasse.errors?.pattern && motDePasse.touched">
+                Le mot de passe doit contenir au moins 1 chiffre
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Adresse" formControlName="adresse">
+            <mat-error *ngIf="adresse.errors?.required && adresse.touched">
+                Le champs ne peut pas être vide
+            </mat-error>
+            <mat-error *ngIf="adresse.errors?.maxlength && adresse.touched">
+                Le champs est trop long
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Code postal" formControlName="localiteCode">
+            <mat-error *ngIf="localiteCode.errors?.required && localiteCode.touched">
+                Le champs ne peut pas être vide
+            </mat-error>
+            <mat-error *ngIf="localiteCode.errors?.minlength && localiteCode.touched">
+                Le champs est trop court
+            </mat-error>
+            <mat-error *ngIf="localiteCode.errors?.maxlength && localiteCode.touched">
+                Le champs est trop long
+            </mat-error>
+            <mat-error *ngIf="localiteCode.errors?.pattern && localiteCode.touched">
+                Le format est incorrect
+            </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field>
+            <input matInput placeholder="Numéro de téléphone" formControlName="numeroTel">
+            <mat-error *ngIf="numeroTel.errors?.required && numeroTel.touched">
+                Le champs ne peut pas être vide
+            </mat-error>
+            <mat-error *ngIf="numeroTel.errors?.pattern && numeroTel.touched">
+                Le format est incorrect
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Numéro de TVA" formControlName="numeroTVA">
+            <mat-error *ngIf="numeroTVA.errors?.required && numeroTVA.touched">
+                Le champs ne peut pas être vide
+            </mat-error>
+            <mat-error *ngIf="numeroTVA.errors?.pattern && numeroTVA.touched">
+                Le format est incorrect
+            </mat-error>
+        </mat-form-field>
+
+        <div class="text-center mt-4">
+            <button [disabled]="professionalForm.invalid" type="submit" class="btn btn-lg">Envoyer</button>
         </div>
     </form>
 </div>

@@ -1,4 +1,4 @@
-import { BrowserModule, Title } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,24 +15,29 @@ import {
   MatMenuModule,
   MatIconModule, 
   MatProgressSpinnerModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatDatepickerModule
 } from '@angular/material';
+import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/material-moment-adapter";
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { TopToolbarComponent } from './top-toolbar/top-toolbar.component';
 import { ParticularsComponent } from './particulars/particulars.component';
 import { ProfessionalsComponent } from './professionals/professionals.component';
-import { FormsComponent } from './forms/forms.component';
+import { StickersComponent } from './stickers/stickers.component';
 import { ParticularComponent } from './particulars/particular/particular.component';
 import { ParticularListComponent } from './particulars/particular-list/particular-list.component';
-import { ParticularsService } from './shared/particulars.service';
 import { ParticularDetailsComponent } from './particulars/particular-details/particular-details.component';
 import { ProfessionalComponent } from './professionals/professional/professional.component';
 import { ProfessionalListComponent } from './professionals/professional-list/professional-list.component';
 import { ProfessionalDetailsComponent } from './professionals/professional-details/professional-details.component';
-import { HttpClientModule } from '@angular/common/http';
-import { PubeoService } from './shared/pubeo.service';
+import { PubeoService } from './shared/services/pubeo.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CustomHttpInterceptor } from './custom-http-interceptor';
+import { ConnectionErrorComponent } from './shared/errors/connection-error/connection-error.component';
+import { AuthGuardService } from './shared/services/auth-guard.service';
 
 const appRoutes: Routes = [
   {
@@ -43,32 +48,44 @@ const appRoutes: Routes = [
   {
     path: 'accueil',
     component: HomeComponent,
-    data: {title: 'Accueil'}
+    data: {title: 'Accueil'},
+    canActivate: [AuthGuardService]
   },
   {
     path: 'particuliers',
     component: ParticularsComponent,
-    data: {title: 'Particuliers'}
+    data: {title: 'Particuliers'},
+    canActivate: [AuthGuardService]
   },
   {
     path: 'particuliers/details/:Id',
     component: ParticularDetailsComponent,
-    data: {title: 'Details particuliers'}
+    data: {title: 'Details particuliers'},
+    canActivate: [AuthGuardService]
   },
   {
     path: 'professionels',
     component: ProfessionalsComponent,
-    data: {title: 'Professionnels'}
+    data: {title: 'Professionnels'},
+    canActivate: [AuthGuardService]
   },
   {
-    path: 'professionels/details/:nomEntreprise',
+    path: 'professionels/details/:Id',
     component: ProfessionalDetailsComponent,
-    data: {title: 'Details professionels'}
+    data: {title: 'Details professionels'},
+    canActivate: [AuthGuardService]
   },
   {
-    path: 'formulaires',
-    component: FormsComponent,
-    data: {title: 'Formulaires'}
+    path: 'stickers',
+    component: StickersComponent,
+    data: {title: 'Stickers'},
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'connectionError',
+    component: ConnectionErrorComponent,
+    data: {title: 'Connection error'},
+    canActivate: [AuthGuardService]
   },
   {
     path: '',
@@ -85,18 +102,18 @@ const appRoutes: Routes = [
     TopToolbarComponent,
     ParticularsComponent,
     ProfessionalsComponent,
-    FormsComponent,
+    StickersComponent,
     ParticularComponent,
     ParticularListComponent,
     ParticularDetailsComponent,
     ProfessionalComponent,
     ProfessionalListComponent,
-    ProfessionalDetailsComponent
+    ProfessionalDetailsComponent,
+    ConnectionErrorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
     MatButtonModule, 
     MatCardModule, 
     MatDialogModule, 
@@ -107,13 +124,29 @@ const appRoutes: Routes = [
     MatIconModule, 
     MatProgressSpinnerModule,
     MatBadgeModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(
       appRoutes,
     ),
     BrowserAnimationsModule,
+    HttpClientModule
   ],
-  providers: [PubeoService],
+  providers: [
+    PubeoService, 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CustomHttpInterceptor,
+      multi: true
+    },
+    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, 
+      useValue: {
+        useUtc: true
+      }
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

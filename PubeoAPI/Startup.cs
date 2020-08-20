@@ -21,12 +21,14 @@ using PubeoAPI.model;
 using PubeoAPI.Repository;
 using securityJWT.Options;
 using AutoMapper;
+using PubeoAPI.model.auth;
 
 namespace PubeoAPI
 {
     public class Startup
     {
         private readonly SymmetricSecurityKey _signingKey;
+        private readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -81,16 +83,21 @@ namespace PubeoAPI
                     });             
 
             services.AddOptions();
-            services.AddCors();
+            services.AddCors(options =>
+                {
+                    options.AddPolicy(name: MyAllowSpecificOrigins,
+                                    builder =>
+                                    {
+                                        builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+                                    });
+                });
 
             services.AddDbContext<PubeoAPIdbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("PubeoAppDB")));
 
-            /*
-            services.AddIdentity<Professionnel, IdentityRole>()
+            services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<PubeoAPIdbContext>()
                 .AddDefaultTokenProviders();
-            */
             
             services.AddControllers();
 
@@ -109,6 +116,7 @@ namespace PubeoAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseHttpsRedirection();
 
@@ -122,9 +130,6 @@ namespace PubeoAPI
             {
                 endpoints.MapControllers();
             });
-
-            app.UseCors(builder =>
-                    builder.WithOrigins("http://localhost:4200/"));
         }
     }
 }

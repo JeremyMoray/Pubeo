@@ -1,0 +1,23 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.example-card{
+    margin-left: 35%;
+    margin-right: 35%;
+    width: auto;
+    text-align: center;
+}
+.mat-card-cvr{
+    padding-top: 100px;
+    width: 100%;
+ }
+ 
+ mat-form-field {
+    margin-top: 10px;
+    width: 100%;
+}

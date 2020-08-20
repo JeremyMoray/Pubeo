@@ -28,6 +28,12 @@ namespace PubeoAPI.Controllers {
             this.mapper = mapper;
         }
 
+        [HttpGet("GetCount")]
+        public async Task<IActionResult> getCount()
+        {
+            return Ok(await _context.Professionnels.CountAsync());
+        }
+
         // GET : /Professionnels
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -133,7 +139,7 @@ namespace PubeoAPI.Controllers {
 
         // PUT: /Professionnels/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] Professionnel professionnel)
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ProfessionnelsUpdateDTO professionnel)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -141,8 +147,11 @@ namespace PubeoAPI.Controllers {
             if(!ProfessionnelExists(id))
                     return NotFound();
             
-            if(await _context.Professionnels.AnyAsync(x => (x.Mail == professionnel.Mail || x.NomEntreprise == professionnel.NomEntreprise) && x.Id != id))
-                return Conflict();
+            if(await _context.Professionnels.AnyAsync(x => x.Mail == professionnel.Mail && x.Id != id))
+                return Conflict("Mail");
+
+            if(await _context.Professionnels.AnyAsync(x => x.NomEntreprise == professionnel.NomEntreprise && x.Id != id))
+                return Conflict("NomEntreprise");
 
             if(professionnel.LocaliteCode != null && !await _context.Localites.AnyAsync(x => x.CodePostal.Equals(professionnel.LocaliteCode)))
                 return NotFound();
@@ -159,7 +168,7 @@ namespace PubeoAPI.Controllers {
 
         // PUT: /Professionnels/UpdateMyAccount
         [HttpPut("UpdateMyAccount")]
-        public async Task<IActionResult> UpdateMyAccount([FromBody] Professionnel professionnel)
+        public async Task<IActionResult> UpdateMyAccount([FromBody] ProfessionnelsUpdateDTO professionnel)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -170,9 +179,12 @@ namespace PubeoAPI.Controllers {
 
             if(user == null)
                     return NotFound();
-            
-            if(await _context.Professionnels.AnyAsync(x => (x.Mail == professionnel.Mail || x.NomEntreprise == professionnel.NomEntreprise) && x.Id != user.Id))
-                return Conflict();
+
+            if(await _context.Professionnels.AnyAsync(x => x.Mail == professionnel.Mail && x.Id != user.Id))
+                return Conflict("Mail");
+
+            if(await _context.Professionnels.AnyAsync(x => x.NomEntreprise == professionnel.NomEntreprise && x.Id != user.Id))
+                return Conflict("NomEntreprise");
 
             if(professionnel.LocaliteCode != null && !await _context.Localites.AnyAsync(x => x.CodePostal.Equals(professionnel.LocaliteCode)))
                 return NotFound();
@@ -221,7 +233,7 @@ namespace PubeoAPI.Controllers {
             return _context.Professionnels.Any(p => p.Id.Equals(id));
         }
 
-        private Professionnel Modification(Professionnel initialPro, Professionnel targetPro){
+        private Professionnel Modification(Professionnel initialPro, ProfessionnelsUpdateDTO targetPro){
             ScryptEncoder encoder = new ScryptEncoder();
             var retour = initialPro;
             if(targetPro.NomEntreprise != null) retour.NomEntreprise = targetPro.NomEntreprise;

@@ -1,5 +1,7 @@
 using AutoMapper;
 using PubeoAPI.model;
+using PubeoAPI.model.auth;
+using PubeoAPI.Resources;
 
 namespace PubeoAPI.DTO {
     public class AutoMapperProfile : Profile{
@@ -22,6 +24,7 @@ namespace PubeoAPI.DTO {
             CreateMap<Participation, ParticipationSimpleDTO>();
             CreateMap<ParticuliersDTO, Particulier>();
             CreateMap<Particulier, ParticuliersDTO>();
+            CreateMap<AddUserResource, User>().ForMember(u => u.UserName, opt => opt.MapFrom(ur => ur.Email));;
         }
     }
 }

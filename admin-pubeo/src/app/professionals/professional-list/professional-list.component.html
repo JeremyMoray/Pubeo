@@ -1,18 +1,18 @@
 <table class="table table-hover">
-    <tr *ngFor="let pro of list">
-        <td>{{list.indexOf(pro) + 1}}</td>
+    <tr *ngFor="let pro of professionnals; let i = index">
+        <td>{{i + 1}}</td>
         <td>{{pro.nomEntreprise}}</td>
-        <td>{{pro.numeroTVA}}</td>
+        <td>{{pro.adresse}}</td>
         <td>{{pro.mail}}</td>
         <td>{{pro.numeroTel}}</td>
         <td>
-            <button routerLink="/professionels/details/{{pro.nomEntreprise}}" class="btn btn-sm btn-primary d-flex justify-content-center align-content-between">
+            <button routerLink="/professionels/details/{{pro.id}}" class="btn btn-sm btn-primary d-flex justify-content-center align-content-between">
                 <i class="material-icons">create</i>
                 <span class="textInButton">Details</span>
             </button>
         </td>
         <td>
-            <button (click)="onDelete(pro.id)" class="btn btn-sm btn-danger d-flex justify-content-center align-content-between">
+            <button (click)="deleteProfessional(pro.id)" class="btn btn-sm btn-danger d-flex justify-content-center align-content-between">
                 <i class="material-icons">delete</i>
                 <span class="textInButton">Supprimer</span>
             </button>

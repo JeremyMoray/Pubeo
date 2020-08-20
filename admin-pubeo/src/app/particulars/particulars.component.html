@@ -1,0 +1,11 @@
+<app-top-toolbar></app-top-toolbar>
+<div class="container">
+    <h1 class="text-center mt-3">Gestion des particuliers</h1>
+    
+    <hr>
+
+    <button *ngIf="toggleForm" (click)="showForm()" type="submit" class="btn btn-lg btn-block mt-4 mb-4" matBadge="+" matBadgePosition="before" matBadgeColor="primary">Ajouter un particulier</button>
+    <button *ngIf="!toggleForm"(click)="showForm()" type="submit" class="btn btn-lg btn-block mt-4 mb-4" matBadge="-" matBadgePosition="before" matBadgeColor="primary">Ajouter un particulier</button>
+    <app-particular (addPartOutput)="eventCloseComponent($event)"*ngIf="!toggleForm"></app-particular>
+    <app-particular-list [event]="newPartEvent"></app-particular-list>
+</div>
