@@ -4,7 +4,6 @@ import { PubeoService } from 'src/app/shared/services/pubeo.service';
 import { Particulars } from 'src/app/shared/models/particulars.model';
 import { Sticker } from 'src/app/shared/models/sticker.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-particular-details',
@@ -163,7 +162,7 @@ export class ParticularDetailsComponent implements OnInit {
   }
 
   connectionError(errorStatus: number){
-    this.errorStatus = this.errorStatus;
+    this.errorStatus = errorStatus;
     if(this.errorStatus != 404)
       this.router.navigate(['connectionError']);
   }

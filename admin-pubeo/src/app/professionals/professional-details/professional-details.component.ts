@@ -142,7 +142,7 @@ export class ProfessionalDetailsComponent implements OnInit {
   }
 
   connectionError(errorStatus: number){
-    this.errorStatus = this.errorStatus;
+    this.errorStatus = errorStatus;
     if(this.errorStatus != 404)
       this.router.navigate(['connectionError']);
   }
