@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PubeoService } from 'src/app/shared/services/pubeo.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Particulars } from 'src/app/shared/models/particulars.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-particular',
@@ -14,7 +15,7 @@ export class ParticularComponent implements OnInit {
   particularForm: FormGroup;
   @Output() addPartOutput: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private fb: FormBuilder, private pubeoService : PubeoService) { }
+  constructor(private fb: FormBuilder, private pubeoService : PubeoService, private router : Router) { }
 
   ngOnInit() {
     this.particularForm = this.fb.group({
@@ -124,16 +125,25 @@ export class ParticularComponent implements OnInit {
   }
 
   alertError(error: any){
-    if(error.status == 404)
+    if(error.status == 404){
       alert("Le code postal n'existe pas");
-    
-    if(error.status == 409){
-      
-      if(error.error == 'Mail')
-        alert("L'adresse mail existe déjà");
-      
-        if(error.error == 'Pseudo')
-        alert("Le pseudo existe déjà");
     }
+    else{
+      if(error.status == 409){
+      
+        if(error.error == 'Mail')
+          alert("L'adresse mail existe déjà");
+        
+          if(error.error == 'Pseudo')
+          alert("Le pseudo existe déjà");
+      }
+      else{
+        this.connectionError();
+      }
+    }
+  }
+
+  connectionError(){
+    this.router.navigate(['connectionError']);
   }
 }

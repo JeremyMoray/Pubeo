@@ -36,6 +36,7 @@ import { ProfessionalDetailsComponent } from './professionals/professional-detai
 import { PubeoService } from './shared/services/pubeo.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CustomHttpInterceptor } from './custom-http-interceptor';
+import { ConnectionErrorComponent } from './shared/errors/connection-error/connection-error.component';
 
 const appRoutes: Routes = [
   {
@@ -74,6 +75,11 @@ const appRoutes: Routes = [
     data: {title: 'Stickers'}
   },
   {
+    path: 'connectionError',
+    component: ConnectionErrorComponent,
+    data: {title: 'Connection error'}
+  },
+  {
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'
@@ -94,7 +100,8 @@ const appRoutes: Routes = [
     ParticularDetailsComponent,
     ProfessionalComponent,
     ProfessionalListComponent,
-    ProfessionalDetailsComponent
+    ProfessionalDetailsComponent,
+    ConnectionErrorComponent
   ],
   imports: [
     BrowserModule,

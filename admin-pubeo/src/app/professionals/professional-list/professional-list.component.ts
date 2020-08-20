@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Professionals } from 'src/app/shared/models/professionals.model';
 import { PubeoService } from 'src/app/shared/services/pubeo.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-professional-list',
@@ -11,12 +12,12 @@ export class ProfessionalListComponent implements OnInit {
 
   @Input() event: Event;
   professionnals: Professionals[];
-  constructor(private pubeoService: PubeoService) { }
+  constructor(private pubeoService: PubeoService, private router : Router) { }
 
   ngOnInit() {
     this.pubeoService.getAllProfessionals()
         .subscribe(data => this.professionnals = data,
-                  () => alert("Erreur de connexion au serveur"));
+                  () => this.connectionError());
   }
 
   deleteProfessional(Id: string){
@@ -37,11 +38,17 @@ export class ProfessionalListComponent implements OnInit {
   alertError(error: any){
     if(error.status == 404)
       alert("L'utilisateur n'existe pas");
+    else
+      this.connectionError();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if(changes.event.currentValue !== undefined){
       this.professionnals.push(changes.event.currentValue);
     }
+  }
+
+  connectionError(){
+    this.router.navigate(['connectionError']);
   }
 }

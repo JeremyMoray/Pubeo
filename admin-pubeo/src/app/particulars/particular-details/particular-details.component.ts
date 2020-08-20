@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PubeoService } from 'src/app/shared/services/pubeo.service';
 import { Particulars } from 'src/app/shared/models/particulars.model';
 import { Sticker } from 'src/app/shared/models/sticker.model';
@@ -21,7 +21,7 @@ export class ParticularDetailsComponent implements OnInit {
   errorStatus: number;
   loading: boolean;
   
-  constructor(private fb: FormBuilder, private route:ActivatedRoute, private pubeoService: PubeoService) { }
+  constructor(private fb: FormBuilder, private route:ActivatedRoute, private pubeoService: PubeoService, private router : Router) { }
 
   ngOnInit() {
     this.Id= this.route.snapshot.paramMap.get('Id');
@@ -29,11 +29,11 @@ export class ParticularDetailsComponent implements OnInit {
 
     this.pubeoService.getParticularById(this.Id)
         .subscribe(data => this.setFormDefault(data),
-                  error => this.errorStatus = error.status);
+                  error => this.connectionError(error.status));
     
     this.pubeoService.getAllStickersByParticularId(this.Id)
         .subscribe(data => this.stickers = data,
-                  error => this.errorStatus = error.status);
+                  error => this.connectionError(error.status));
   }
 
   setFormDefault(particular){
@@ -148,14 +148,23 @@ export class ParticularDetailsComponent implements OnInit {
   alertError(error: any){
     if(error.status == 404)
       alert("Le code postal n'existe pas");
-    
-    if(error.status == 409){
-      
-      if(error.error == 'Mail')
-        alert("L'adresse mail existe déjà");
-      
-        if(error.error == 'Pseudo')
-        alert("Le pseudo existe déjà");
+    else{
+      if(error.status == 409){
+        if(error.error == 'Mail')
+          alert("L'adresse mail existe déjà");
+        
+          if(error.error == 'Pseudo')
+          alert("Le pseudo existe déjà");
+      }
+      else{
+        this.router.navigate(['connectionError']);
+      }
     }
+  }
+
+  connectionError(errorStatus: number){
+    this.errorStatus = this.errorStatus;
+    if(this.errorStatus != 404)
+      this.router.navigate(['connectionError']);
   }
 }

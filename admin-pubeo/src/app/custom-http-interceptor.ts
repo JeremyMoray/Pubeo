@@ -13,7 +13,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
         else
         localStorage.setItem('requestNumber', (parseInt(localStorage.getItem('requestNumber')) + 1).toString());
 
-        const hardcodedToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqZWFuLmlsb3RAZ21haWwuY29tIiwianRpIjoiMTgwMjhmNzQtMTE2Ny00N2FiLTgyZTItNTUzZjhhMmFhYTYyIiwiaWF0IjoxNTk3ODcxMjk1LCJuYmYiOjE1OTc4NzEyOTUsImV4cCI6MTU5Nzg3ODQ5NSwiaXNzIjoiUHViZW9BUElUb2tlblNlcnZlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCJ9.f5CRaTmifV9czPVfkT6vL1TCJU0YvSFcFIhtd4XPtc0"
+        const hardcodedToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqZWFuLmlsb3RAZ21haWwuY29tIiwianRpIjoiY2Y5ODRlYWEtOWRhYy00NjM1LWExYTgtMWE1ZjM4MTEzZTQyIiwiaWF0IjoxNTk3OTEzMzA0LCJuYmYiOjE1OTc5MTMzMDMsImV4cCI6MTU5NzkyMDUwMywiaXNzIjoiUHViZW9BUElUb2tlblNlcnZlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCJ9.YHQySC9UYaWbe0HNlZQgMbs5lSG5a-lqmMdHoV4FDuA"
         const reqWithAuth = req.clone({
             setHeaders: {
                 Authorization: `Bearer ${hardcodedToken}`
@@ -23,12 +23,12 @@ export class CustomHttpInterceptor implements HttpInterceptor {
         return next.handle(reqWithAuth)
             .pipe(
                 catchError((error: HttpErrorResponse) => {
-                    let requestErrorNumber = localStorage.getItem('requestErrorNumber');
+                    let requestErrorNumber = sessionStorage.getItem('requestErrorNumber');
 
                     if(requestErrorNumber == null)
-                        localStorage.setItem('requestErrorNumber', '1');
+                        sessionStorage.setItem('requestErrorNumber', '1');
                     else
-                    localStorage.setItem('requestErrorNumber', (parseInt(localStorage.getItem('requestErrorNumber')) + 1).toString());
+                        sessionStorage.setItem('requestErrorNumber', (parseInt(sessionStorage.getItem('requestErrorNumber')) + 1).toString());
                     
                     return throwError(error)
                 })

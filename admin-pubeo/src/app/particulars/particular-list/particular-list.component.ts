@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { PubeoService } from 'src/app/shared/services/pubeo.service';
 import { Particulars } from 'src/app/shared/models/particulars.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-particular-list',
@@ -11,12 +12,12 @@ export class ParticularListComponent implements OnInit {
 
   @Input() event: Event;
   particulars: Particulars[];
-  constructor(private pubeoService: PubeoService) { }
+  constructor(private pubeoService: PubeoService, private router : Router) { }
 
   ngOnInit() {
     this.pubeoService.getAllParticulars()
         .subscribe(data => this.particulars = data,
-                  () => alert("Erreur de connexion au serveur"));
+                  () => this.connectionError());
   }
 
   deleteParticular(Id: string){
@@ -37,11 +38,17 @@ export class ParticularListComponent implements OnInit {
   alertError(error: any){
     if(error.status == 404)
       alert("L'utilisateur n'existe pas");
+    else
+      this.connectionError();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if(changes.event.currentValue !== undefined){
       this.particulars.push(changes.event.currentValue);
     }
+  }
+
+  connectionError(){
+      this.router.navigate(['connectionError']);
   }
 }

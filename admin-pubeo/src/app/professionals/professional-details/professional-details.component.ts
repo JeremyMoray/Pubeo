@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Professionals } from 'src/app/shared/models/professionals.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PubeoService } from 'src/app/shared/services/pubeo.service';
 import { Sticker } from 'src/app/shared/models/sticker.model';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
@@ -20,7 +20,7 @@ export class ProfessionalDetailsComponent implements OnInit {
   errorStatus: number;
   loading: boolean;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private pubeoService: PubeoService) { }
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private pubeoService: PubeoService, private router : Router) { }
 
   ngOnInit() {
     this.Id= this.route.snapshot.paramMap.get('Id');
@@ -28,11 +28,11 @@ export class ProfessionalDetailsComponent implements OnInit {
 
     this.pubeoService.getProfessionalById(this.Id)
         .subscribe(data => this.setFormDefault(data),
-                  error => this.errorStatus = error.status);
+                  error => this.connectionError(error.status));
 
     this.pubeoService.getAllStickersByProfessionalId(this.Id)
         .subscribe(data => this.stickers = data,
-                  error => this.errorStatus = error.status);
+                  error => this.connectionError(error.status));
   }
 
   setFormDefault(professional){
@@ -127,14 +127,23 @@ export class ProfessionalDetailsComponent implements OnInit {
   alertError(error: any){
     if(error.status == 404)
       alert("Le code postal n'existe pas");
-    
-    if(error.status == 409){
-      
-      if(error.error == 'Mail')
-        alert("L'adresse mail existe déjà");
-      
+    else{
+      if(error.status == 409){
+        if(error.error == 'Mail')
+          alert("L'adresse mail existe déjà");
+        
         if(error.error == 'NomEntreprise')
-        alert("Le nom de l'entreprise existe déjà");
+          alert("Le nom de l'entreprise existe déjà");
+      }
+      else{
+        this.router.navigate(['connectionError']);
+      }
     }
+  }
+
+  connectionError(errorStatus: number){
+    this.errorStatus = this.errorStatus;
+    if(this.errorStatus != 404)
+      this.router.navigate(['connectionError']);
   }
 }

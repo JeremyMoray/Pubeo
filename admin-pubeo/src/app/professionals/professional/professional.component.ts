@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms'
 import { PubeoService } from 'src/app/shared/services/pubeo.service';
 import { Professionals } from 'src/app/shared/models/professionals.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-professional',
@@ -14,7 +15,7 @@ export class ProfessionalComponent implements OnInit {
   professionalForm: FormGroup;
   @Output() addProOutput: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private fb: FormBuilder, private pubeoService:PubeoService) { }
+  constructor(private fb: FormBuilder, private pubeoService:PubeoService, private router : Router) { }
 
   ngOnInit() {
     this.professionalForm = this.fb.group({
@@ -105,17 +106,25 @@ export class ProfessionalComponent implements OnInit {
   }
 
   alertError(error: any){
-    if(error.status == 404)
+    if(error.status == 404){
       alert("Le code postal n'existe pas");
-    
-    if(error.status == 409){
+    }
+    else{
+      if(error.status == 409){
       
-      if(error.error == 'Mail')
-        alert("L'adresse mail existe déjà");
-      
-        if(error.error == 'NomEntreprise')
-        alert("Le nom de l'entreprise existe déjà");
+        if(error.error == 'Mail')
+          alert("L'adresse mail existe déjà");
+        
+          if(error.error == 'NomEntreprise')
+          alert("Le nom de l'entreprise existe déjà");
+      }
+      else{
+        this.connectionError();
+      }
     }
   }
 
+  connectionError(){
+    this.router.navigate(['connectionError']);
+  }
 }
