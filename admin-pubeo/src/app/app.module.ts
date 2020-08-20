@@ -37,6 +37,7 @@ import { PubeoService } from './shared/services/pubeo.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CustomHttpInterceptor } from './custom-http-interceptor';
 import { ConnectionErrorComponent } from './shared/errors/connection-error/connection-error.component';
+import { AuthGuardService } from './shared/services/auth-guard.service';
 
 const appRoutes: Routes = [
   {
@@ -47,37 +48,44 @@ const appRoutes: Routes = [
   {
     path: 'accueil',
     component: HomeComponent,
-    data: {title: 'Accueil'}
+    data: {title: 'Accueil'},
+    canActivate: [AuthGuardService]
   },
   {
     path: 'particuliers',
     component: ParticularsComponent,
-    data: {title: 'Particuliers'}
+    data: {title: 'Particuliers'},
+    canActivate: [AuthGuardService]
   },
   {
     path: 'particuliers/details/:Id',
     component: ParticularDetailsComponent,
-    data: {title: 'Details particuliers'}
+    data: {title: 'Details particuliers'},
+    canActivate: [AuthGuardService]
   },
   {
     path: 'professionels',
     component: ProfessionalsComponent,
-    data: {title: 'Professionnels'}
+    data: {title: 'Professionnels'},
+    canActivate: [AuthGuardService]
   },
   {
     path: 'professionels/details/:Id',
     component: ProfessionalDetailsComponent,
-    data: {title: 'Details professionels'}
+    data: {title: 'Details professionels'},
+    canActivate: [AuthGuardService]
   },
   {
     path: 'stickers',
     component: StickersComponent,
-    data: {title: 'Stickers'}
+    data: {title: 'Stickers'},
+    canActivate: [AuthGuardService]
   },
   {
     path: 'connectionError',
     component: ConnectionErrorComponent,
-    data: {title: 'Connection error'}
+    data: {title: 'Connection error'},
+    canActivate: [AuthGuardService]
   },
   {
     path: '',

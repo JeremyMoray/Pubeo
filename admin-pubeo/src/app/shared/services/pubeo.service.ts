@@ -4,6 +4,7 @@ import { Particulars } from '../models/particulars.model';
 import { Sticker } from '../models/sticker.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { throwError as observableThrowError, Observable } from 'rxjs';
+import { Token } from '../models/token.model';
 
 @Injectable({
   providedIn: 'root'
@@ -95,5 +96,13 @@ export class PubeoService {
 
   getCountParticular(): Observable<number>{
     return this.http.get<number>(this.baseUrl + "/Particuliers/GetCount");
+  }
+
+  login(user): Observable<Token>{
+    return this.http.post<Token>(this.baseUrl + "/Auth/LogIn", user, {
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+      })
+  });
   }
 }

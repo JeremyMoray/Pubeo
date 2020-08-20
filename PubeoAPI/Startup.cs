@@ -21,6 +21,7 @@ using PubeoAPI.model;
 using PubeoAPI.Repository;
 using securityJWT.Options;
 using AutoMapper;
+using PubeoAPI.model.auth;
 
 namespace PubeoAPI
 {
@@ -94,11 +95,9 @@ namespace PubeoAPI
             services.AddDbContext<PubeoAPIdbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("PubeoAppDB")));
 
-            /*
-            services.AddIdentity<Professionnel, IdentityRole>()
+            services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<PubeoAPIdbContext>()
                 .AddDefaultTokenProviders();
-            */
             
             services.AddControllers();
 

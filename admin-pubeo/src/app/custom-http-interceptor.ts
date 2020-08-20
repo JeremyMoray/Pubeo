@@ -2,9 +2,12 @@ import { Injectable } from "@angular/core";
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { AuthenticationService } from './shared/services/authentication.service';
 
 @Injectable()
 export class CustomHttpInterceptor implements HttpInterceptor {
+
+    constructor(private authenticationService: AuthenticationService){}
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let requestNumber = localStorage.getItem('requestNumber');
 
@@ -13,10 +16,10 @@ export class CustomHttpInterceptor implements HttpInterceptor {
         else
         localStorage.setItem('requestNumber', (parseInt(localStorage.getItem('requestNumber')) + 1).toString());
 
-        const hardcodedToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqZWFuLmlsb3RAZ21haWwuY29tIiwianRpIjoiNTczODUxNGQtOTY1MC00NWU4LWFkNGQtNTVhMTcyNDcxOGRmIiwiaWF0IjoxNTk3OTIxNzY1LCJuYmYiOjE1OTc5MjE3NjUsImV4cCI6MTU5NzkyODk2NSwiaXNzIjoiUHViZW9BUElUb2tlblNlcnZlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCJ9.8MOAIwfvRG5s1DCKVkOccV2K_t9juLIoxhMPKiBxczI"
+        const token = this.authenticationService.getToken();
         const reqWithAuth = req.clone({
             setHeaders: {
-                Authorization: `Bearer ${hardcodedToken}`
+                Authorization: `Bearer ${token}`
             }
         });
 

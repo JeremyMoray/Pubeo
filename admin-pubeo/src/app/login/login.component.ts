@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { PubeoService } from '../shared/services/pubeo.service';
+import { AuthenticationService } from '../shared/services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -8,21 +11,41 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-    constructor(private router: Router) { }
+    constructor(private fb: FormBuilder, private authenticationService: AuthenticationService,private pubeoService: PubeoService, private router: Router) { }
 
-    username: string;
-    password: string;
+    userForm: FormGroup;
 
     ngOnInit() {
-      
+        this.userForm = this.fb.group({
+            email: [''],
+            password: ['']
+        })
     }
 
-    login() : void {
-        if(this.username == 'admin' && this.password == 'admin'){
-            this.router.navigate(["accueil"]);
-        }
-        else {
-            alert("Nom d'utilisateur ou mot de passe incorrect");
+    get email() {
+        return this.userForm.get('email');
+    }
+
+    get password() {
+        return this.userForm.get('password');
+    }
+
+    login() {
+        this.pubeoService.login(this.userForm.value).subscribe(data => this.proceedLogin(data), error => this.alertError(error));
+    }
+
+    proceedLogin(data){
+        this.authenticationService.setToken(data.result);
+        this.router.navigate(["accueil"]);
+    }
+
+    alertError(error: any){
+        console.log(error);
+        if(error.status == 404){
+            alert("Cet email n'existe pas");
+          }
+        if(error.status == 400){
+          alert("Mot de passe incorrect");
         }
     }
 }
