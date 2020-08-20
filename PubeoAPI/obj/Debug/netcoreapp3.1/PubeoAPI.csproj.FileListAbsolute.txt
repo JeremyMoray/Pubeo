@@ -147,3 +147,5 @@ C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\bin\Debug\netcoreapp3.1\Swashbuck
 C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\obj\Debug\netcoreapp3.1\PubeoAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
+C:\Users\jcalm\Workspace\GitHub\Pubeo\PubeoAPI\bin\Debug\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll

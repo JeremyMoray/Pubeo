@@ -1,4 +1,6 @@
 using System;
+using System.Reflection;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,12 +17,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using PubeoAPI.DTO;
 using PubeoAPI.model;
 using PubeoAPI.Repository;
 using securityJWT.Options;
 using AutoMapper;
+using PubeoAPI.model.auth;
 
 namespace PubeoAPI
 {
@@ -86,11 +90,14 @@ namespace PubeoAPI
             services.AddDbContext<PubeoAPIdbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("PubeoAppDB")));
 
-            /*
-            services.AddIdentity<Professionnel, IdentityRole>()
+            
+            //AddIdentity takes the two implementations of IdentityUser and IdentityRole
+            //AddEntityFrameworkStores tells that our DbContext is going to be where our Identity’s information are stored
+            //AddDefaultTokenProviders just adds the default providers to generate tokens for password reset, 2-factor authentication, change email and change telephone
+            services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<PubeoAPIdbContext>()
                 .AddDefaultTokenProviders();
-            */
+            
             
             services.AddControllers();
 
@@ -102,7 +109,16 @@ namespace PubeoAPI
             services.AddTransient<ILocalRepository, LocalRepository>();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Pubeo API",
+                    Description = "ASP.NET Core Rest API for CRUD functions",
+                    TermsOfService = new Uri("https://tosdr.org/")
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

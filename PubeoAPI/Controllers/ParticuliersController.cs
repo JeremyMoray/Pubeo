@@ -66,6 +66,7 @@ namespace PubeoAPI.Controllers {
 
         // GET : /Particuliers/AllParticuliers
         [Route("AllParticuliers")]
+        [HttpGet]
         public IEnumerable<Particulier> GetAllParticuliers()
         {
             var particuliers = _context.Particuliers

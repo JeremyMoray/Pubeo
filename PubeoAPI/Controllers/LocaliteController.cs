@@ -22,6 +22,7 @@ namespace PubeoAPI.Controllers {
 
         // GET : /Localite/AllLocalites
         [Route("AllLocalites")]
+        [HttpGet]
         public IEnumerable<Localite> GetAllLocalites(){
             
             var localites = _context.Localites
