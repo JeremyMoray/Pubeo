@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Token } from '../models/token.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Token } from '../models/token.model';
 export class AuthenticationService {
 
   private _accessToken: string;
-  constructor() { }
+  constructor(private router: Router) { }
 
   public setToken(token: string) {
     this._accessToken = token;
@@ -20,5 +21,9 @@ export class AuthenticationService {
 
   public isAuthenticated(): boolean {
     return this._accessToken !== null && this._accessToken!==undefined;
+  }
+  public logout(): void{
+    this._accessToken = null;
+    this.router.navigate(["login"]);
   }
 }

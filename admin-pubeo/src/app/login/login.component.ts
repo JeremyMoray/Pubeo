@@ -11,7 +11,7 @@ import { AuthenticationService } from '../shared/services/authentication.service
 })
 export class LoginComponent implements OnInit {
 
-    constructor(private fb: FormBuilder, private authenticationService: AuthenticationService,private pubeoService: PubeoService, private router: Router) { }
+    constructor(private fb: FormBuilder, private authenticationService: AuthenticationService, private pubeoService: PubeoService, private router: Router) { }
 
     userForm: FormGroup;
 
