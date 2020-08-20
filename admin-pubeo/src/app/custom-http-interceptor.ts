@@ -13,7 +13,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
         else
         localStorage.setItem('requestNumber', (parseInt(localStorage.getItem('requestNumber')) + 1).toString());
 
-        const hardcodedToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqZWFuLmlsb3RAZ21haWwuY29tIiwianRpIjoiY2Y5ODRlYWEtOWRhYy00NjM1LWExYTgtMWE1ZjM4MTEzZTQyIiwiaWF0IjoxNTk3OTEzMzA0LCJuYmYiOjE1OTc5MTMzMDMsImV4cCI6MTU5NzkyMDUwMywiaXNzIjoiUHViZW9BUElUb2tlblNlcnZlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCJ9.YHQySC9UYaWbe0HNlZQgMbs5lSG5a-lqmMdHoV4FDuA"
+        const hardcodedToken="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqZWFuLmlsb3RAZ21haWwuY29tIiwianRpIjoiNTczODUxNGQtOTY1MC00NWU4LWFkNGQtNTVhMTcyNDcxOGRmIiwiaWF0IjoxNTk3OTIxNzY1LCJuYmYiOjE1OTc5MjE3NjUsImV4cCI6MTU5NzkyODk2NSwiaXNzIjoiUHViZW9BUElUb2tlblNlcnZlciIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCJ9.8MOAIwfvRG5s1DCKVkOccV2K_t9juLIoxhMPKiBxczI"
         const reqWithAuth = req.clone({
             setHeaders: {
                 Authorization: `Bearer ${hardcodedToken}`

@@ -139,7 +139,7 @@ namespace PubeoAPI.Controllers {
 
         // PUT: /Professionnels/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] Professionnel professionnel)
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ProfessionnelsUpdateDTO professionnel)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -168,7 +168,7 @@ namespace PubeoAPI.Controllers {
 
         // PUT: /Professionnels/UpdateMyAccount
         [HttpPut("UpdateMyAccount")]
-        public async Task<IActionResult> UpdateMyAccount([FromBody] Professionnel professionnel)
+        public async Task<IActionResult> UpdateMyAccount([FromBody] ProfessionnelsUpdateDTO professionnel)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -233,7 +233,7 @@ namespace PubeoAPI.Controllers {
             return _context.Professionnels.Any(p => p.Id.Equals(id));
         }
 
-        private Professionnel Modification(Professionnel initialPro, Professionnel targetPro){
+        private Professionnel Modification(Professionnel initialPro, ProfessionnelsUpdateDTO targetPro){
             ScryptEncoder encoder = new ScryptEncoder();
             var retour = initialPro;
             if(targetPro.NomEntreprise != null) retour.NomEntreprise = targetPro.NomEntreprise;

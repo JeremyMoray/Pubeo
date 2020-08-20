@@ -42,6 +42,7 @@ namespace PubeoAPI.model
         [StringLength(100)]
         [Required(AllowEmptyStrings = false)]
         public String Mail { get; set; }
+        [Required(AllowEmptyStrings = false)]
         public String MotDePasse { get; set; }
 
         public String LocaliteCode { get; set; }

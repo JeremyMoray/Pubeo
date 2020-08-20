@@ -1,10 +1,13 @@
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PubeoAPI.model;
+using PubeoAPI.model.auth;
 
 namespace PubeoAPI
 {
-    public class PubeoAPIdbContext : DbContext {
+    public class PubeoAPIdbContext : IdentityDbContext<User, Role, Guid> {
 
         public PubeoAPIdbContext()
         {}

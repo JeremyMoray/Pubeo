@@ -105,7 +105,7 @@ namespace PubeoAPI.Controllers {
 
         // PUT: /Particuliers/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateParticuliers([FromRoute] Guid id, [FromBody] Particulier particulier)
+        public async Task<IActionResult> UpdateParticuliers([FromRoute] Guid id, [FromBody] ParticuliersUpdateDTO particulier)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -195,7 +195,7 @@ namespace PubeoAPI.Controllers {
             return Ok(user);
         }
 
-        private Particulier Modification(Particulier initialPart, Particulier targetPart){
+        private Particulier Modification(Particulier initialPart, ParticuliersUpdateDTO targetPart){
             ScryptEncoder encoder = new ScryptEncoder();
             var retour = initialPart;
             if(targetPart.Prenom != null) retour.Prenom = targetPart.Prenom;
