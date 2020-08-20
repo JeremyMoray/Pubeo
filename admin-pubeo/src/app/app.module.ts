@@ -84,8 +84,7 @@ const appRoutes: Routes = [
   {
     path: 'connectionError',
     component: ConnectionErrorComponent,
-    data: {title: 'Connection error'},
-    canActivate: [AuthGuardService]
+    data: {title: 'Connection error'}
   },
   {
     path: '',

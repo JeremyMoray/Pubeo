@@ -40,12 +40,20 @@ export class LoginComponent implements OnInit {
     }
 
     alertError(error: any){
-        console.log(error);
         if(error.status == 404){
             alert("Cet email n'existe pas");
-          }
-        if(error.status == 400){
-          alert("Mot de passe incorrect");
         }
+        else{
+            if(error.status == 400){
+                alert("Mot de passe incorrect");
+            }
+            else{
+                this.connectionError()
+            }
+        }
+    }
+
+    connectionError(){
+        this.router.navigate(['connectionError'])
     }
 }
