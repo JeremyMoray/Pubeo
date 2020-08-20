@@ -16,9 +16,9 @@ import {
   MatIconModule, 
   MatProgressSpinnerModule,
   MatBadgeModule,
-  MatDatepickerModule,
-  MatNativeDateModule
+  MatDatepickerModule
 } from '@angular/material';
+import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/material-moment-adapter";
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
@@ -125,7 +125,7 @@ const appRoutes: Routes = [
     MatProgressSpinnerModule,
     MatBadgeModule,
     MatDatepickerModule,
-    MatNativeDateModule,
+    MatMomentDateModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(
@@ -140,6 +140,11 @@ const appRoutes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: CustomHttpInterceptor,
       multi: true
+    },
+    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, 
+      useValue: {
+        useUtc: true
+      }
     }
   ],
   bootstrap: [AppComponent]
