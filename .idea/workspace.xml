@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="6932c3b2-62cf-4369-a889-477282dd69a4" name="Default Changelist" comment="">
 <<<<<<< HEAD
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/Test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Test.iml" afterDir="false" />
+=======
+>>>>>>> jeremy-branch
 =======
 >>>>>>> jeremy-branch
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -28,6 +31,7 @@
     <option name="height" value="980" />
   </component>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <component name="ProjectId" id="1foP2r9ky59ik0y4uctPmFz1pvh" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -38,6 +42,8 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
 =======
+=======
+>>>>>>> jeremy-branch
   <component name="ProjectId" id="1gMOV7r2Cs76lBTYQ0x4iJuRCug" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -48,6 +54,9 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+<<<<<<< HEAD
+>>>>>>> jeremy-branch
+=======
 >>>>>>> jeremy-branch
     <property name="android.sdk.path" value="D:/Android/sdk" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -69,6 +78,7 @@
     <servers />
   </component>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <component name="WindowStateProjectService">
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1596881331564">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -79,6 +89,8 @@
     </state>
     <state x="656" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1596881274857" />
 =======
+=======
+>>>>>>> jeremy-branch
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
   </component>
@@ -87,6 +99,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="758" y="308" key="git4idea.merge.GitMergeDialog/0.0.1920.1040/1920.0.1600.860@0.0.1920.1040" timestamp="1597921122962" />
+<<<<<<< HEAD
+>>>>>>> jeremy-branch
+=======
 >>>>>>> jeremy-branch
   </component>
 </project>

@@ -16,7 +16,9 @@ namespace PubeoAPI.Controllers {
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
-    [Route("[controller]")]
+    [Route("v{version:apiVersion}/[controller]")]
+    [ApiVersion("1")]
+    [ApiVersion("2")]
     public class ProfessionnelsController : ControllerBase
     {
         private readonly PubeoAPIdbContext _context;
@@ -28,6 +30,7 @@ namespace PubeoAPI.Controllers {
             this.mapper = mapper;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("GetCount")]
         public async Task<IActionResult> getCount()
         {
@@ -36,11 +39,22 @@ namespace PubeoAPI.Controllers {
 
         // GET : /Professionnels
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [MapToApiVersion("1")]
+        public async Task<IActionResult> GetAll1()
+        {
+            var professionnelsDetails = await _context.Professionnels
+                                            .ToListAsync();
+            var professionnels = mapper.Map<List<ProfessionnelsSimpleDTO>> (professionnelsDetails);
+            return Ok(professionnels);
+        }
+
+        // GET : /Professionnels
+        [HttpGet]
+        [MapToApiVersion("2")]
+        public async Task<IActionResult> GetAll2()
         {
             var professionnelsDetails = await _context.Professionnels
                                             .Include(x => x.Localite)
-                                            .Include(x => x.Stickers)
                                             .ToListAsync();
             var professionnels = mapper.Map<List<ProfessionnelsSimpleDTO>> (professionnelsDetails);
             return Ok(professionnels);
@@ -138,6 +152,7 @@ namespace PubeoAPI.Controllers {
         }
 
         // PUT: /Professionnels/{id}
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ProfessionnelsUpdateDTO professionnel)
         {
@@ -161,7 +176,13 @@ namespace PubeoAPI.Controllers {
             user = Modification(user, professionnel);
             _context.Entry(user).State = EntityState.Modified;
 
-            await _context.SaveChangesAsync();
+            try {
+                await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateConcurrencyException)
+            {
+                return NotFound();
+            }
 
             return NoContent();
         }
@@ -192,13 +213,20 @@ namespace PubeoAPI.Controllers {
             user = Modification(user, professionnel);
             _context.Entry(user).State = EntityState.Modified;
 
-            await _context.SaveChangesAsync();
+            try {
+                await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateConcurrencyException)
+            {
+                return NotFound();
+            }
 
             return NoContent();
         }
 
         // DELETE: /Professionnels/{id}
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             if(!ModelState.IsValid)

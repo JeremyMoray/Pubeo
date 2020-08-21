@@ -298,6 +298,11 @@ namespace PubeoAPI.Migrations
                     b.Property<Guid>("ParticulierId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ParticulierId");

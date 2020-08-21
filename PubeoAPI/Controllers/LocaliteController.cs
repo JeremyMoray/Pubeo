@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PubeoAPI.DTO;
@@ -9,8 +11,11 @@ using PubeoAPI.Repository;
 
 namespace PubeoAPI.Controllers {
 
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
-    [Route("[controller]")]
+    [Route("v{version:apiVersion}/[controller]")]
+    [ApiVersion("1")]
+    [ApiVersion("2")]
     public class LocaliteController : ControllerBase {
 
         private readonly PubeoAPIdbContext _context;
@@ -21,6 +26,7 @@ namespace PubeoAPI.Controllers {
         }
 
         // GET : /Localite/AllLocalites
+        [Authorize(Roles = "admin")]
         [Route("AllLocalites")]
         [HttpGet]
         public IEnumerable<Localite> GetAllLocalites(){
@@ -38,6 +44,7 @@ namespace PubeoAPI.Controllers {
         }
 
         // GET : /Localite/{codePostal}
+        [Authorize(Roles = "admin")]
         [HttpGet("{cp}")]
         public async Task<IActionResult> GetByPostalCode([FromRoute] string cp)
         {
@@ -67,6 +74,7 @@ namespace PubeoAPI.Controllers {
 
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> PostLocalite([FromBody] LocaliteDTO localiteDto)
         {

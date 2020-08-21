@@ -17,5 +17,8 @@ namespace PubeoAPI.model
 
         [ForeignKey("ParticulierId")]
         public virtual Particulier Particulier { get; set; }
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
     }
 }
