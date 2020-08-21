@@ -16,7 +16,9 @@ namespace PubeoAPI.Controllers {
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
-    [Route("[controller]")]
+    [Route("v{version:apiVersion}/[controller]")]
+    [ApiVersion("1")]
+    [ApiVersion("2")]
     public class ProfessionnelsController : ControllerBase
     {
         private readonly PubeoAPIdbContext _context;
@@ -37,11 +39,22 @@ namespace PubeoAPI.Controllers {
 
         // GET : /Professionnels
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [MapToApiVersion("1")]
+        public async Task<IActionResult> GetAll1()
+        {
+            var professionnelsDetails = await _context.Professionnels
+                                            .ToListAsync();
+            var professionnels = mapper.Map<List<ProfessionnelsSimpleDTO>> (professionnelsDetails);
+            return Ok(professionnels);
+        }
+
+        // GET : /Professionnels
+        [HttpGet]
+        [MapToApiVersion("2")]
+        public async Task<IActionResult> GetAll2()
         {
             var professionnelsDetails = await _context.Professionnels
                                             .Include(x => x.Localite)
-                                            .Include(x => x.Stickers)
                                             .ToListAsync();
             var professionnels = mapper.Map<List<ProfessionnelsSimpleDTO>> (professionnelsDetails);
             return Ok(professionnels);

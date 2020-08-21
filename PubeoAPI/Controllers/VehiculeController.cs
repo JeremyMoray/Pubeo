@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -13,7 +14,9 @@ namespace PubeoAPI.Controllers {
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
-    [Route("[controller]")]
+    [Route("v{version:apiVersion}/[controller]")]
+    [ApiVersion("1")]
+    [ApiVersion("2")]
     public class VehiculeController : ControllerBase
     {
         private readonly PubeoAPIdbContext _context;
@@ -89,19 +92,17 @@ namespace PubeoAPI.Controllers {
         [HttpPost("AddVehiculeToMyAccount")]
         public async Task<IActionResult> AddVehiculeToMyAccount([FromBody] Vehicule vehicule) {
             if(!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
 
             var user = await _context.Particuliers.SingleOrDefaultAsync(p => p.Mail.Equals(email));
 
             if(user == null)
-                    return NotFound();
+                return NotFound();
 
             if(user.Id != vehicule.ParticulierId)
-                return Forbid();
+                return StatusCode((int)HttpStatusCode.Forbidden);
 
             _context.Vehicules.Add(vehicule);
             await _context.SaveChangesAsync();
@@ -117,10 +118,6 @@ namespace PubeoAPI.Controllers {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-            if (id != vehicule.Id)
-            {
-                return BadRequest();
             }
 
             _context.Entry(vehicule).State = EntityState.Modified;
@@ -146,9 +143,7 @@ namespace PubeoAPI.Controllers {
         public async Task<IActionResult> UpdateMyVehicule([FromRoute] Guid id, [FromBody] Vehicule vehicule)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
 
@@ -157,11 +152,12 @@ namespace PubeoAPI.Controllers {
             if(user == null)
                 return NotFound();
 
-            if (id != vehicule.Id)
-                return BadRequest();
+            var vehiculeFound = await _context.Vehicules.SingleOrDefaultAsync(x => x.Id == id);
+            if(vehiculeFound.ParticulierId != user.Id)
+                return StatusCode((int)HttpStatusCode.Forbidden);
 
-            if(user.Id != vehicule.Id)
-                return Forbid();
+            if (vehiculeFound == null)
+                return NotFound();
 
             _context.Entry(vehicule).State = EntityState.Modified;
 
@@ -188,19 +184,17 @@ namespace PubeoAPI.Controllers {
         }      
 
         // DELETE : /Vehicule/{id}
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteVehicule([FromRoute] Guid id)
         {
             if(!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             var vehicule = await _context.Vehicules.SingleOrDefaultAsync(v => v.Id == id);
+            
             if (vehicule == null)
-            {
                 return NotFound();
-            }
 
             _context.Vehicules.Remove(vehicule);
             await _context.SaveChangesAsync();
@@ -212,9 +206,7 @@ namespace PubeoAPI.Controllers {
         public async Task<IActionResult> DeleteMyVehicule([FromRoute] Guid id)
         {
             if(!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
 
@@ -224,12 +216,12 @@ namespace PubeoAPI.Controllers {
                 return NotFound();
 
             var vehicule = await _context.Vehicules.SingleOrDefaultAsync(v => v.Id == id);
-            
+
             if (vehicule == null)
                 return NotFound();
 
-            if(user.Id != vehicule.ParticulierId)
-                return Forbid();
+            if(vehicule.ParticulierId != user.Id)
+                return StatusCode((int)HttpStatusCode.Forbidden);
 
             _context.Vehicules.Remove(vehicule);
             await _context.SaveChangesAsync();

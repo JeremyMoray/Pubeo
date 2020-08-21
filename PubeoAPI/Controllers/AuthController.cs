@@ -6,6 +6,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,8 +20,11 @@ using securityJWT.Options;
 
 namespace PubeoAPI.Controllers {
 
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
-    [Route("[controller]")]
+    [Route("v{version:apiVersion}/[controller]")]
+    [ApiVersion("1")]
+    [ApiVersion("2")]
     public class AuthController : ControllerBase {
 
         private readonly IMapper _mapper;
@@ -35,6 +40,7 @@ namespace PubeoAPI.Controllers {
             _jwtOptions = jwtOptions.Value;
         }
 
+        [Authorize(Roles = "admin")]
         [Route("TestSession")]
         [HttpGet]
         public bool TestSession()
@@ -42,12 +48,14 @@ namespace PubeoAPI.Controllers {
             return true;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("AllMemberList")]
         public IEnumerable<User> GetAllMember()
         {
             return _userManager.Users;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost("AddMember")]
         public async Task<IActionResult> AddMember(AddUserResource userResource)
         {
@@ -65,7 +73,7 @@ namespace PubeoAPI.Controllers {
             return Problem(createResult.Errors.First().Description, null, 500);
         }
 
-
+        [AllowAnonymous]
         [HttpPost("LogIn")]
         public async Task<IActionResult> LogIn(UserLoginResource userResource)
         {
@@ -87,7 +95,7 @@ namespace PubeoAPI.Controllers {
             return BadRequest("Email or password incorrect.");        
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpPost("AddRoles")]
         public async Task<IActionResult> CreateRole([FromBody] string roleName)
         {
@@ -111,7 +119,7 @@ namespace PubeoAPI.Controllers {
             return Problem(roleResult.Errors.First().Description, null, 500);                
         }
 
-
+        [Authorize(Roles = "admin")]
         [HttpPost("User/{userEmail}/Role")]
         public async Task<IActionResult> AddMemberToRole(string userEmail, [FromBody] string roleName)
         {

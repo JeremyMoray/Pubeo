@@ -15,7 +15,9 @@ namespace PubeoAPI.Controllers {
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
-    [Route("[controller]")]
+    [Route("v{version:apiVersion}/[controller]")]
+    [ApiVersion("1")]
+    [ApiVersion("2")]
     public class ParticuliersController : ControllerBase
     {
         private readonly PubeoAPIdbContext _context;
@@ -153,7 +155,7 @@ namespace PubeoAPI.Controllers {
             var user = await _context.Particuliers.SingleOrDefaultAsync(p => p.Mail.Equals(email));
 
             if(user == null)
-                    return NotFound();
+                return NotFound();
 
             if(await _context.Particuliers.AnyAsync(x => x.Mail == particulier.Mail && x.Id != user.Id))
                 return Conflict("Mail");

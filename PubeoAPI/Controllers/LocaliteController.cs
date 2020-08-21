@@ -13,7 +13,9 @@ namespace PubeoAPI.Controllers {
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
-    [Route("[controller]")]
+    [Route("v{version:apiVersion}/[controller]")]
+    [ApiVersion("1")]
+    [ApiVersion("2")]
     public class LocaliteController : ControllerBase {
 
         private readonly PubeoAPIdbContext _context;
@@ -24,6 +26,7 @@ namespace PubeoAPI.Controllers {
         }
 
         // GET : /Localite/AllLocalites
+        [Authorize(Roles = "admin")]
         [Route("AllLocalites")]
         [HttpGet]
         public IEnumerable<Localite> GetAllLocalites(){

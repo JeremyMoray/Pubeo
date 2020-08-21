@@ -13,7 +13,9 @@ using securityJWT.Options;
 namespace PubeoAPI.Controllers
 {
     [AllowAnonymous]
-    [Route("[controller]")]
+    [Route("v{version:apiVersion}/[controller]")]
+    [ApiVersion("1")]
+    [ApiVersion("2")]
     [ApiController]
     public class JwtController : Controller
     {
@@ -106,7 +108,6 @@ namespace PubeoAPI.Controllers
                 signingCredentials: _jwtOptions.SigningCredentials
             );
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
             
             // Serialize and return the response
             var response = new

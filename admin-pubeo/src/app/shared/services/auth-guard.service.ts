@@ -20,10 +20,10 @@ export class AuthGuardService {
 
     // Other functions
 
-    /*if(decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] != "admin"){
+    if(decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] != "admin"){
       alert("Vous n'êtes pas autorisé à accéder à cette ressource");
       return false;
-    }*/
+    }
 
     return true;
   }

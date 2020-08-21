@@ -9,12 +9,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PubeoAPI.DTO;
 using PubeoAPI.model;
+using System.Net;
 
 namespace PubeoAPI.Controllers {
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
-    [Route("[controller]")]
+    [Route("v{version:apiVersion}/[controller]")]
+    [ApiVersion("1")]
+    [ApiVersion("2")]
     public class ParticipationController : ControllerBase
     {
         private readonly PubeoAPIdbContext _context;
@@ -102,18 +105,8 @@ namespace PubeoAPI.Controllers {
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Participation participation)
         {
-            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
-
-            var user = await _context.Particuliers.SingleOrDefaultAsync(p => p.Mail.Equals(email));
-
-            if(user == null)
-                    return NotFound();
-
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
-
-            if(user.Id != participation.ParticulierId)
-                return Forbid();
 
             if(!await _context.Particuliers.AnyAsync(x => x.Id == participation.ParticulierId) || !await _context.Stickers.AnyAsync(x => x.Id == participation.StickerId))
                 return NotFound();
@@ -134,9 +127,18 @@ namespace PubeoAPI.Controllers {
         [HttpPost("AddStickerToMyAccount")]
         public async Task<IActionResult> AddStickerToMyAccount([FromBody] Participation participation)
         {
-
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+
+            var user = await _context.Particuliers.SingleOrDefaultAsync(p => p.Mail.Equals(email));
+
+            if(user == null)
+                return NotFound();
+            
+            if(user.Id != participation.ParticulierId)
+                return StatusCode((int)HttpStatusCode.Forbidden);
 
             if(await _context.Participations.AnyAsync(x => x.ParticulierId == participation.ParticulierId && x.StickerId == participation.StickerId))
                 return Conflict();
@@ -175,11 +177,14 @@ namespace PubeoAPI.Controllers {
         [HttpDelete("DeleteMySticker/{stickerId}")]
         public async Task<IActionResult> DeleteMySticker([FromRoute] Guid stickerId)
         {
-            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
-            var user = await _context.Particuliers.SingleOrDefaultAsync(x => x.Mail.Equals(email));
-            
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
+                
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+            var user = await _context.Particuliers.SingleOrDefaultAsync(x => x.Mail.Equals(email));
+
+            if(user == null)
+                return NotFound();
 
             var participation = await _context.Participations.SingleOrDefaultAsync(x => x.StickerId.Equals(stickerId) && x.ParticulierId.Equals(user.Id));
             

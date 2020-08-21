@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -14,7 +15,9 @@ namespace PubeoAPI.Controllers {
 
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
-    [Route("[controller]")]
+    [Route("v{version:apiVersion}/[controller]")]
+    [ApiVersion("1")]
+    [ApiVersion("2")]
     public class StickersController : ControllerBase
     {
         private readonly PubeoAPIdbContext _context;
@@ -117,7 +120,7 @@ namespace PubeoAPI.Controllers {
                 return BadRequest(ModelState);
 
             if(user.Id != sticker.ProfessionnelId)
-                return Forbid();
+                return StatusCode((int)HttpStatusCode.Forbidden);
 
             var validSticker = new Sticker{
                 Titre = sticker.Titre,
@@ -168,10 +171,13 @@ namespace PubeoAPI.Controllers {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if(user.Id != sticker.ProfessionnelId)
-                return Forbid();
-
             var initialSticker = await _context.Stickers.SingleOrDefaultAsync(x => x.Id == id);
+
+            if(initialSticker == null)
+                return NotFound();
+
+            if(user.Id != initialSticker.ProfessionnelId)
+                return StatusCode((int)HttpStatusCode.Forbidden);
 
             initialSticker = Modification(initialSticker, sticker);
             _context.Entry(initialSticker).State = EntityState.Modified;
@@ -216,7 +222,7 @@ namespace PubeoAPI.Controllers {
                 return NotFound();
 
             if(user.Id != sticker.ProfessionnelId)
-                return Forbid();
+                return StatusCode((int)HttpStatusCode.Forbidden);
 
             _context.Stickers.Remove(sticker);
             await _context.SaveChangesAsync();
