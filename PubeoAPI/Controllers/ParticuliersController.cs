@@ -137,6 +137,41 @@ namespace PubeoAPI.Controllers {
             return NoContent();
         }
 
+        [HttpPut("UpdateMyAccount")]
+        public async Task<IActionResult> UpdateMyAccount([FromBody] ParticuliersUpdateDTO particulier)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+            
+            var user = await _context.Particuliers.SingleOrDefaultAsync(p => p.Mail.Equals(email));
+
+            if(user == null)
+                    return NotFound();
+
+            if(await _context.Particuliers.AnyAsync(x => x.Mail == particulier.Mail && x.Id != user.Id))
+                return Conflict("Mail");
+
+            if(await _context.Particuliers.AnyAsync(x => x.Pseudo == particulier.Pseudo && x.Id != user.Id))
+                return Conflict("Pseudo");
+
+            if(particulier.LocaliteCode != null && !await _context.Localites.AnyAsync(x => x.CodePostal.Equals(particulier.LocaliteCode)))
+                return NotFound();
+
+            user = Modification(user, particulier);
+            _context.Entry(user).State = EntityState.Modified;
+
+            try {
+                await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateConcurrencyException)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
+
         // POST: /Particuliers
         [HttpPost]
         [AllowAnonymous]
@@ -193,6 +228,20 @@ namespace PubeoAPI.Controllers {
             _context.Particuliers.Remove(user);
             await _context.SaveChangesAsync();
             return Ok(user);
+        }
+
+        [HttpDelete("DeleteMyAccount")]
+        public async Task<IActionResult> DeleteMyAccount()
+        {
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+
+            var user = await _context.Particuliers.SingleOrDefaultAsync(p => p.Mail.Equals(email));
+            if (user == null)
+                return NotFound();
+
+            _context.Particuliers.Remove(user);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
 
         private Particulier Modification(Particulier initialPart, ParticuliersUpdateDTO targetPart){

@@ -161,7 +161,13 @@ namespace PubeoAPI.Controllers {
             user = Modification(user, professionnel);
             _context.Entry(user).State = EntityState.Modified;
 
-            await _context.SaveChangesAsync();
+            try {
+                await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateConcurrencyException)
+            {
+                return NotFound();
+            }
 
             return NoContent();
         }
@@ -192,7 +198,13 @@ namespace PubeoAPI.Controllers {
             user = Modification(user, professionnel);
             _context.Entry(user).State = EntityState.Modified;
 
-            await _context.SaveChangesAsync();
+            try {
+                await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateConcurrencyException)
+            {
+                return NotFound();
+            }
 
             return NoContent();
         }

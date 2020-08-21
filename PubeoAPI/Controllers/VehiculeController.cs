@@ -40,18 +40,32 @@ namespace PubeoAPI.Controllers {
             }
         }
 
-        /*
-        // GET : /Vehicule/AllByParticular
-        [Route("AllByParticular")]
+        //GET : /Vehicule/GetAllMyVehicules
+        [Route("GetAllMyVehicules")]
         [HttpGet]
-        public async Task<IActionResult> GetAllByParticular([FromBody] Particulier particulier)
+        public async Task<IActionResult> GetAllMyVehicules()
         {
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+
+            var user = await _context.Particuliers.SingleOrDefaultAsync(p => p.Mail.Equals(email));
+
+            if(user == null) 
+                return NotFound();
+
+            var vehicules = await _context.Vehicules.ToListAsync();
+
+            var myVehicules = vehicules.FindAll(v => v.ParticulierId.Equals(user.Id));
+            
+            if(myVehicules == null) 
+                return NotFound();
+            
+            return Ok(myVehicules);
         }
-        */
 
         // POST : /Vehicule
         [HttpPost]
@@ -60,6 +74,29 @@ namespace PubeoAPI.Controllers {
             {
                 return BadRequest(ModelState);
             }
+
+            _context.Vehicules.Add(vehicule);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetVehicule", new { id = vehicule.Id }, vehicule);
+        }
+
+        [HttpPost("AddVehiculeToMyAccount")]
+        public async Task<IActionResult> AddVehiculeToMyAccount([FromBody] Vehicule vehicule) {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+
+            var user = await _context.Particuliers.SingleOrDefaultAsync(p => p.Mail.Equals(email));
+
+            if(user == null)
+                    return NotFound();
+
+            if(user.Id != vehicule.ParticulierId)
+                return Forbid();
 
             _context.Vehicules.Add(vehicule);
             await _context.SaveChangesAsync();
@@ -79,6 +116,46 @@ namespace PubeoAPI.Controllers {
             {
                 return BadRequest();
             }
+
+            _context.Entry(vehicule).State = EntityState.Modified;
+
+            try {
+                await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateConcurrencyException)
+            {
+                if(!VehiculeExists(id)) {
+                    return NotFound();
+                }
+                else {
+                    throw;
+                }
+            }
+
+            return NoContent();
+
+        }
+
+        [HttpPut("UpdateMyVehicule/{id}")]
+        public async Task<IActionResult> UpdateMyVehicule([FromRoute] Guid id, [FromBody] Vehicule vehicule)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+
+            var user = await _context.Particuliers.SingleOrDefaultAsync(p => p.Mail.Equals(email));
+
+            if(user == null)
+                return NotFound();
+
+            if (id != vehicule.Id)
+                return BadRequest();
+
+            if(user.Id != vehicule.Id)
+                return Forbid();
 
             _context.Entry(vehicule).State = EntityState.Modified;
 
@@ -124,6 +201,34 @@ namespace PubeoAPI.Controllers {
 
             return Ok(vehicule);
         }
+        
+        [HttpDelete("DeleteMyVehicule/{id}")]
+        public async Task<IActionResult> DeleteMyVehicule([FromRoute] Guid id)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+
+            var user = await _context.Particuliers.SingleOrDefaultAsync(p => p.Mail.Equals(email));
+
+            if(user == null)
+                return NotFound();
+
+            var vehicule = await _context.Vehicules.SingleOrDefaultAsync(v => v.Id == id);
+            
+            if (vehicule == null)
+                return NotFound();
+
+            if(user.Id != vehicule.ParticulierId)
+                return Forbid();
+
+            _context.Vehicules.Remove(vehicule);
+            await _context.SaveChangesAsync();
+
+            return Ok(vehicule);
+        }
     }
 }

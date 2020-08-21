@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -100,6 +101,37 @@ namespace PubeoAPI.Controllers {
             return CreatedAtAction("GetSticker", new { id = validSticker.Id }, validSticker);
         }
 
+        [HttpPost("AddStickerToMyAccount")]
+        public async Task<IActionResult> AddStickerToMyAccount([FromBody] Sticker sticker)
+        {
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+
+            var user = await _context.Professionnels.SingleOrDefaultAsync(p => p.Mail.Equals(email));
+            
+            if (user == null)
+                return NotFound();
+
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if(user.Id != sticker.ProfessionnelId)
+                return Forbid();
+
+            var validSticker = new Sticker{
+                Titre = sticker.Titre,
+                Description = sticker.Description,
+                Hauteur = sticker.Hauteur,
+                Largeur = sticker.Largeur,
+                NbUtilisationsRestantes = sticker.NbUtilisationsRestantes,
+                ProfessionnelId = sticker.ProfessionnelId
+            };
+            
+            await _context.Stickers.AddAsync(validSticker);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetSticker", new { id = validSticker.Id }, validSticker);
+        }
+
         // PUT: /Stickers/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] Sticker sticker)
@@ -109,6 +141,32 @@ namespace PubeoAPI.Controllers {
 
             if(!await _context.Professionnels.AnyAsync(x => x.Id == sticker.ProfessionnelId))
                 return NotFound();
+
+            var initialSticker = await _context.Stickers.SingleOrDefaultAsync(x => x.Id == id);
+
+            initialSticker = Modification(initialSticker, sticker);
+            _context.Entry(initialSticker).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(initialSticker);
+        }
+
+        [HttpPut("UpdateMySticker/{id}")]
+        public async Task<IActionResult> UpdateMySticker([FromRoute] Guid id, [FromBody] Sticker sticker)
+        {
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+
+            var user = await _context.Professionnels.SingleOrDefaultAsync(p => p.Mail.Equals(email));
+            
+            if (user == null)
+                return NotFound();
+
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if(user.Id != sticker.ProfessionnelId)
+                return Forbid();
 
             var initialSticker = await _context.Stickers.SingleOrDefaultAsync(x => x.Id == id);
 
@@ -130,6 +188,31 @@ namespace PubeoAPI.Controllers {
             var sticker = await _context.Stickers.SingleOrDefaultAsync(s => s.Id.Equals(id));
             if (sticker == null) 
                 return NotFound();
+
+            _context.Stickers.Remove(sticker);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpDelete("DeleteMySticker/{id}")]
+        public async Task<IActionResult> DeleteMySticker([FromRoute] Guid id)
+        {
+            var email = User.Claims.SingleOrDefault(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+
+            var user = await _context.Professionnels.SingleOrDefaultAsync(p => p.Mail.Equals(email));
+            
+            if (user == null)
+                return NotFound();
+
+            if(!ModelState.IsValid) 
+                return BadRequest(ModelState);
+
+            var sticker = await _context.Stickers.SingleOrDefaultAsync(s => s.Id.Equals(id));
+            if (sticker == null) 
+                return NotFound();
+
+            if(user.Id != sticker.ProfessionnelId)
+                return Forbid();
 
             _context.Stickers.Remove(sticker);
             await _context.SaveChangesAsync();
