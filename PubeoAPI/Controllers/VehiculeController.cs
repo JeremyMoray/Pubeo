@@ -113,26 +113,26 @@ namespace PubeoAPI.Controllers {
         // PUT : /Vehicule
         [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateVehicule([FromRoute] Guid id ,[FromBody] Vehicule vehicule)
+        public async Task<IActionResult> UpdateVehicule([FromRoute] Guid id, [FromBody] Vehicule vehicule)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
-            _context.Entry(vehicule).State = EntityState.Modified;
+            var vehiculeFound = _context.Vehicules.SingleOrDefault(x => x.Id == id);
+
+            if(vehiculeFound == null)
+                return NotFound();
 
             try {
+                vehiculeFound.Marque = vehicule.Marque;
+                vehiculeFound.Modele = vehicule.Modele;
+                _context.Entry(vehiculeFound).State = EntityState.Modified;
+                _context.Entry(vehiculeFound).OriginalValues["RowVersion"] = vehicule.RowVersion;
                 await _context.SaveChangesAsync();
             }
             catch(DbUpdateConcurrencyException)
             {
-                if(!VehiculeExists(id)) {
-                    return NotFound();
-                }
-                else {
-                    throw;
-                }
+                return Conflict();
             }
 
             return NoContent();

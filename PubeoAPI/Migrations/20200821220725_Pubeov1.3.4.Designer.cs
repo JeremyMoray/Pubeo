@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PubeoAPI;
 
 namespace PubeoAPI.Migrations
 {
     [DbContext(typeof(PubeoAPIdbContext))]
-    partial class PubeoAPIdbContextModelSnapshot : ModelSnapshot
+    [Migration("20200821220725_Pubeov1.3.4")]
+    partial class Pubeov134
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
