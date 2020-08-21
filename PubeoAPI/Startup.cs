@@ -122,17 +122,6 @@ namespace PubeoAPI
                 cfg.ReportApiVersions = true;
             });
 
-            // services.AddSwaggerGen(c => 
-            // {
-            //     c.SwaggerDoc("v1", new OpenApiInfo
-            //     {
-            //         Version = "v1",
-            //         Title = "Pubeo API",
-            //         Description = "ASP.NET Core Rest API for CRUD functions",
-            //         TermsOfService = new Uri("https://tosdr.org/")
-            //     });
-            // });
-
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new OpenApiInfo() { Title = "My API", Version = "v1" });
