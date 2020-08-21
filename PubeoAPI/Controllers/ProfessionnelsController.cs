@@ -28,6 +28,7 @@ namespace PubeoAPI.Controllers {
             this.mapper = mapper;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("GetCount")]
         public async Task<IActionResult> getCount()
         {
@@ -138,6 +139,7 @@ namespace PubeoAPI.Controllers {
         }
 
         // PUT: /Professionnels/{id}
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] ProfessionnelsUpdateDTO professionnel)
         {
@@ -211,6 +213,7 @@ namespace PubeoAPI.Controllers {
 
         // DELETE: /Professionnels/{id}
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             if(!ModelState.IsValid)

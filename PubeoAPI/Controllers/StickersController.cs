@@ -26,6 +26,7 @@ namespace PubeoAPI.Controllers {
             this.mapper = mapper;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("GetCount")]
         public async Task<IActionResult> getCount()
         {
@@ -77,6 +78,7 @@ namespace PubeoAPI.Controllers {
         }
 
         // POST: /Stickers
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Sticker sticker)
         {
@@ -133,6 +135,7 @@ namespace PubeoAPI.Controllers {
         }
 
         // PUT: /Stickers/{id}
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] Sticker sticker)
         {
@@ -179,6 +182,7 @@ namespace PubeoAPI.Controllers {
         }
 
         // DELETE: /Stickers/{id}
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {

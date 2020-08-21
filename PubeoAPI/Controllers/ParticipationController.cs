@@ -26,6 +26,7 @@ namespace PubeoAPI.Controllers {
             this.mapper = mapper;
         }
 
+        [Authorize(Roles = "admin")]
         // GET: /Participation/GetAllStickersByParticulierId/{particulierId}
         [HttpGet("GetAllStickersByParticulierId/{particulierId}")]
         public async Task<IActionResult> GetAllStickersByParticulierId([FromRoute] Guid particulierId)
@@ -74,6 +75,7 @@ namespace PubeoAPI.Controllers {
             return Ok(stickers);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: /Participation/GetAllParticuliersByStickerId/{stickerId}
         [HttpGet("GetAllParticuliersByStickerId/{stickerId}")]
         public async Task<IActionResult> GetAllParticuliersByStickerId([FromRoute] Guid stickerId)
@@ -96,6 +98,7 @@ namespace PubeoAPI.Controllers {
         }
 
         // POST: /Participation
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Participation participation)
         {
@@ -152,6 +155,7 @@ namespace PubeoAPI.Controllers {
         }
 
         // DELETE: /Participation/{id}
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {

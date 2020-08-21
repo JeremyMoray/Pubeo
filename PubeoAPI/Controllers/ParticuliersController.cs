@@ -28,6 +28,7 @@ namespace PubeoAPI.Controllers {
             this.mapper = mapper;
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("GetCount")]
         public async Task<IActionResult> getCount()
         {
@@ -35,6 +36,7 @@ namespace PubeoAPI.Controllers {
         }
 
         // GET : /Particuliers
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public IEnumerable<ParticuliersDTO> GetParticuliers()
         {
@@ -74,6 +76,7 @@ namespace PubeoAPI.Controllers {
         }
 
         // GET : /Particuliers/{id}
+        [Authorize(Roles = "admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
@@ -93,7 +96,8 @@ namespace PubeoAPI.Controllers {
         }
 
         // GET : /Particuliers/AllParticuliers
-        [Route("AllParticuliers")]
+        [Authorize(Roles = "admin")]
+        [HttpGet("AllParticuliers")]
         public IEnumerable<Particulier> GetAllParticuliers()
         {
             var particuliers = _context.Particuliers
@@ -104,6 +108,7 @@ namespace PubeoAPI.Controllers {
         }
 
         // PUT: /Particuliers/{id}
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateParticuliers([FromRoute] Guid id, [FromBody] ParticuliersUpdateDTO particulier)
         {
@@ -211,6 +216,7 @@ namespace PubeoAPI.Controllers {
         }
 
         //DELETE: /Particuliers/{id}
+        [Authorize(Roles = "admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteParticuliers([FromRoute] Guid id)
         {

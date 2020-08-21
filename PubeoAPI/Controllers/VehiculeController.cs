@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PubeoAPI.DTO;
@@ -9,6 +11,7 @@ using PubeoAPI.model;
 
 namespace PubeoAPI.Controllers {
 
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("[controller]")]
     public class VehiculeController : ControllerBase
@@ -21,6 +24,7 @@ namespace PubeoAPI.Controllers {
         }
 
         // GET : /Vehicule
+        [Authorize(Roles = "admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetVehicule([FromRoute] Guid id)
         {
@@ -68,6 +72,7 @@ namespace PubeoAPI.Controllers {
         }
 
         // POST : /Vehicule
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<IActionResult> PostVehicule([FromBody] Vehicule vehicule) {
             if(!ModelState.IsValid)
@@ -105,6 +110,7 @@ namespace PubeoAPI.Controllers {
         }
 
         // PUT : /Vehicule
+        [Authorize(Roles = "admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateVehicule([FromRoute] Guid id ,[FromBody] Vehicule vehicule)
         {
